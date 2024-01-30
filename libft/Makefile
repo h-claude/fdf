@@ -3,25 +3,26 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+         #
+#    By: hclaude <hclaude@student.42mulhouse.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/26 14:52:17 by hclaude           #+#    #+#              #
-#    Updated: 2023/11/07 15:25:22 by hclaude          ###   ########.fr        #
+#    Updated: 2024/01/30 14:13:36 by hclaude          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-CC = gcc
+CC = cc
 
 AR = ar
 
 ARFLAGS = rcs
 
-CFLAGS = -Wall -Werror -Wextra 
+CFLAGS = -Wall -Werror -Wextra
 
 OBJFILES = $(SRCFILES:.c=.o)
 OBJFILESBONUS = $(OBJFILES) $(SRCBONUS:.c=.o)
+OBJFILESGNL = $(OBJFILESBONUS) $(SRCgnl:.c=.o)
 
 SRCFILES = ft_atoi.c  \
 ft_bzero.c \
@@ -68,21 +69,24 @@ ft_lstclear_bonus.c \
 ft_lstiter_bonus.c \
 ft_lstmap_bonus.c
 
+SRCgnl = get_next_line/get_next_line_bonus.c \
+get_next_line/get_next_line_utils_bonus.c \
+
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all : $(NAME)
 
-$(NAME) : $(OBJFILES)
-	$(AR) $(ARFLAGS) $(NAME) $(OBJFILES)
+$(NAME) : $(OBJFILES) $(OBJFILESBONUS) $(OBJFILESGNL)
+	$(AR) $(ARFLAGS) $(NAME) $(OBJFILES) $(OBJFILESBONUS) $(OBJFILESGNL)
 
-bonus : $(OBJFILESBONUS)
-	$(AR) $(ARFLAGS) $(NAME) $(OBJFILESBONUS)
+# bonus : $(OBJFILESBONUS)
+# 	$(AR) $(ARFLAGS) $(NAME) $(OBJFILESBONUS)
 
-clean : 
-	@rm -rf $(OBJFILES) $(OBJFILESBONUS)
+clean :
+	@rm -rf $(OBJFILES) $(OBJFILESBONUS) $(OBJFILESGNL)
 
-fclean :
-	@rm -rf *.o *.a
+fclean : clean
+	@rm -rf *.a
 
 re : fclean all
