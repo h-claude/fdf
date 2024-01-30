@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hclaude <hclaude@student.42mulhouse.fr>    +#+  +:+       +#+         #
+#    By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/26 14:52:17 by hclaude           #+#    #+#              #
-#    Updated: 2024/01/30 14:13:36 by hclaude          ###   ########.fr        #
+#    Updated: 2024/01/30 15:37:52 by hclaude          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,8 +72,8 @@ ft_lstmap_bonus.c
 SRCgnl = get_next_line/get_next_line_bonus.c \
 get_next_line/get_next_line_utils_bonus.c \
 
-%.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+# %.o : %.c
+# 	$(CC) $(CFLAGS) -c $< -o $@
 
 all : $(NAME)
 

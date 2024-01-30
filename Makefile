@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hclaude <hclaude@student.42mulhouse.fr>    +#+  +:+       +#+         #
+#    By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/30 14:18:46 by hclaude           #+#    #+#              #
-#    Updated: 2024/01/30 14:47:08 by hclaude          ###   ########.fr        #
+#    Updated: 2024/01/30 15:39:00 by hclaude          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,8 @@ CFLAGS := -Wall -Werror -Wextra
 LIBFT = libft/libft.a
 
 OBJFILES = $(SRCFILES:.c=.o)
- 
+
 SRCFILES = fdf.c \
-...
 
 all : $(NAME)
 
@@ -42,4 +41,3 @@ fclean : clean
 	$(RM) $(NAME)
 
 re : fclean all
-	
