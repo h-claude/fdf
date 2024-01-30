@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/01/30 15:48:14 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/01/30 17:27:04 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,3 +14,7 @@
 # define FDF_H
 
 # include "./libft/libft.h"
+# include <math.h>
+# include "MLX42/include/MLX42/MLX42.h"
+
+#endif
