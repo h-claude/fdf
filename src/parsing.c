@@ -6,13 +6,13 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:05:43 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/01 14:40:14 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/01 14:47:35 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-int	take_fd(char *file, t_fdf *map)
+int	get_fd(char *file, t_fdf *map)
 {
 	int	fd;
 	int fd_count_line;
@@ -58,9 +58,10 @@ int	get_map(t_fdf *map, int fd)
 
 //check si map est valide
 
-ft_checkmap(t_fdf *map)
+int ft_checkmap(t_fdf *map)
 {
-
+	// si pas bon renvoie 0
+	// sinon 1
 }
 // fonction qui va compter le nombre Y
 
@@ -70,4 +71,10 @@ void	ft_count_line(int fd, t_fdf *map)
 
 	while(get_next_line(fd))
 		map->y++;
+}
+
+ft_parsing(t_list *map, char *file_path)
+{
+	if (ft_checkmap(get_map(map, get_fd(file_path, map))));
+		
 }
