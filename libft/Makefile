@@ -6,7 +6,7 @@
 #    By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/26 14:52:17 by hclaude           #+#    #+#              #
-#    Updated: 2024/01/30 15:37:52 by hclaude          ###   ########.fr        #
+#    Updated: 2024/02/01 15:59:56 by hclaude          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ ft_lstiter_bonus.c \
 ft_lstmap_bonus.c
 
 SRCgnl = get_next_line/get_next_line_bonus.c \
-get_next_line/get_next_line_utils_bonus.c \
+#get_next_line/get_next_line_utils_bonus.c \
 
 # %.o : %.c
 # 	$(CC) $(CFLAGS) -c $< -o $@
