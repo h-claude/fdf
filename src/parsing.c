@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:05:43 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/01 17:55:06 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/01 18:05:06 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,12 @@ int ft_checkmap(t_fdf *map)
 	len = ft_strlen(map->content[temp_y]);
 	printf("len = %zu et y = %zu\n", len, map->y);
 	while(len == ft_strlen(map->content[temp_y]) && temp_y > 0)
+	{
+		printf("len = %zu et ft_strlen = %zu\n", len, ft_strlen(map->content[temp_y]));
 		temp_y--;
-	if (map->content[temp_y] == NULL || len != ft_strlen(map->content[temp_y]))
+	}
+	printf("len = %zu et ft_strlen = %zu\n le contenu est = | %s |\n et y = %zu\n", len, ft_strlen(map->content[temp_y]), map->content[temp_y], temp_y);
+	if (len != ft_strlen(map->content[temp_y]))
 		return (-1);
 	return (1);
 }
