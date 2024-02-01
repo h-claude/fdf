@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/04 02:32:58 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/01 14:31:08 by hclaude          ###   ########.fr       */
+/*   Created: 2024/02/01 12:29:30 by hclaude           #+#    #+#             */
+/*   Updated: 2024/02/01 14:08:33 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../fdf.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+
+int main(argc, argv)
 {
-	t_list	*temp;
+    t_fdf     map;
 
-	if (lst && (*del))
-	{
-		while (*lst)
-		{
-			temp = (*lst)->next;
-			ft_lstdelone(*lst, (*del));
-			*lst = temp;
-		}
-	}
-	lst = NULL;
+    if (argc != 2)
+        return (perror("Error: wrong number of arguments\n"), 0);
+    
 }

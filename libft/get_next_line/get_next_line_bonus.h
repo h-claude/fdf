@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:35:09 by hclaude           #+#    #+#             */
-/*   Updated: 2024/01/30 15:47:27 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/01 14:16:29 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include "../libft.h"
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
 # endif
 
 char	*get_next_line(int fd);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-size_t	ft_strlen(const char *s);
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t count, size_t size);
+//char	*ft_strjoin(char const *s1, char const *s2);
+//char	*ft_substr(char const *s, unsigned int start, size_t len);
+//size_t	ft_strlen(const char *s);
+//void	ft_bzero(void *s, size_t n);
+//void	*ft_calloc(size_t count, size_t size);
 
 #endif
