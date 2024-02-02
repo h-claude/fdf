@@ -3,17 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:05:43 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 14:25:35 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/02 14:55:23 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
 // fonction qui va compter le nombre Y
-int ft_countz(t_fdf *fdf);
+
+void	free_int(t_fdf *map)
+{
+	int	i;
+
+	i = 0;
+	while (i < map->ymax)
+		free(map->pos[i++]);
+	free(map->pos);
+}
+
+void ft_freesplit(char **split_result)
+{
+    int i;
+    i = 0;
+    while (split_result[i])
+    {
+        free(split_result[i]);
+        i++;
+    }
+    free(split_result);
+    split_result = NULL;
+}
+
+static void	free_char(t_fdf *map)
+{
+	int	i;
+
+	i = 0;
+	while (map->content[i])
+	{
+		free(map->content[i]);
+		i++;
+	}
+	free(map->content[i]);
+}
 
 void	ft_count_y(int fd, t_fdf *map)
 {
@@ -41,19 +76,7 @@ int	get_fd(char *file, t_fdf *map)
 	return (fd);
 }
 
-static void	freetab(t_fdf *map)
-{
-	int	i;
 
-	i = 0;
-	while (map->content[i])
-	{
-		printf("contenu = %s et i = %d\n", map->content[i], i);
-		free(map->content[i]);
-		i++;
-	}
-	free(map->content[i]);
-}
 //check si map est valide
 
 int ft_checkmap(t_fdf *map)
@@ -82,18 +105,7 @@ int	get_map(t_fdf *map, int fd)
 	return (0/*ft_checkmap(map)*/);
 }
 
-void ft_freesplit(char **split_result)
-{
-    int i;
-    i = 0;
-    while (split_result[i])
-    {
-        free(split_result[i]);
-        i++;
-    }
-    free(split_result);
-    split_result = NULL;
-}
+
 
 void ft_xmax(t_fdf *fdf)
 {
@@ -118,7 +130,7 @@ void ft_parsing(t_fdf *map, char *file_path)
 	return;
 }
 
-void final(t_fdf *fdf)
+void chartoint(t_fdf *fdf)
 {
 	char ***content;
 	int i = 0;
@@ -144,19 +156,5 @@ void final(t_fdf *fdf)
 		i++;
 	}
 	ft_freesplit(*content);
-	freetab(fdf);
-}
-
-void	freebox(t_fdf *map)
-{
-	int	i;
-
-	i = 0;
-
-	
-	while (i < map->ymax)
-		free(map->pos[i++]);
-	free(map->pos);
-
-
+	free_char(fdf);
 }
