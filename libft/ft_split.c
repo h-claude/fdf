@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:49:25 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 12:40:59 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 17:05:47 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,19 @@ static void	freetab(char **str)
 
 	i = 0;
 	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
+		free(str[i++]);
 	free(str);
 }
 
-static char	**sub(const char *s, char c, char **str)
+static char	**sub(const char *s, char c, char **str, int len)
 {
 	size_t	i;
 	size_t	sub_start;
 	int		y;
-	int		len;
 
 	i = 0;
 	sub_start = 0;
 	y = 0;
-	len = countstr(s, c);
 	while (y < len)
 	{
 		while (s[i] == c && s[i])
@@ -76,13 +71,15 @@ static char	**sub(const char *s, char c, char **str)
 char	**ft_split(char const *s, char c)
 {
 	char	**str;
+	int len;
 
+	len = countstr(s, c);
 	if (!s)
 		return (NULL);
 	str = ft_calloc(countstr(s, c) + 1, sizeof(char *));
 	if (!str)
 		return (NULL);
-	if (!sub(s, c, str))
+	if (!sub(s, c, str,len))
 		return (NULL);
 	return (str);
 }
