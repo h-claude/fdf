@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/01 15:53:54 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 14:20:24 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,15 @@
 
 typedef struct s_fdf
 {
-    size_t         x;
-    size_t         y;
+    int            ymax;
+    int            xmax;
+    int            **pos;
 	char           **content;
 }					t_fdf;
 
 void ft_parsing(t_fdf *map, char *file_path);
+void ft_xmax(t_fdf *fdf);
+void final(t_fdf *fdf);
+ void	freebox(t_fdf *map);
 
 #endif
