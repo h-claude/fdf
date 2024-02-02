@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:49:25 by hclaude           #+#    #+#             */
-/*   Updated: 2023/11/07 16:28:14 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 12:40:59 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ char	**ft_split(char const *s, char c)
 	if (!str)
 		return (NULL);
 	if (!sub(s, c, str))
-	{
 		return (NULL);
-	}
 	return (str);
 }
