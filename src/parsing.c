@@ -3,53 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:05:43 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 15:49:58 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 15:57:52 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-void	free_int(t_fdf *map)
-{
-	int	i;
-
-	i = 0;
-	while (i < map->ymax)
-		free(map->pos[i++]);
-	free(map->pos);
-}
-
-void ft_freesplit(char **split_result)
-{
-    int i;
-
-    i = 0;
-    while (split_result[i])
-        free(split_result[i++]);
-    free(split_result);
-    split_result = NULL;
-}
-
-static void	free_char(t_fdf *map)
-{
-	int	i;
-
-	i = 0;
-	while (map->content[i])
-		free(map->content[i++]);
-	free(map->content[i]);
-}
-
-void	ft_xmax(t_fdf *fdf)
+void	ft_xmax(t_fdf *map)
 {
     char **split_result;
-	fdf->xmax = 0;
-    split_result = ft_split(fdf->content[0],' ');
-    while(split_result[fdf->xmax])
-		fdf->xmax++;
+	map->xmax = 0;
+    split_result = ft_split(map->content[0],' ');
+    while(split_result[map->xmax])
+		map->xmax++;
     ft_freesplit(split_result);
 }
 
@@ -104,36 +73,36 @@ int	get_map(t_fdf *map, int fd)
 	return (0);
 }
 
-void chartoint(t_fdf *fdf)
+void chartoint(t_fdf *map)
 {
 	char ***content;
 
 	int i = 0;
 	int j = 0;
-	content = malloc(sizeof(char **) * fdf->ymax);
-	while (fdf->content[i])
+	content = malloc(sizeof(char **) * map->ymax);
+	while (map->content[i])
 	{
-		content[i] = ft_split(fdf->content[i], ' ');
+		content[i] = ft_split(map->content[i], ' ');
 		i++;
 	}
 	i=0;
-	fdf->pos = malloc(sizeof(int *) * fdf->ymax);
-	while (i < fdf->ymax)
-		fdf->pos[i++] = malloc(sizeof(int)*fdf->xmax);
+	map->pos = malloc(sizeof(int *) * map->ymax);
+	while (i < map->ymax)
+		map->pos[i++] = malloc(sizeof(int)*map->xmax);
 	i = 0;
-	while (i < fdf->ymax)
+	while (i < map->ymax)
 	{
 		j = 0;
-		while (j < fdf->xmax && content[i])
+		while (j < map->xmax && content[i])
 		{
-			fdf->pos[i][j] = ft_atoi(content[i][j]);
+			map->pos[i][j] = ft_atoi(content[i][j]);
 			j++;
 		}
 		i++;
 	}
 	ft_freesplit(*content);
 	free(content);
-	free_char(fdf);
+	free_char(map);
 }
 
 int ft_parsing(t_fdf *map, char *file_path)
