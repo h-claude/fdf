@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:05:43 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 15:39:07 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/02 15:43:22 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,12 @@ void	free_int(t_fdf *map)
 void ft_freesplit(char **split_result)
 {
     int i;
-	
+
     i = 0;
     while (split_result[i])
         free(split_result[i++]);
     free(split_result);
     split_result = NULL;
-}
-void ft_xmax(t_fdf *fdf)
-{
-    char **split_result;
-	
-	fdf->xmax = 0;
-    split_result = ft_split(fdf->content[0],' ');
-    while(split_result[fdf->xmax])
-		fdf->xmax++;
-    ft_freesplit(split_result);
 }
 
 static void	free_char(t_fdf *map)
@@ -53,10 +43,19 @@ static void	free_char(t_fdf *map)
 	free(map->content[i]);
 }
 
-void	ft_count_y(int fd, t_fdf *map)
+void	ft_xmax(t_fdf *fdf)
+{
+    char **split_result;
+	fdf->xmax = 0;
+    split_result = ft_split(fdf->content[0],' ');
+    while(split_result[fdf->xmax])
+		fdf->xmax++;
+    ft_freesplit(split_result);
+}
+
+void	ft_ymax(int fd, t_fdf *map)
 {
 	char *line;
-
 	map->ymax = 0;
 	while((line = (get_next_line(fd))))
 	{
@@ -74,7 +73,7 @@ int	get_fd(char *file, t_fdf *map)
 	fd_count_line = open(file, O_RDONLY);
 	if (fd < 0 && fd_count_line < 0)
 		return (perror("Fail open file"), -1);
-	ft_count_y(fd_count_line, map);
+	ft_ymax(fd_count_line, map);
 	return (fd);
 }
 
@@ -102,21 +101,10 @@ int	get_map(t_fdf *map, int fd)
 	return (0);
 }
 
-void ft_parsing(t_fdf *map, char *file_path)
-{
-	int fd;
-
-	fd = get_fd(file_path, map);
-	if (get_map(map, fd) == -1)
-		printf("pas good");
-	else
-		printf("good");
-	return;
-}
-
 void chartoint(t_fdf *fdf)
 {
 	char ***content;
+
 	int i = 0;
 	int j = 0;
 	content = malloc(sizeof(char **) * fdf->ymax);
@@ -143,4 +131,16 @@ void chartoint(t_fdf *fdf)
 	ft_freesplit(*content);
 	free(content);
 	free_char(fdf);
+}
+
+void ft_parsing(t_fdf *map, char *file_path)
+{
+	int fd;
+
+	fd = get_fd(file_path, map);
+	if (get_map(map, fd) == -1)
+		printf("pas good");
+	else
+		printf("good");
+	return;
 }
