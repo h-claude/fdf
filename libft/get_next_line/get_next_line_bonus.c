@@ -6,21 +6,27 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:35:06 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 16:00:17 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 17:29:31 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+#include <stdio.h>
 
 static int	is_backslash(char *buffer)
 {
-	unsigned int	i;
+	static unsigned int	i = 0;
+	unsigned int temp_i;
 
-	i = 0;
+	temp_i = 0;
 	while (buffer[i])
 	{
 		if ('\n' == buffer[i])
-			return (i);
+		{
+			temp_i = i;
+			i = 0;
+			return (temp_i);
+		}
 		i++;
 	}
 	return (-1);

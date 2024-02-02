@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 12:29:30 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 16:11:03 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 17:33:56 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int main(int argc, char **argv)
         exit(0);
     }
     chartoint(map);
-
+    /*
     int row = 0;
     while (row < map->ymax) {
         int col = 0;
@@ -43,6 +43,8 @@ int main(int argc, char **argv)
         printf("\n");
         row++;
     }
+    */
+
     free_int(map);
     free(map->content);
     free(map);
