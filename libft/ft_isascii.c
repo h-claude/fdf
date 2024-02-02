@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:27:21 by hclaude           #+#    #+#             */
-/*   Updated: 2023/10/27 14:58:21 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 17:53:17 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isascii(int a)
 {
-	if (a >= 0 && a <= 127)
-	{
-		return (1);
-	}
-	return (0);
+	return ((a >= 0 && a <= 127));
 }

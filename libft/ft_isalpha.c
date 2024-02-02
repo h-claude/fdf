@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:59:58 by hclaude           #+#    #+#             */
-/*   Updated: 2023/10/27 14:07:57 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 17:55:15 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isalpha(int a)
 {
-	if ((a >= 65 && a <= 90) || (a >= 97 && a <= 122))
-	{
-		return (1);
-	}
-	else
-	{
-		return (0);
-	}
+	return ((a >= 65 && a <= 90) || (a >= 97 && a <= 122));
 }

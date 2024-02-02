@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:48:01 by hclaude           #+#    #+#             */
-/*   Updated: 2023/11/06 14:05:42 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 17:53:02 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isprint(int c)
 {
-	if (c >= 32 && c < 127)
-	{
-		return (1);
-	}
-	return (0);
+	return ((c >= 32 && c < 127));
 }

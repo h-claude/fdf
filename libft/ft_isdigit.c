@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 12:44:10 by hclaude           #+#    #+#             */
-/*   Updated: 2023/10/17 14:08:38 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 17:52:24 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isdigit(int a)
 {
-	if (a >= 48 && a <= 57)
-	{
-		return (1);
-	}
-	else
-	{
-		return (0);
-	}
+	return ((a >= 48 && a <= 57));
 }
