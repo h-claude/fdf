@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:05:43 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 18:02:08 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 20:27:27 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,7 @@ int	get_fd(char *file, t_fdf *map)
 
 int ft_checkmap(t_fdf *map)
 {
-	size_t len;
-	size_t temp_y;
-	temp_y = map->ymax - 1;
-	len = ft_strlen(map->content[temp_y]);
-	while(len == ft_strlen(map->content[temp_y]) && temp_y > 0)
-		temp_y--;
-	if (len != ft_strlen(map->content[temp_y]))
-		return (-1);
-	return (1);
+	
 }
 
 // get map stocke le fichier dans un tableau de tableau et appelle fonction xmax
