@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:05:43 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 14:55:23 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 14:58:24 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
 // fonction qui va compter le nombre Y
+
+
 
 void	free_int(t_fdf *map)
 {
@@ -35,6 +37,15 @@ void ft_freesplit(char **split_result)
     }
     free(split_result);
     split_result = NULL;
+}
+void ft_xmax(t_fdf *fdf)
+{
+    char **split_result;
+	fdf->xmax = 0;
+    split_result = ft_split(fdf->content[0],' ');
+    while(split_result[fdf->xmax])
+		fdf->xmax++;
+    ft_freesplit(split_result);
 }
 
 static void	free_char(t_fdf *map)
@@ -107,15 +118,7 @@ int	get_map(t_fdf *map, int fd)
 
 
 
-void ft_xmax(t_fdf *fdf)
-{
-    char **split_result;
-	fdf->xmax = 0;
-    split_result = ft_split(fdf->content[0],' ');
-    while(split_result[fdf->xmax])
-		fdf->xmax++;
-    ft_freesplit(split_result);
-}
+
 
 void ft_parsing(t_fdf *map, char *file_path)
 {
