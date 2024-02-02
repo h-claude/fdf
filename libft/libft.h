@@ -6,7 +6,7 @@
 /*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 15:24:01 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 17:54:46 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/02 22:01:31 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 # define LIBFT_H
 
 # include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
+#include <string.h>
+
+typedef struct {
+    char *buffer;
+    unsigned int i;
+} GNLState;
 
 typedef struct s_list
 {
@@ -25,6 +30,8 @@ typedef struct s_list
 
 int		ft_toupper(int c);
 int		ft_tolower(int c);
+char	*ft_strcat(char *s1, const char *s2);
+char *ft_strndup(const char *s, size_t n);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);

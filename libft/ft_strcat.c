@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/24 10:53:06 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 22:14:21 by moajili          ###   ########.fr       */
+/*   Created: 2024/02/02 22:01:17 by moajili           #+#    #+#             */
+/*   Updated: 2024/02/02 22:04:33 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+char	*ft_strcat(char *s1, const char *s2)
 {
-	size_t	i;
-	size_t	little_len;
+	unsigned int	i;
+	unsigned int	y;
 
-	little_len = ft_strlen(little);
-	i = 0;
-	if ((!big || !little) && len == 0)
-		return (NULL);
-	if (little_len == 0)
-		return ((char *)big);
-	while (big[i] != '\0' && len >= i + little_len)
+	i = ft_strlen(s1);
+	y = 0;
+	while (s2[y])
 	{
-		if (big[i] == little[0])
-		{
-			if (ft_strncmp(big + i, little, little_len) == 0)
-				return ((char *)big + i);
-		}
-		i++;
+		s1[i + y] = s2[y];
+		y++;
 	}
-	return (NULL);
+	s1[i + y] = '\0';
+	return (s1);
 }
