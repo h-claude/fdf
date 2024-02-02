@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 12:29:30 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 17:33:56 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 18:01:31 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ int main(int argc, char **argv)
         free(map);
         exit(0);
     }
+    //int h = 0;
+    /*while (map->content[h])
+    {
+        printf("%s\n", map->content[h]);
+        h++;
+    }
+    */
     chartoint(map);
     /*
     int row = 0;
