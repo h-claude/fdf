@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:49:25 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 17:05:47 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/02 17:36:20 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	**ft_split(char const *s, char c)
 	len = countstr(s, c);
 	if (!s)
 		return (NULL);
-	str = ft_calloc(countstr(s, c) + 1, sizeof(char *));
+	str = ft_calloc(len + 1, sizeof(char *));
 	if (!str)
 		return (NULL);
 	if (!sub(s, c, str,len))
