@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 12:29:30 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/01 17:11:24 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 11:44:45 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,6 @@ int main(int argc, char **argv)
     if (argc != 2)
         return (perror("Error: wrong number of arguments\n"), 0);
     ft_parsing(map, argv[1]);
+    free(map->content);
+    free(map);
 }

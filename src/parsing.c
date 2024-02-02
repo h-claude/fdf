@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:05:43 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/01 18:05:06 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 11:46:38 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@
 
 void	ft_count_y(int fd, t_fdf *map)
 {
+	char *line;
 	printf("dans ft count y\n");
 	map->y = 0;
 
-	while(get_next_line(fd))
+	while((line = (get_next_line(fd))))
+	{
+		free(line);
 		map->y++;
+	}
 }
 
 int	get_fd(char *file, t_fdf *map)
@@ -43,9 +47,6 @@ static void	freetab(t_fdf *map)
 
 	i = 0;
 	printf("dans freetab\n");
-	while(map->content[i++])
-		printf("tab = %s et i = %d\n", map->content[i], i);
-	i = 0;
 	while (map->content[i])
 	{
 		printf("contenu = %s et i = %d\n", map->content[i], i);
@@ -81,7 +82,7 @@ int	get_map(t_fdf *map, int fd)
 {
 	size_t i;
 	printf("dans get map\n");
-	map->content = ft_calloc(sizeof(char *), map->y);
+	map->content = ft_calloc(sizeof(char *), map->y + 1);
 	i = 0;
 	while(i <= map->y && map->content)
 	{
@@ -109,5 +110,6 @@ void ft_parsing(t_fdf *map, char *file_path)
 		printf("pas good");
 	else
 		printf("good");
+	freetab(map);
 	return;
 }
