@@ -6,15 +6,11 @@
 /*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:05:43 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 14:58:24 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/02 15:03:52 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
-
-// fonction qui va compter le nombre Y
-
-
 
 void	free_int(t_fdf *map)
 {
@@ -29,18 +25,17 @@ void	free_int(t_fdf *map)
 void ft_freesplit(char **split_result)
 {
     int i;
+	
     i = 0;
     while (split_result[i])
-    {
-        free(split_result[i]);
-        i++;
-    }
+        free(split_result[i++]);
     free(split_result);
     split_result = NULL;
 }
 void ft_xmax(t_fdf *fdf)
 {
     char **split_result;
+	
 	fdf->xmax = 0;
     split_result = ft_split(fdf->content[0],' ');
     while(split_result[fdf->xmax])
@@ -54,19 +49,15 @@ static void	free_char(t_fdf *map)
 
 	i = 0;
 	while (map->content[i])
-	{
-		free(map->content[i]);
-		i++;
-	}
+		free(map->content[i++]);
 	free(map->content[i]);
 }
 
 void	ft_count_y(int fd, t_fdf *map)
 {
 	char *line;
-	printf("dans ft count y\n");
-	map->ymax = 0;
 
+	map->ymax = 0;
 	while((line = (get_next_line(fd))))
 	{
 		free(line);
@@ -87,9 +78,6 @@ int	get_fd(char *file, t_fdf *map)
 	return (fd);
 }
 
-
-//check si map est valide
-
 int ft_checkmap(t_fdf *map)
 {
 	size_t len;
@@ -103,8 +91,6 @@ int ft_checkmap(t_fdf *map)
 	return (1);
 }
 
-//faire fonction qui met ligne par ligne dans tableau de tableau
-
 int	get_map(t_fdf *map, int fd)
 {
 	size_t i;
@@ -113,12 +99,8 @@ int	get_map(t_fdf *map, int fd)
 	while(i <= map->ymax && map->content)
 		map->content[i++] = get_next_line(fd);
 	ft_xmax(map);
-	return (0/*ft_checkmap(map)*/);
+	return (0);
 }
-
-
-
-
 
 void ft_parsing(t_fdf *map, char *file_path)
 {
@@ -129,7 +111,6 @@ void ft_parsing(t_fdf *map, char *file_path)
 		printf("pas good");
 	else
 		printf("good");
-	//freetab(map);
 	return;
 }
 
