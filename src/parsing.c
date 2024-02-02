@@ -6,7 +6,7 @@
 /*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:05:43 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 15:03:52 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/02 15:39:07 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int ft_checkmap(t_fdf *map)
 
 int	get_map(t_fdf *map, int fd)
 {
-	size_t i;
+	int i;
 	map->content = ft_calloc(sizeof(char *), map->ymax + 1);
 	i = 0;
 	while(i <= map->ymax && map->content)
@@ -119,6 +119,7 @@ void chartoint(t_fdf *fdf)
 	char ***content;
 	int i = 0;
 	int j = 0;
+	content = malloc(sizeof(char **) * fdf->ymax);
 	while (fdf->content[i])
 	{
 		content[i] = ft_split(fdf->content[i], ' ');
@@ -140,5 +141,6 @@ void chartoint(t_fdf *fdf)
 		i++;
 	}
 	ft_freesplit(*content);
+	free(content);
 	free_char(fdf);
 }
