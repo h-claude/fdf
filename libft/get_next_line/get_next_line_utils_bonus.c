@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:35:01 by hclaude           #+#    #+#             */
-/*   Updated: 2024/01/09 15:56:07 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 17:49:21 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,19 +73,21 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*str;
 	size_t	i;
+	size_t	lenght;
 
+	lenght = ft_strlen(s);
 	i = 0;
 	if (!s)
 		return (NULL);
-	if (start >= ft_strlen(s))
+	if (start >= lenght)
 	{
 		str = ft_calloc(sizeof(char), 1);
 		return (str);
 	}
-	if (len + start > ft_strlen(s))
-		len = ft_strlen(s) - start;
+	if (len + start > lenght)
+		len = lenght - start;
 	str = (char *)ft_calloc(sizeof(char), len + 1);
-	if (str == NULL)
+	if (!str)
 		return (NULL);
 	while (i < len)
 	{
