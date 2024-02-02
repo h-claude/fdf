@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 12:29:30 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 14:55:38 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 14:59:22 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int main(int argc, char **argv)
     if (argc != 2)
         return (perror("Error: wrong number of arguments\n"), 0);
     ft_parsing(map, argv[1]);
-    final(map);
+    chartoint(map);
 
     int row = 0;
     while (row < map->ymax) {
