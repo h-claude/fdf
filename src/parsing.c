@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:05:43 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 15:43:22 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 15:49:58 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,11 @@ int	get_fd(char *file, t_fdf *map)
 
 	fd = open(file, O_RDONLY);
 	fd_count_line = open(file, O_RDONLY);
-	if (fd < 0 && fd_count_line < 0)
-		return (perror("Fail open file"), -1);
+	if (fd < 0 || fd_count_line < 0)
+	{
+		perror("Fail open file");
+		return (-1);
+	}
 	ft_ymax(fd_count_line, map);
 	return (fd);
 }
@@ -133,14 +136,16 @@ void chartoint(t_fdf *fdf)
 	free_char(fdf);
 }
 
-void ft_parsing(t_fdf *map, char *file_path)
+int ft_parsing(t_fdf *map, char *file_path)
 {
 	int fd;
 
 	fd = get_fd(file_path, map);
+	if (fd == -1)
+		return (0);
 	if (get_map(map, fd) == -1)
 		printf("pas good");
 	else
 		printf("good");
-	return;
+	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 14:58:40 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/02 15:50:25 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_fdf
 	char           **content;
 }					t_fdf;
 
-void    ft_parsing(t_fdf *map, char *file_path);
+int    ft_parsing(t_fdf *map, char *file_path);
 void    chartoint(t_fdf *fdf);
 void    free_int(t_fdf *map);
 
