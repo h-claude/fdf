@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 12:29:30 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 15:53:26 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/02 16:11:03 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int main(int argc, char **argv)
 
     map = ft_calloc(sizeof(t_fdf), 1);
     if (!map)
-        return(perror("NOOOOOOOOOOON"), 0);
+        return(perror("Alloc de map echoue"), 0);
     map->xmax = 0;
     map->ymax = 0;
     if (argc != 2)
         return (perror("Error: wrong number of arguments\n"), 0);
     if (!ft_parsing(map, argv[1]))
     {
-        free_int(map);
+        //free_int(map);
         free(map->content);
         free(map);
         exit(0);

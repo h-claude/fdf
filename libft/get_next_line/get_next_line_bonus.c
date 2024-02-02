@@ -6,13 +6,13 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:35:06 by hclaude           #+#    #+#             */
-/*   Updated: 2024/01/09 16:02:58 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 16:00:17 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-int	is_backslash(char *buffer)
+static int	is_backslash(char *buffer)
 {
 	unsigned int	i;
 
@@ -26,7 +26,7 @@ int	is_backslash(char *buffer)
 	return (-1);
 }
 
-void	replace(char **buffer)
+static void	replace(char **buffer)
 {
 	int		i;
 	char	*new_buffer;
@@ -37,7 +37,7 @@ void	replace(char **buffer)
 	*buffer = new_buffer;
 }
 
-int	read_and_get(int fd, char **buffer)
+static int	read_and_get(int fd, char **buffer)
 {
 	char	*new_str;
 	char	*new_buffer;
@@ -64,7 +64,7 @@ int	read_and_get(int fd, char **buffer)
 	return (free(new_str), 0);
 }
 
-char	*get_next_line_part2(int fd, char **buffer)
+static char	*get_next_line_part2(int fd, char **buffer)
 {
 	char	*return_line;
 	int		empty;
