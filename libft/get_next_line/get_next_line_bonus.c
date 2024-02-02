@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:35:06 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 17:29:31 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 19:01:33 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,12 @@ static char	*get_next_line_part2(int fd, char **buffer)
 	return (return_line);
 }
 
+/**
+ * A function that returns the next line from a give fd.
+ * 
+ * @param fd File Descriptor.
+ * @return char* The next line.
+ */
 char	*get_next_line(int fd)
 {
 	static char	*buffer[1024];
