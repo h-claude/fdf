@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 12:29:30 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 18:01:31 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 18:15:08 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,5 @@ int main(int argc, char **argv)
     free_int(map);
     free(map->content);
     free(map);
+    
 }
