@@ -6,7 +6,7 @@
 /*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 22:57:29 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/03 02:28:22 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,29 @@ points = calloc(500, sizeof(t_point));
 points[0].x = 0;
 points[0].y = 0;
 points[0].z = 0;
-points[0].color = 0x00FF00;
+points[0].color = 0;
+
+points[1].x = 1;
+points[1].y = 0;
+points[1].z = 0;
+points[1].color = 0;
+
+points[2].x = 2;
+points[2].y = 0;
+points[2].z = 1;
+points[2].color = 0;
+
+points[250000].x = 
+points[250000].y = 
+points[250000].z = 
+points[250000].color = 
 */
 typedef struct s_fdf
 {
     int            ymax;
     int            xmax;
-    int            **pos;
+    int            **pos;    
+    char            ***color;
 	char           **content;
 }					t_fdf;
 

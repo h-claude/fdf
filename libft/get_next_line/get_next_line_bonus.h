@@ -6,7 +6,7 @@
 /*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 21:53:46 by moajili           #+#    #+#             */
-/*   Updated: 2024/02/02 21:54:47 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/03 00:52:38 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE	1024
+#  define BUFFER_SIZE	5500
 
 # endif
 
