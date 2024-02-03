@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+         #
+#    By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/26 14:52:17 by hclaude           #+#    #+#              #
-#    Updated: 2024/02/01 15:59:56 by hclaude          ###   ########.fr        #
+#    Updated: 2024/02/02 22:03:29 by moajili          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ ft_isascii.c \
 ft_isdigit.c \
 ft_isprint.c \
 ft_memchr.c \
+ft_strndup.c \
 ft_memcmp.c \
 ft_memcpy.c \
 ft_memmove.c \
@@ -44,6 +45,7 @@ ft_strlcat.c \
 ft_strlcpy.c \
 ft_strlen.c \
 ft_strncmp.c \
+ft_strcat.c \
 ft_strnstr.c \
 ft_strrchr.c \
 ft_strtrim.c \
