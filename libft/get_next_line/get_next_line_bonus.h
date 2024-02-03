@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 14:35:09 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/03 07:21:02 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/03 15:56:33 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "../libft.h"
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5500
+#  define BUFFER_SIZE 2024
 # endif
 
 char	*get_next_line(int fd);
