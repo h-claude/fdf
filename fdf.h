@@ -52,6 +52,7 @@ points[250000].x =
 points[250000].y = 
 points[250000].z = 
 points[250000].color = 
+points[0].color = 0x00FF00;
 */
 typedef struct s_fdf
 {
