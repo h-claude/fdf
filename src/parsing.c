@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:05:43 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/03 03:05:23 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/03 03:14:36 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-int	ft_count_tab(int *tab)
+int	ft_count_tab(char **tab)
 {
 	int	c;
 
 	c = 0;
-	while (tab[c])
+	while (tab[c] && tab[c][0] != '\n')
 	{
 		c++;
 	}
@@ -88,15 +88,15 @@ int	get_fd(char *file, t_fdf *map)
 
 // Cette fonction pue la merde faut la refaire
 
-int	ft_checkmap(t_fdf *map)
+int ft_checkmap(t_fdf *map, char ***content)
 {
 	int	pos_y;
 
 	pos_y = 0;
 	while (pos_y < map->ymax)
 	{
-		printf("%d VS %d\n", map->xmax, ft_count_tab(map->pos[pos_y]));
-		if (map->xmax != ft_count_tab(map->pos[pos_y]))
+		printf("%d VS %d\n", map->xmax, ft_count_tab(content[pos_y]));
+		if (map->xmax != ft_count_tab(content[pos_y]))
 			return (perror("CACA"), 0);
 		pos_y++;
 	}
@@ -133,6 +133,8 @@ int	chartoint(t_fdf *map)
 		content[y_pos] = ft_split(map->content[y_pos], ' ');
 		y_pos++;
 	}
+	if (!ft_checkmap(map, content))
+		return (perror("MEGA MERDE"), 0);
 	y_pos = 0;
 	map->pos = malloc(sizeof(int *) * map->ymax);
 	map->color = malloc(sizeof(char **) * map->ymax);
@@ -175,11 +177,9 @@ int	ft_parsing(t_fdf *map, char *file_path)
 		return (0);
 	get_map(map, fd);
 	printf("test\n");
-	chartoint(map);
-	printf("apres test\n");
-	if (!ft_checkmap(map))
-		return (perror("invalid map"), 0);
-	else
-		printf("good");
-	return (1);
+	return (chartoint(map));
+	// if (!ft_checkmap(map))
+	// 	return (perror("invalid map"), 0);
+	// else
+	// 	printf("good");
 }

@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 12:29:30 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 20:36:05 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/03 03:15:22 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int main(int argc, char **argv)
         free(map);
         exit(0);
     }
+    printf("good\n");
     //int h = 0;
     /*while (map->content[h])
     {
