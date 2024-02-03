@@ -2,3 +2,4 @@ fdf.a
 *.out
 MLX42/
 main2.c
+.DS_Store
