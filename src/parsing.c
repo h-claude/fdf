@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_parsing.c                                      :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/03 16:04:23 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/03 16:19:35 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@
 
 void	ft_free_mega_split(char ***split_map_content, t_fdf *map_data)
 {
-	int y_pos;
-	int x_pos;
+	int	y_pos;
+	int	x_pos;
 
 	y_pos = 0;
 	x_pos = 0;
-    while (y_pos < map_data->ymax)
-    {
-        int x_pos = 0;
-        while (x_pos < map_data->xmax && split_map_content[y_pos][x_pos])
-            free(split_map_content[y_pos][x_pos++]);
-        free(split_map_content[y_pos++]);
-    }
+	while (y_pos < map_data->ymax)
+	{
+		x_pos = 0;
+		while (x_pos < map_data->xmax && split_map_content[y_pos][x_pos])
+			free(split_map_content[y_pos][x_pos++]);
+		free(split_map_content[y_pos++]);
+	}
 	free(split_map_content);
 }
 
@@ -42,12 +42,12 @@ void	ft_freetab(char **str)
 		free(str[i++]);
 	free(str[i]);
 	free(str);
-	str=NULL;
+	str = NULL;
 }
 
 // count point fait une simulation de split et s'arrette quand \n
 
-int ft_count_point(char *str, char c)
+int	ft_count_point(char *str, char c)
 {
 	int	i;
 	int	nbstr;
@@ -71,11 +71,11 @@ int ft_count_point(char *str, char c)
 // avoir ymax
 // faire count line
 
-void ft_count_line_and_point(int fd, t_fdf *map_data)
+void	ft_count_line_and_point(int fd, t_fdf *map_data)
 {
-	map_data->ymax = 0;
-	char *temp_line;
+	char	*temp_line;
 
+	map_data->ymax = 0;
 	temp_line = get_next_line(fd);
 	if (!temp_line)
 		return (perror("Fichier vide"), free(temp_line), (void)close(fd));
@@ -92,10 +92,10 @@ void ft_count_line_and_point(int fd, t_fdf *map_data)
 
 // faire get fd
 
-int ft_get_fd(char *filepath, t_fdf *map_data)
+int	ft_get_fd(char *filepath, t_fdf *map_data)
 {
-	int fd;
-	int fd_temp;
+	int	fd;
+	int	fd_temp;
 
 	fd = open(filepath, O_RDONLY);
 	fd_temp = open(filepath, O_RDONLY);
@@ -110,7 +110,7 @@ int ft_get_fd(char *filepath, t_fdf *map_data)
 
 int	ft_checkmap(int nbr_point, int nbr_line, char **map_content)
 {
-	int y_pos;
+	int	y_pos;
 
 	y_pos = 0;
 	while (y_pos < nbr_line)
@@ -127,28 +127,28 @@ int	ft_checkmap(int nbr_point, int nbr_line, char **map_content)
 
 void	ft_free_maps(t_fdf *map_data)
 {
-	int y_pos;
-	int x_pos;
+	int	y_pos;
+	int	x_pos;
 
 	y_pos = 0;
-    while (y_pos < map_data->ymax)
-        free(map_data->pos[y_pos++]);
-    free(map_data->pos);
+	while (y_pos < map_data->ymax)
+		free(map_data->pos[y_pos++]);
+	free(map_data->pos);
 	y_pos = 0;
-    while (y_pos < map_data->ymax)
+	while (y_pos < map_data->ymax)
 	{
 		x_pos = 0;
 		while (x_pos < map_data->xmax)
-        	free(map_data->color[y_pos][x_pos++]);
+			free(map_data->color[y_pos][x_pos++]);
 		free(map_data->color[y_pos]);
 		y_pos++;
 	}
 	free(map_data->color);
 }
 
-int ft_alloc_maps(t_fdf *map_data)
+int	ft_alloc_maps(t_fdf *map_data)
 {
-	int y_pos;
+	int	y_pos;
 
 	y_pos = 0;
 	map_data->pos = malloc(sizeof(int *) * map_data->ymax);
@@ -166,19 +166,19 @@ int ft_alloc_maps(t_fdf *map_data)
 	return (1);
 }
 
-int ft_get_finals_maps(char ***split_map_content, t_fdf *map_data)
+int	ft_get_finals_maps(char ***split_map_content, t_fdf *map_data)
 {
-	int x_pos;
-	int y_pos;
-	char **tmp;
+	int		x_pos;
+	int		y_pos;
+	char	**tmp;
 
 	if (!ft_alloc_maps(map_data))
-		return(perror("Fail alloc finals maps"), 0);
+		return (perror("Fail alloc finals maps"), 0);
 	y_pos = 0;
-	while (y_pos < map_data->ymax-1)
+	while (y_pos < map_data->ymax - 1)
 	{
 		x_pos = 0;
-		while (x_pos < map_data->xmax-1 && split_map_content[y_pos])
+		while (x_pos < map_data->xmax - 1 && split_map_content[y_pos])
 		{
 			tmp = ft_split(split_map_content[y_pos][x_pos], ',');
 			map_data->pos[y_pos][x_pos] = ft_atoi(tmp[0]);
@@ -195,10 +195,10 @@ int ft_get_finals_maps(char ***split_map_content, t_fdf *map_data)
 }
 // split la map
 
-int ft_split_map_content(char **map_content, t_fdf *map_data)
+int	ft_split_map_content(char **map_content, t_fdf *map_data)
 {
-	char ***split_map_content;
-	int y_pos;
+	char	***split_map_content;
+	int		y_pos;
 
 	y_pos = 0;
 	split_map_content = ft_calloc(sizeof(char **), map_data->ymax + 1);
@@ -230,18 +230,17 @@ int	ft_getmap(int fd, t_fdf *map_data)
 		y_pos++;
 	}
 	if (!ft_checkmap(map_data->xmax, map_data->ymax, map_content))
-		return(perror("Map invalid"), ft_freetab(map_content), 0);
+		return (perror("Map invalid"), ft_freetab(map_content), 0);
 	return (ft_split_map_content(map_content, map_data));
 }
-
 
 // faire fonction qui free
 
 // faire ft_init
 
-int ft_init(t_fdf *map_data, char *filepath)
+int	ft_init(t_fdf *map_data, char *filepath)
 {
-	int fd;
+	int	fd;
 
 	fd = ft_get_fd(filepath, map_data);
 	if (fd == -1)
@@ -252,9 +251,9 @@ int ft_init(t_fdf *map_data, char *filepath)
 	return (1);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_fdf *map_data;
+	t_fdf	*map_data;
 
 	map_data = malloc(sizeof(t_fdf));
 	if (ft_init(map_data, argv[1]))
