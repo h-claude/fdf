@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 15:53:51 by moajili           #+#    #+#             */
-/*   Updated: 2024/02/02 16:15:52 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/03 06:57:02 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,31 @@
 
 // free la chaine de int (pos)
 
-void	free_int(t_fdf *map)
+void	free_inttab(t_fdf *map)
 {
 	int	i;
+	int j;
 
 	i = 0;
-	while (i < map->ymax)
+	j = 0;
+	printf("size = %d\n", map->ymax-1);
+	while (i <  map->ymax-1)
 		free(map->pos[i++]);
+	free(map->pos[i]);
 	free(map->pos);
-}
-
-// free la chaine faite par split
-
-void ft_freesplit(char **split_result)
-{
-    int i;
-
-    i = 0;
-    while (split_result[i])
-        free(split_result[i++]);
-    free(split_result);
-    split_result = NULL;
+	map->pos=NULL;
 }
 
 // free le tableau content
 
-void	free_char(t_fdf *map)
+void	free_strtab(char **str)
 {
 	int	i;
 
 	i = 0;
-	while (map->content[i])
-		free(map->content[i++]);
-	free(map->content[i]);
+	while (str[i])
+		free(str[i++]);
+	free(str[i]);
+	free(str);
+	str=NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:05:43 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/03 03:17:20 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/03 07:36:04 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,40 +18,27 @@ int	ft_count_tab(char **tab)
 
 	c = 0;
 	while (tab[c] && tab[c][0] != '\n')
-	{
 		c++;
-	}
 	return (c);
 }
 
 // get le nombre de colonne (x)
-
-char	*replace_char(char *str, char find, char new)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == find)
-			str[i] = new;
-		i++;
-	}
-	return (str);
-}
 
 void	ft_get_xmax(t_fdf *map)
 {
 	char	**split_result;
 
 	map->xmax = 0;
-	split_result = ft_split(replace_char(map->content[0], '\n', ' '), ' ');
+	int xmaxth = countstr(map->content[0], ' ');
+	split_result = ft_split(map->content[0], ' ');
 	while (split_result[map->xmax] && split_result[map->xmax][0] != '\n')
 	{
 		map->xmax++;
-		printf("split = %s x = %d\n", split_result[map->xmax], map->xmax);
+	//	printf("split = %s x = %d\n", split_result[map->xmax], map->xmax);
 	}
-	ft_freesplit(split_result);
+	//printf("split = %d\n", map->xmax);
+
+	free_strtab(split_result);
 }
 
 // get le nombre de ligne (y)
@@ -79,10 +66,13 @@ int	get_fd(char *file, t_fdf *map)
 	fd_count_line = open(file, O_RDONLY);
 	if (fd < 0 || fd_count_line < 0)
 	{
-		perror("Fail open file");
-		return (-1);
+		close(fd && fd_count_line);
+		perror("Error opening file");
+		free(map);
+		exit(10);
 	}
 	ft_get_ymax(fd_count_line, map);
+	close(fd_count_line);
 	return (fd);
 }
 
@@ -95,7 +85,7 @@ int ft_checkmap(t_fdf *map, char ***content)
 	pos_y = 0;
 	while (pos_y < map->ymax)
 	{
-		printf("%d VS %d\n", map->xmax, ft_count_tab(content[pos_y]));
+		//printf("%d VS %d\n", map->xmax, ft_count_tab(content[pos_y]));
 		if (map->xmax != ft_count_tab(content[pos_y]))
 			return (perror("CACA"), 0);
 		pos_y++;
@@ -108,6 +98,7 @@ int ft_checkmap(t_fdf *map, char ***content)
 void	get_map(t_fdf *map, int fd)
 {
 	int	i;
+	char *line;
 
 	map->content = ft_calloc(sizeof(char *), map->ymax + 1);
 	i = 0;
@@ -119,18 +110,18 @@ void	get_map(t_fdf *map, int fd)
 // ATTENTION cette fonction leak mais elle fonctionne
 
 
-int ft_malloc_int(t_fdf *map)
+int ft_malloc_int(t_fdf *map, char ****content)
 {
 	int i;
 
 	i = 0;
+	*content = malloc(sizeof(char **) * map->ymax);
 	map->pos = malloc(sizeof(int *) * map->ymax);
 	map->color = malloc(sizeof(char **) * map->ymax);
-	if (!map->pos || !map->color)
+	if (!map->pos || !map->color || !*content)
 			return (-1);
 	while (i < map->ymax)
 	{
-		
 		map->pos[i] = malloc(sizeof(int) * map->xmax);
 		map->color[i] = malloc(sizeof(char *) * map->xmax);
 		if (!map->pos[i] || !map->color[i])
@@ -140,25 +131,54 @@ int ft_malloc_int(t_fdf *map)
 	return (0);
 }
 
+void free_memory(t_fdf *map, char ***content)
+{
+    int i;
+	int j;
+	
+	i = 0;
+	j = 0;
+    while (i < map->ymax)
+    {
+        int x_pos = 0;
+        while (x_pos < map->xmax && content[i][x_pos] != NULL)
+            free(content[i][x_pos++]);
+        free(content[i++]);
+    }
+    i = 0;
+    while (i < map->ymax)
+        free(map->pos[i++]);
+    free(map->pos);    
+	i = 0;
+    while (i < map->ymax)
+	{
+		j = 0;
+		while (j < map->xmax)
+        	free(map->color[i][j++]);
+		free(map->color[i++]);
+	}
+	(free(content),	free_strtab(map->content), free(map->color), free(map));
+}
+
+
 int	chartoint(t_fdf *map)
 {
 	char	***content;
-	char	*tmp;
+	char	**tmp;
 	int		y_pos;
 	int		x_pos;
 
 	y_pos = 0;
 	x_pos = 0;
-	content = malloc(sizeof(char **) * map->ymax);
+	ft_malloc_int(map,&content);
 	while (map->content[y_pos])
 	{
 		content[y_pos] = ft_split(map->content[y_pos], ' ');
 		y_pos++;
 	}
 	if (!ft_checkmap(map, content))
-		return (perror("MEGA MERDE"), 0);
+	 	return (free_memory(map, content),perror("MEGA MERDE"), 0);
 	y_pos = 0;
-	ft_malloc_int(map);
 	while (y_pos < map->ymax)
 	{
 		x_pos = 0;
@@ -166,9 +186,9 @@ int	chartoint(t_fdf *map)
 		{
 			if (strchr(content[y_pos][x_pos], ','))
 			{
-				tmp = (ft_split(content[y_pos][x_pos], ','))[1];
-				map->color[y_pos][x_pos] = ft_strdup(tmp);
-				free(tmp);
+				tmp = ft_split(content[y_pos][x_pos], ',');
+				map->color[y_pos][x_pos] = ft_strdup(tmp[1]);
+				free_strtab(tmp);
 			}
 			else
 				map->color[y_pos][x_pos] = NULL;
@@ -177,7 +197,7 @@ int	chartoint(t_fdf *map)
 		}
 		y_pos++;
 	}
-	return (ft_freesplit(*content), free(content), free_char(map), 1);
+	return (free_memory(map, content), 1);
 }
 
 
@@ -188,10 +208,8 @@ int	ft_parsing(t_fdf *map, char *file_path)
 	int	fd;
 
 	fd = get_fd(file_path, map);
-	if (fd == -1)
-		return (0);
 	get_map(map, fd);
-	printf("test\n");
+	//printf("test\n");
 	return (chartoint(map));
 	// if (!ft_checkmap(map))
 	// 	return (perror("invalid map"), 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 12:29:30 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/03 03:15:22 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/03 06:37:06 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,8 @@ int main(int argc, char **argv)
     map->ymax = 0;
     if (argc != 2)
         return (perror("Error: wrong number of arguments\n"), 0);
-    if (!ft_parsing(map, argv[1]))
-    {
-        //free_int(map);
-        free(map->content);
-        free(map);
-        exit(0);
-    }
+    ft_parsing(map, argv[1]);
+
     printf("good\n");
     //int h = 0;
     /*while (map->content[h])
@@ -49,8 +44,9 @@ int main(int argc, char **argv)
 //         printf("\n");
 //         row++;
 //     }
-    free_int(map);
-    free(map->content);
-    free(map);
+   // free_strtab(*map->color);
+   // free(map->color);
+    //free_inttab(map);
+    //free(map);
 }
 

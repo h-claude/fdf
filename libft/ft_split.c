@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:49:25 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 17:36:20 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/03 04:43:22 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-static int	countstr(char const *s, char c)
+int	countstr(char const *s, char c)
 {
 	int	i;
 	int	nbstr;
@@ -40,6 +40,7 @@ static void	freetab(char **str)
 	while (str[i])
 		free(str[i++]);
 	free(str);
+	str=NULL;
 }
 
 static char	**sub(const char *s, char c, char **str, int len)
@@ -60,10 +61,7 @@ static char	**sub(const char *s, char c, char **str, int len)
 			i++;
 		str[y++] = ft_substr(s, sub_start, i - sub_start);
 		if (!str[y - 1])
-		{
-			freetab(str);
-			return (NULL);
-		}
+			return (freetab(str),NULL);
 	}
 	return (str);
 }

@@ -5,84 +5,115 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/02 21:53:02 by moajili           #+#    #+#             */
-/*   Updated: 2024/02/02 21:53:13 by moajili          ###   ########.fr       */
+/*   Created: 2023/11/27 14:35:06 by hclaude           #+#    #+#             */
+/*   Updated: 2024/02/03 07:21:20 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-static char	*find_line(int fd, char **storage)
+static int	is_backslash(char *buffer)
 {
-	size_t	i;
-	char	*ret;
-	char	*tmp;
+	static unsigned int	i = 0;
+	unsigned int temp_i;
 
-	i = 0;
-	if (!storage[fd])
-		return (NULL);
-	while (storage[fd][i] && storage[fd][i] != '\n')
-		i++;
-	if (storage[fd][i] == '\n')
-		i++;
-	ret = ft_substr(storage[fd], 0, i);
-	tmp = ft_substr(storage[fd], i, ft_strlen(&storage[fd][i]));
-	free(storage[fd]);
-	storage[fd] = tmp;
-	if (!ret || !tmp || ft_strlen(ret) == 0)
+	temp_i = 0;
+	while (buffer[i])
 	{
-		free(storage[fd]);
-		free(ret);
-		storage[fd] = NULL;
-		return (NULL);
+		if ('\n' == buffer[i])
+		{
+			temp_i = i;
+			i = 0;
+			return (temp_i);
+		}
+		i++;
 	}
-	return (ret);
+	return (-1);
 }
 
-static char	*reading_fd(int fd, char **storage, char *tmp)
+static void	replace(char **buffer)
 {
-	ssize_t	bytes_read;
-	char	*tmp2;
+	int		i;
+	char	*new_buffer;
 
-	bytes_read = 1;
-	while (bytes_read >= 0)
-	{
-		ft_memset(tmp, 0, BUFFER_SIZE + 1);
-		bytes_read = read(fd, tmp, BUFFER_SIZE);
-		if (bytes_read < 0)
-		{
-			free(storage[fd]);
-			return (NULL);
-		}
-		if (!storage[fd])
-			storage[fd] = ft_strdup(tmp);
-		else
-		{
-			tmp2 = ft_strjoin(storage[fd], tmp);
-			free(storage[fd]);
-			storage[fd] = tmp2;
-		}
-		if (storage[fd] && (ft_strchr(storage[fd], '\n') || bytes_read == 0))
-			return (storage[fd]);
-	}
-	return (NULL);
+	i = is_backslash(*buffer);
+	new_buffer = ft_substr(*buffer, i + 1, ft_strlen(*buffer) - i);
+	free(*buffer);
+	*buffer = new_buffer;
 }
 
+static int	read_and_get(int fd, char **buffer)
+{
+	char	*new_str;
+	char	*new_buffer;
+	ssize_t	n_read;
+
+	new_buffer = NULL;
+	new_str = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
+	if (!new_str)
+		return (1);
+	while (is_backslash(*buffer) == -1)
+	{
+		n_read = read(fd, new_str, BUFFER_SIZE);
+		if (n_read == -1)
+			return (free(new_str), free(new_buffer), -1);
+		else if (n_read == 0)
+			return (free(new_str), 1);
+		new_buffer = ft_strjoin(*buffer, new_str);
+		free(*buffer);
+		*buffer = new_buffer;
+		if (!*buffer)
+			return (free(new_str), -1);
+		ft_bzero(new_str, BUFFER_SIZE);
+	}
+	return (free(new_str), 0);
+}
+
+static char	*get_next_line_part2(int fd, char **buffer)
+{
+	char	*return_line;
+	int		empty;
+
+	empty = read_and_get(fd, buffer);
+	if (empty == -1)
+	{
+		free(*buffer);
+		*buffer = NULL;
+		return (*buffer);
+	}
+	if (empty == 0)
+	{
+		return_line = ft_substr(*buffer, 0, is_backslash(*buffer) + 1);
+		replace(buffer);
+		if (!return_line && *buffer)
+			return (free(*buffer), *buffer = NULL, NULL);
+		return (return_line);
+	}
+	if (!buffer || *buffer[0] == '\0')
+		return_line = NULL;
+	else
+		return_line = ft_substr(*buffer, 0, ft_strlen(*buffer));
+	free(*buffer);
+	*buffer = NULL;
+	return (return_line);
+}
+
+/**
+ * A function that returns the next line from a give fd.
+ * 
+ * @param fd File Descriptor.
+ * @return char* The next line.
+ */
 char	*get_next_line(int fd)
 {
-	static char	*storage[1024];
-	char		*ret;
-	char		*tmp;
-
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	static char	*buffer[1024];
+	
+	
+	if (fd < 0 || BUFFER_SIZE < 0 || fd >= 1024)
 		return (NULL);
-	tmp = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!tmp)
+	if (!buffer[fd])
+		buffer[fd] = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
+	if (!buffer[fd])
 		return (NULL);
-	storage[fd] = reading_fd(fd, storage, tmp);
-	free(tmp);
-	if (!storage[fd])
-		return (NULL);
-	ret = find_line(fd, storage);
-	return (ret);
+	return (get_next_line_part2(fd, &buffer[fd]));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/03 02:28:22 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/03 05:46:32 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
 
+#define FILE_ERR -1
 /*struct t_point
 {
     int x;
@@ -52,21 +53,20 @@ points[250000].x =
 points[250000].y = 
 points[250000].z = 
 points[250000].color = 
-points[0].color = 0x00FF00;
 */
+
 typedef struct s_fdf
 {
     int            ymax;
     int            xmax;
     int            **pos;    
-    char            ***color;
-	char           **content;
+    char           ***color;
+	char           **content; 
 }					t_fdf;
 
 int    ft_parsing(t_fdf *map, char *file_path);
 int    chartoint(t_fdf *map);
-void    free_int(t_fdf *map);
-void ft_freesplit(char **split_result);
-void	free_char(t_fdf *map);
+void	free_inttab(t_fdf *map);
+void	free_strtab(char **str);
 
 #endif
