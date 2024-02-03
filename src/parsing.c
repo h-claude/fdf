@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:05:43 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/03 03:00:02 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/03 03:05:23 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_count_tab(int *tab)
 {
-	int c;
+	int	c;
 
 	c = 0;
 	while (tab[c])
@@ -26,9 +26,9 @@ int	ft_count_tab(int *tab)
 
 // get le nombre de colonne (x)
 
-char *replace_char(char *str, char find, char new)
+char	*replace_char(char *str, char find, char new)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -45,14 +45,13 @@ void	ft_get_xmax(t_fdf *map)
 	char	**split_result;
 
 	map->xmax = 0;
-    split_result = ft_split(replace_char(map->content[0], '\n', ' '),' ');
-    while(split_result[map->xmax] && split_result[map->xmax][0] != '\n')
+	split_result = ft_split(replace_char(map->content[0], '\n', ' '), ' ');
+	while (split_result[map->xmax] && split_result[map->xmax][0] != '\n')
 	{
 		map->xmax++;
 		printf("split = %s x = %d\n", split_result[map->xmax], map->xmax);
 	}
-    ft_freesplit(split_result);
-
+	ft_freesplit(split_result);
 }
 
 // get le nombre de ligne (y)
@@ -89,9 +88,9 @@ int	get_fd(char *file, t_fdf *map)
 
 // Cette fonction pue la merde faut la refaire
 
-int ft_checkmap(t_fdf *map)
+int	ft_checkmap(t_fdf *map)
 {
-	int pos_y;
+	int	pos_y;
 
 	pos_y = 0;
 	while (pos_y < map->ymax)
@@ -119,7 +118,6 @@ void	get_map(t_fdf *map, int fd)
 
 // ATTENTION cette fonction leak mais elle fonctionne
 
-
 int	chartoint(t_fdf *map)
 {
 	char	***content;
@@ -135,7 +133,6 @@ int	chartoint(t_fdf *map)
 		content[y_pos] = ft_split(map->content[y_pos], ' ');
 		y_pos++;
 	}
-
 	y_pos = 0;
 	map->pos = malloc(sizeof(int *) * map->ymax);
 	map->color = malloc(sizeof(char **) * map->ymax);
@@ -186,4 +183,3 @@ int	ft_parsing(t_fdf *map, char *file_path)
 		printf("good");
 	return (1);
 }
-
