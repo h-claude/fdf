@@ -39,17 +39,16 @@ int main(int argc, char **argv)
     }
     */
     chartoint(map);
-    
-    int row = 0;
+    /*int row = 0;
     while (row < map->ymax) {
         int col = 0;
         while (col < map->xmax) {
-            printf("pos[%d][%d] = %d \n",row,col, map->pos[row][col]);
+            printf("color[%d][%d] = %s \n",row,col, map->color[row][col]);
             col++;
         }
         printf("\n");
         row++;
-    }
+    }*/
     
 
     free_int(map);
