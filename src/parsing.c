@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:05:43 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/03 02:25:02 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/03 03:00:02 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-int	ft_count_tab(char **tab)
+int	ft_count_tab(int *tab)
 {
 	int c;
 
 	c = 0;
-	while (tab[c] && tab[c][0] != '\n')
+	while (tab[c])
 	{
 		c++;
 	}
@@ -89,15 +89,15 @@ int	get_fd(char *file, t_fdf *map)
 
 // Cette fonction pue la merde faut la refaire
 
-int ft_checkmap(t_fdf *map, char ***content)
+int ft_checkmap(t_fdf *map)
 {
 	int pos_y;
 
 	pos_y = 0;
 	while (pos_y < map->ymax)
 	{
-		printf("%d VS %d\n", map->xmax, ft_count_tab(content[pos_y]));
-		if (map->xmax != ft_count_tab(content[pos_y]))
+		printf("%d VS %d\n", map->xmax, ft_count_tab(map->pos[pos_y]));
+		if (map->xmax != ft_count_tab(map->pos[pos_y]))
 			return (perror("CACA"), 0);
 		pos_y++;
 	}
@@ -120,15 +120,15 @@ void	get_map(t_fdf *map, int fd)
 // ATTENTION cette fonction leak mais elle fonctionne
 
 
-void	chartoint(t_fdf *map)
+int	chartoint(t_fdf *map)
 {
 	char	***content;
 	char	*tmp;
-	int		i;
-	int		j;
-  
-	i = 0;
-	j = 0;
+	int		y_pos;
+	int		x_pos;
+
+	y_pos = 0;
+	x_pos = 0;
 	content = malloc(sizeof(char **) * map->ymax);
 	while (map->content[y_pos])
 	{
@@ -136,31 +136,31 @@ void	chartoint(t_fdf *map)
 		y_pos++;
 	}
 
-	i = 0;
+	y_pos = 0;
 	map->pos = malloc(sizeof(int *) * map->ymax);
 	map->color = malloc(sizeof(char **) * map->ymax);
-	while (i < map->ymax)
+	while (y_pos < map->ymax)
 	{
-		map->pos[i] = malloc(sizeof(int) * map->xmax);
-		map->color[i] = malloc(sizeof(char *) * map->xmax);
-		i++;
+		map->pos[y_pos] = malloc(sizeof(int) * map->xmax);
+		map->color[y_pos] = malloc(sizeof(char *) * map->xmax);
+		y_pos++;
 	}
-	i = 0;
-	while (i < map->ymax)
+	y_pos = 0;
+	while (y_pos < map->ymax)
 	{
 		x_pos = 0;
 		while (x_pos < map->xmax && content[y_pos])
 		{
-			if (strchr(content[i][j], ','))
+			if (strchr(content[y_pos][x_pos], ','))
 			{
-				tmp = (ft_split(content[i][j], ','))[1];
-				map->color[i][j] = ft_strdup(tmp);
+				tmp = (ft_split(content[y_pos][x_pos], ','))[1];
+				map->color[y_pos][x_pos] = ft_strdup(tmp);
 				free(tmp);
 			}
 			else
-				map->color[i][j] = NULL;
-			map->pos[i][j] = ft_atoi(content[i][j]);
-			j++;
+				map->color[y_pos][x_pos] = NULL;
+			map->pos[y_pos][x_pos] = ft_atoi(content[y_pos][x_pos]);
+			x_pos++;
 		}
 		y_pos++;
 	}
@@ -178,11 +178,12 @@ int	ft_parsing(t_fdf *map, char *file_path)
 		return (0);
 	get_map(map, fd);
 	printf("test\n");
-	return (chartoint(map));
+	chartoint(map);
 	printf("apres test\n");
-	// if (!ft_checkmap(map))
-	// 	return (perror("invalid map"), 0);
-	// else
-	// 	printf("good");
+	if (!ft_checkmap(map))
+		return (perror("invalid map"), 0);
+	else
+		printf("good");
+	return (1);
 }
 
