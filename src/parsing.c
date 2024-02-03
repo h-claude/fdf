@@ -6,25 +6,54 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:05:43 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 20:36:34 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/02 22:16:13 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-// get le nombre de ligne (y)
+int	ft_count_tab(char **tab)
+{
+	int c;
+
+	c = 0;
+	while (tab[c] && tab[c][0] != '\n')
+	{
+		c++;
+	}
+	return (c);
+}
+
+// get le nombre de colonne (x)
+
+char *replace_char(char *str, char find, char new)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == find)
+			str[i] = new;
+		i++;
+	}
+	return (str);
+}
 
 void	ft_get_xmax(t_fdf *map)
 {
     char **split_result;
 	map->xmax = 0;
-    split_result = ft_split(map->content[0],' ');
-    while(split_result[map->xmax])
+    split_result = ft_split(replace_char(map->content[0], '\n', ' '),' ');
+    while(split_result[map->xmax] && split_result[map->xmax][0] != '\n')
+	{
 		map->xmax++;
+		printf("split = %s x = %d\n", split_result[map->xmax], map->xmax);
+	}
     ft_freesplit(split_result);
 }
 
-// get le nombre de colonne (x)
+// get le nombre de ligne (y)
 
 void	ft_get_ymax(int fd, t_fdf *map)
 {
@@ -57,25 +86,24 @@ int	get_fd(char *file, t_fdf *map)
 
 // Cette fonction pue la merde faut la refaire
 
-int ft_checkmap(t_fdf *map)
+int ft_checkmap(t_fdf *map, char ***content)
 {
-	int xmax_line;
 	int pos_y;
 
-	xmax_line = 0;
 	pos_y = 0;
-	while (pos_y <= map->ymax)
+	while (pos_y < map->ymax)
 	{
-		if (!map->xmax == ft_strlen(map->pos[pos_y])
-		y++;
-
+		printf("%d VS %d\n", map->xmax, ft_count_tab(content[pos_y]));
+		if (map->xmax != ft_count_tab(content[pos_y]))
+			return (perror("CACA"), 0);
+		pos_y++;
 	}
-
+	return (1);
 }
 
 // get map stocke le fichier dans un tableau de tableau et appelle fonction xmax
 
-int	get_map(t_fdf *map, int fd)
+void	get_map(t_fdf *map, int fd)
 {
 	int i;
 
@@ -84,41 +112,41 @@ int	get_map(t_fdf *map, int fd)
 	while(i <= map->ymax && map->content)
 		map->content[i++] = get_next_line(fd);
 	ft_get_xmax(map);
-	return (0);
 }
 
 // ATTENTION cette fonction leak mais elle fonctionne
 
-void chartoint(t_fdf *map)
+int chartoint(t_fdf *map)
 {
 	char ***content;
 
-	int i = 0;
-	int j = 0;
+	int y_pos = 0;
+	int x_pos = 0;
 	content = malloc(sizeof(char **) * map->ymax);
-	while (map->content[i])
+	while (map->content[y_pos])
 	{
-		content[i] = ft_split(map->content[i], ' ');
-		i++;
+		content[y_pos] = ft_split(map->content[y_pos], ' ');
+		y_pos++;
 	}
-	i=0;
+	if (!ft_checkmap(map, content))
+		return (0);
+	printf("test\n");
+	y_pos=0;
 	map->pos = malloc(sizeof(int *) * map->ymax);
-	while (i < map->ymax)
-		map->pos[i++] = malloc(sizeof(int)*map->xmax);
-	i = 0;
-	while (i < map->ymax)
+	while (y_pos < map->ymax)
+		map->pos[y_pos++] = malloc(sizeof(int)*map->xmax);
+	y_pos = 0;
+	while (y_pos < map->ymax)
 	{
-		j = 0;
-		while (j < map->xmax && content[i])
+		x_pos = 0;
+		while (x_pos < map->xmax && content[y_pos])
 		{
-			map->pos[i][j] = ft_atoi(content[i][j]);
-			j++;
+			map->pos[y_pos][x_pos] = ft_atoi(content[y_pos][x_pos]);
+			x_pos++;
 		}
-		i++;
+		y_pos++;
 	}
-	ft_freesplit(*content);
-	free(content);
-	free_char(map);
+	return (ft_freesplit(*content), free(content), free_char(map), 1);
 }
 
 // ft_parsing renvoie 0 en cas d'erreur sinon 1
@@ -130,9 +158,12 @@ int ft_parsing(t_fdf *map, char *file_path)
 	fd = get_fd(file_path, map);
 	if (fd == -1)
 		return (0);
-	if (get_map(map, fd) == -1)
-		return (perror("invalid map"), 0);
-	else
-		printf("good");
-	return (1);
+	get_map(map, fd);
+	printf("test\n");
+	return (chartoint(map));
+	printf("apres test\n");
+	// if (!ft_checkmap(map))
+	// 	return (perror("invalid map"), 0);
+	// else
+	// 	printf("good");
 }

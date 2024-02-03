@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 12:29:30 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/02 20:26:59 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/02 21:22:11 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,17 @@ int main(int argc, char **argv)
         h++;
     }
     */
-    chartoint(map);
-    
-    int row = 0;
-    while (row < map->ymax) {
-        int col = 0;
-        while (col < map->xmax) {
-            printf("pos[%d][%d] = %d \n",row,col, map->pos[row][col]);
-            col++;
-        }
-        printf("\n");
-        row++;
-    }
-    
+    // int row = 0;
+    // while (row < map->ymax) {
+    //     int col = 0;
+    //     while (col < map->xmax) {
+    //         printf("pos[%d][%d] = %d \n",row,col, map->pos[row][col]);
+    //         col++;
+    //     }
+    //     printf("\n");
+    //     row++;
+    // }
+
 
     free_int(map);
     free(map->content);
