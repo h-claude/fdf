@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 13:05:43 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/03 03:14:36 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/03 03:17:20 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,28 @@ void	get_map(t_fdf *map, int fd)
 
 // ATTENTION cette fonction leak mais elle fonctionne
 
+
+int ft_malloc_int(t_fdf *map)
+{
+	int i;
+
+	i = 0;
+	map->pos = malloc(sizeof(int *) * map->ymax);
+	map->color = malloc(sizeof(char **) * map->ymax);
+	if (!map->pos || !map->color)
+			return (-1);
+	while (i < map->ymax)
+	{
+		
+		map->pos[i] = malloc(sizeof(int) * map->xmax);
+		map->color[i] = malloc(sizeof(char *) * map->xmax);
+		if (!map->pos[i] || !map->color[i])
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
 int	chartoint(t_fdf *map)
 {
 	char	***content;
@@ -136,15 +158,7 @@ int	chartoint(t_fdf *map)
 	if (!ft_checkmap(map, content))
 		return (perror("MEGA MERDE"), 0);
 	y_pos = 0;
-	map->pos = malloc(sizeof(int *) * map->ymax);
-	map->color = malloc(sizeof(char **) * map->ymax);
-	while (y_pos < map->ymax)
-	{
-		map->pos[y_pos] = malloc(sizeof(int) * map->xmax);
-		map->color[y_pos] = malloc(sizeof(char *) * map->xmax);
-		y_pos++;
-	}
-	y_pos = 0;
+	ft_malloc_int(map);
 	while (y_pos < map->ymax)
 	{
 		x_pos = 0;
@@ -165,6 +179,7 @@ int	chartoint(t_fdf *map)
 	}
 	return (ft_freesplit(*content), free(content), free_char(map), 1);
 }
+
 
 // ft_parsing renvoie 0 en cas d'erreur sinon 1
 
