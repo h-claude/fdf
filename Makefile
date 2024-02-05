@@ -6,7 +6,7 @@
 #    By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/30 14:18:46 by hclaude           #+#    #+#              #
-#    Updated: 2024/02/05 13:15:14 by hclaude          ###   ########.fr        #
+#    Updated: 2024/02/05 14:02:36 by hclaude          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRCFILES = #src/parsing.c
 all : $(NAME)
 
 $(NAME) : $(OBJFILES)
-	make -C turbo_libft/
+	make big -C turbo_libft/
 	mv $(LIBFT) .
 	mv libft.a $(NAME)
 	$(AR) $(ARFLAGS) $@ $^
