@@ -2,3 +2,7 @@
 	path = lib/MLX42
 	url = git@github.com:codam-coding-college/MLX42.git
 	branch = master
+[submodule "lib/turbo_libft"]
+	path = lib/turbo_libft
+	url = git@github.com:h-claude/turbo_libft.git
+	branch = master
