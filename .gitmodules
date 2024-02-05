@@ -1,4 +1,4 @@
-[submodule "turbo_libft"]
+[submodule "lib/turbo_libft"]
 	path = lib/turbo_libft
 	url = git@github.com:h-claude/turbo_libft.git\
 	branch = master
