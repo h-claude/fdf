@@ -12,9 +12,19 @@
 
 #include "../../fdf.h"
 
-
-// faire get fd
-
+/**
+ * @brief Opens a file and retrieves its file descriptor.
+ *
+ * This function opens the specified file at the given `filepath` and retrieves
+ * the file descriptor. It also performs an additional opening to count the lines
+ * and points in the file using `ft_count_line_and_point` function.
+ *
+ * @param filepath The path to the file to be opened.
+ * @param map_data A pointer to the structure containing map data.
+ *
+ * @return The file descriptor if successful, or -1 on failure. In case of failure,
+ *         it also prints an error message using perror.
+ */
 static int	ft_get_fd(char *filepath, t_fdf *map_data)
 {
 	int	fd;
@@ -29,8 +39,19 @@ static int	ft_get_fd(char *filepath, t_fdf *map_data)
 	return (fd);
 }
 
-// faire check map
-
+/**
+ * @brief Checks the validity of the map by comparing the number of points per line.
+ *
+ * This function compares the number of points per line in the map with the specified
+ * value `nbr_point`. If the number of points does not match, it returns 0; otherwise,
+ * it returns 1.
+ *
+ * @param nbr_point The expected number of points per line.
+ * @param nbr_line The total number of lines in the map.
+ * @param map_content The array containing the map content.
+ *
+ * @return 1 if the map is valid, 0 otherwise.
+ */
 static int	ft_checkmap(int nbr_point, int nbr_line, char **map_content)
 {
 	int	y_pos;
@@ -45,8 +66,18 @@ static int	ft_checkmap(int nbr_point, int nbr_line, char **map_content)
 	return (1);
 }
 
-// split la map
-
+/**
+ * @brief Splits the map content into a 3D array of strings.
+ *
+ * This function splits the content of the map stored in the `map_content` array
+ * into a 3D array of strings using the space character (' ') as a delimiter.
+ *
+ * @param map_content The array containing the map content to be split.
+ * @param map_data A pointer to the structure containing map data.
+ *
+ * @return 1 on success, 0 on failure. In case of failure, it prints an error message
+ *         using perror.
+ */
 static int	ft_split_map_content(char **map_content, t_fdf *map_data)
 {
 	char	***split_map_content;
@@ -65,8 +96,19 @@ static int	ft_split_map_content(char **map_content, t_fdf *map_data)
 	return (ft_get_finals_maps(split_map_content, map_data));
 }
 
-// faire get the map
-
+/**
+ * @brief Reads the map content from the file descriptor and processes it.
+ *
+ * This function reads the map content from the specified file descriptor `fd` and
+ * processes it. It ensures the validity of the map using `ft_checkmap` and further
+ * splits the map content using `ft_split_map_content`.
+ *
+ * @param fd The file descriptor of the opened file.
+ * @param map_data A pointer to the structure containing map data.
+ *
+ * @return 1 on success, 0 on failure. In case of failure, it prints an error message
+ *         using perror.
+ */
 static int	ft_getmap(int fd, t_fdf *map_data)
 {
 	char	**map_content;
@@ -86,6 +128,18 @@ static int	ft_getmap(int fd, t_fdf *map_data)
 	return (ft_split_map_content(map_content, map_data));
 }
 
+/**
+ * @brief Initializes the map data by opening the file and processing its content.
+ *
+ * This function initializes the map data by opening the specified file using
+ * `ft_get_fd` and processing its content using `ft_getmap`. It also frees any
+ * allocated memory after processing the map.
+ *
+ * @param map_data A pointer to the structure containing map data.
+ * @param filepath The path to the file containing the map data.
+ *
+ * @return 1 on success, 0 on failure.
+ */
 int	ft_init(t_fdf *map_data, char *filepath)
 {
 	int	fd;
@@ -99,6 +153,19 @@ int	ft_init(t_fdf *map_data, char *filepath)
 	return (1);
 }
 
+/**
+ * @brief Main function to demonstrate map initialization and processing.
+ *
+ * This function serves as the main entry point for the program. It allocates
+ * memory for the map data, initializes the map using `ft_init`, and prints a
+ * success message if the initialization is successful. It also frees the memory
+ * allocated for the map data.
+ *
+ * @param argc The number of command-line arguments.
+ * @param argv An array of strings containing the command-line arguments.
+ *
+ * @return 0 on successful execution.
+ */
 int	main(int argc, char **argv)
 {
 	t_fdf	*map_data;
