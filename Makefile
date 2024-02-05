@@ -6,7 +6,7 @@
 #    By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/30 14:18:46 by hclaude           #+#    #+#              #
-#    Updated: 2024/02/03 02:42:15 by hclaude          ###   ########.fr        #
+#    Updated: 2024/02/05 13:10:27 by hclaude          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ AR := ar
 ARFLAGS := rcs
 CFLAGS := -Wall -Werror -Wextra
 
-LIBFT = libft/libft.a
+LIBFT = turbo_libft/libft.a
 
 OBJFILES = $(SRCFILES:.c=.o)
 
@@ -28,7 +28,7 @@ SRCFILES = #src/parsing.c
 all : $(NAME)
 
 $(NAME) : $(OBJFILES)
-	make -C libft/
+	make -C turbo_libft/
 	mv $(LIBFT) .
 	mv libft.a $(NAME)
 	$(AR) $(ARFLAGS) $@ $^
