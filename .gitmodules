@@ -1,8 +1,8 @@
 [submodule "turbo_libft"]
-	path = turbo_libft
+	path = lib/turbo_libft
 	url = git@github.com:h-claude/turbo_libft.git\
 	branch = master
 [submodule "MLX42"]
-	path = MLX42
+	path = lib/MLX42
 	url = https://github.com/codam-coding-college/MLX42
 	branch = master
