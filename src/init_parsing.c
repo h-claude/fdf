@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/07 16:31:17 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/07 17:16:23 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
  * @param filepath The path to the file to be opened.
  * @param map_data A pointer to the structure containing map data.
  *
- * @return The file descriptor if successful, or -1 on failure. In case of failure,
+ * @return The file descriptor if successful, or -1 on failure.
+ * 		   In case of failure,
  *         it also prints an error message using perror.
  */
 static int	ft_get_fd(char *filepath, t_fdf *map_data)
@@ -40,10 +41,12 @@ static int	ft_get_fd(char *filepath, t_fdf *map_data)
 }
 
 /**
- * @brief Checks the validity of the map by comparing the number of points per line.
+ * @brief Checks the validity of the map by comparing
+ * the number of points per line.
  *
- * This function compares the number of points per line in the map with the specified
- * value `nbr_point`. If the number of points does not match, it returns 0; otherwise,
+ * This function compares the number of points per line
+ * in the map with the specified value `nbr_point`.
+ * If the number of points does not match, it returns 0; otherwise,
  * it returns 1.
  *
  * @param nbr_point The expected number of points per line.
@@ -75,8 +78,8 @@ static int	ft_checkmap(int nbr_point, int nbr_line, char **map_content)
  * @param map_content The array containing the map content to be split.
  * @param map_data A pointer to the structure containing map data.
  *
- * @return 1 on success, 0 on failure. In case of failure, it prints an error message
- *         using perror.
+ * @return 1 on success, 0 on failure. In case of failure,
+ *         it prints an error message using perror.
  */
 static int	ft_split_map_content(char **map_content, t_fdf *map_data)
 {
@@ -99,15 +102,16 @@ static int	ft_split_map_content(char **map_content, t_fdf *map_data)
 /**
  * @brief Reads the map content from the file descriptor and processes it.
  *
- * This function reads the map content from the specified file descriptor `fd` and
- * processes it. It ensures the validity of the map using `ft_checkmap` and further
+ * This function reads the map content from the specified
+ * file descriptor `fd` and processes it.
+ * It ensures the validity of the map using `ft_checkmap` and further
  * splits the map content using `ft_split_map_content`.
  *
  * @param fd The file descriptor of the opened file.
  * @param map_data A pointer to the structure containing map data.
  *
- * @return 1 on success, 0 on failure. In case of failure, it prints an error message
- *         using perror.
+ * @return 1 on success, 0 on failure. In case of failure,
+ * it prints an error message using perror.
  */
 static int	ft_getmap(int fd, t_fdf *map_data)
 {
@@ -126,11 +130,14 @@ static int	ft_getmap(int fd, t_fdf *map_data)
 }
 
 /**
- * @brief Initializes the map data by opening the file and processing its content.
+ * @brief Initializes the map data by opening the
+ * file and processing its content.
  *
- * This function initializes the map data by opening the specified file using
- * `ft_get_fd` and processing its content using `ft_getmap`. It also frees any
- * allocated memory after processing the map.
+ * This function initializes the map data
+ * by opening the specified file using `ft_get_fd`
+ * and processing its content using `ft_getmap`.
+ * It also frees any allocated memory after
+ * processing the map.
  *
  * @param map_data A pointer to the structure containing map data.
  * @param filepath The path to the file containing the map data.
@@ -146,7 +153,6 @@ int	ft_init(t_fdf *map_data, char *filepath)
 		return (0);
 	if (!ft_getmap(fd, map_data))
 		return (0);
-	//ft_free_finals_maps(map_data);
 	return (1);
 }
 
