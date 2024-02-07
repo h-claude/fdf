@@ -6,11 +6,11 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:53:07 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/05 13:54:27 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/07 14:14:04 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../fdf.h"
+#include "../fdf.h"
 
 /**
  * @brief Simulates a split and stops when encountering '\n' or reaches the end of the string.

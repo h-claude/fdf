@@ -6,11 +6,11 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:51:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/05 13:51:39 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/07 14:13:59 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../fdf.h"
+#include "../fdf.h"
 
 /**
  * @brief Frees memory allocated for a 3D array of strings.

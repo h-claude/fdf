@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/05 14:01:09 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/07 16:31:17 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../fdf.h"
+#include "../fdf.h"
 
 /**
  * @brief Opens a file and retrieves its file descriptor.
@@ -119,10 +119,7 @@ static int	ft_getmap(int fd, t_fdf *map_data)
 		return (free(map_content), 0);
 	y_pos = 0;
 	while (y_pos <= map_data->ymax)
-	{
-		map_content[y_pos] = get_next_line(fd);
-		y_pos++;
-	}
+		map_content[y_pos++] = get_next_line(fd);
 	if (!ft_checkmap(map_data->xmax, map_data->ymax, map_content))
 		return (perror("Map invalid"), ft_freetab(map_content), 0);
 	return (ft_split_map_content(map_content, map_data));
@@ -149,7 +146,7 @@ int	ft_init(t_fdf *map_data, char *filepath)
 		return (0);
 	if (!ft_getmap(fd, map_data))
 		return (0);
-	ft_free_finals_maps(map_data);
+	//ft_free_finals_maps(map_data);
 	return (1);
 }
 
@@ -170,8 +167,24 @@ int	main(int argc, char **argv)
 {
 	t_fdf	*map_data;
 
+	if (argc != 2)
+		return(perror("PAS BON"), 0);
 	map_data = malloc(sizeof(t_fdf));
 	if (ft_init(map_data, argv[1]))
 		printf("good !\n");
+	int y = 0;
+	int x = 0;
+	while(y < map_data->ymax)
+	{
+		x = 0;
+		while(x < map_data->xmax)
+		{
+			printf("(y = %d, x = %d) = %d\n", y, x, map_data->pos[y][x]);
+			x++;
+		}
+		printf("\n");
+		y++;
+	}
+	ft_free_finals_maps(map_data);
 	free(map_data);
 }

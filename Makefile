@@ -6,7 +6,7 @@
 #    By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/30 14:18:46 by hclaude           #+#    #+#              #
-#    Updated: 2024/02/05 14:02:36 by hclaude          ###   ########.fr        #
+#    Updated: 2024/02/07 15:37:20 by hclaude          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,22 +19,23 @@ AR := ar
 ARFLAGS := rcs
 CFLAGS := -Wall -Werror -Wextra
 
-LIBFT = turbo_libft/libft.a
+LIBFT = lib/turbo_libft/libft.a
 
 OBJFILES = $(SRCFILES:.c=.o)
 
-SRCFILES = #src/parsing.c
+SRCFILES = src/count_point_and_lines.c src/free.c src/get_color.c \
+src/get_finals_maps.c src/init_parsing.c
 
 all : $(NAME)
 
 $(NAME) : $(OBJFILES)
-	make big -C turbo_libft/
+	make big -C lib/turbo_libft/
 	mv $(LIBFT) .
 	mv libft.a $(NAME)
 	$(AR) $(ARFLAGS) $@ $^
 
 clean :
-	make clean -C libft/
+	make clean -C lib/turbo_libft/
 	$(RM) $(OBJFILES)
 
 fclean : clean

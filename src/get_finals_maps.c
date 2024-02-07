@@ -6,11 +6,11 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:56:37 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/05 13:58:21 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/07 16:33:00 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../fdf.h"
+#include "../fdf.h"
 
 /**
  * @brief Frees memory allocated for the final maps in the map data structure.
@@ -24,7 +24,6 @@
 void	ft_free_finals_maps(t_fdf *map_data)
 {
 	int	y_pos;
-	int	x_pos;
 
 	y_pos = 0;
 	while (y_pos < map_data->ymax)
@@ -32,13 +31,7 @@ void	ft_free_finals_maps(t_fdf *map_data)
 	free(map_data->pos);
 	y_pos = 0;
 	while (y_pos < map_data->ymax)
-	{
-		x_pos = 0;
-		while (x_pos < map_data->xmax)
-			free(map_data->color[y_pos][x_pos++]);
-		free(map_data->color[y_pos]);
-		y_pos++;
-	}
+		free(map_data->color[y_pos++]);
 	free(map_data->color);
 }
 
@@ -60,13 +53,13 @@ static int	ft_alloc_finals_maps(t_fdf *map_data)
 
 	y_pos = 0;
 	map_data->pos = malloc(sizeof(int *) * map_data->ymax);
-	map_data->color = ft_calloc(sizeof(char **), map_data->ymax + 1);
+	map_data->color = malloc(sizeof(int *) * map_data->ymax);
 	if (!map_data->pos || !map_data->color)
 		return (free(map_data->color), free(map_data->pos), 0);
 	while (y_pos < map_data->ymax)
 	{
 		map_data->pos[y_pos] = malloc(sizeof(int) * map_data->xmax);
-		map_data->color[y_pos] = ft_calloc(sizeof(char *), map_data->xmax + 1);
+		map_data->color[y_pos] = malloc(sizeof(int32_t) * map_data->xmax);
 		if (!map_data->pos[y_pos] || !map_data->color[y_pos])
 			return (ft_free_finals_maps(map_data), 0);
 		y_pos++;
@@ -104,9 +97,9 @@ int	ft_get_finals_maps(char ***split_map_content, t_fdf *map_data)
 			tmp = ft_split(split_map_content[y_pos][x_pos], ',');
 			map_data->pos[y_pos][x_pos] = ft_atoi(tmp[0]);
 			if (strchr(split_map_content[y_pos][x_pos], ','))
-				map_data->color[y_pos][x_pos] = ft_strdup(tmp[1]);
+				map_data->color[y_pos][x_pos] = get_the_color(tmp[1]);
 			else
-				map_data->color[y_pos][x_pos] = NULL;
+				map_data->color[y_pos][x_pos] = -1;
 			ft_freetab(tmp);
 			x_pos++;
 		}
