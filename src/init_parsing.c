@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/07 17:27:54 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/13 15:58:05 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ static int	ft_split_map_content(char **map_content, t_fdf *map_data)
 	while (map_content[y_pos])
 	{
 		split_map_content[y_pos] = ft_split(map_content[y_pos], ' ');
+		if (!split_map_content[y_pos])
+			return (perror("Split Crash"), 0);
 		y_pos++;
 	}
 	ft_freetab(map_content);
@@ -123,8 +125,8 @@ static int	ft_getmap(int fd, t_fdf *map_data)
 		return (free(map_content), 0);
 	y_pos = 0;
 	while (y_pos <= map_data->ymax)
-		map_content[y_pos++] = get_next_line(fd);
-	if (!ft_checkmap(map_data->xmax, map_data->ymax, map_content))
+			map_content[y_pos++] = get_next_line(fd);
+			if (!ft_checkmap(map_data->xmax, map_data->ymax, map_content))
 		return (perror("Map invalid"), ft_freetab(map_content), 0);
 	return (ft_split_map_content(map_content, map_data));
 }
@@ -153,5 +155,6 @@ int	ft_init(t_fdf *map_data, char *filepath)
 		return (0);
 	if (!ft_getmap(fd, map_data))
 		return (0);
+	close(fd);
 	return (1);
 }
