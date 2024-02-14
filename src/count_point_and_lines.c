@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:53:07 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/13 14:12:24 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/14 15:47:37 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	ft_count_point(char *str, char c)
 
 	i = 0;
 	nbstr = 0;
+	if (!str)
+		return (0);
 	while (str[i])
 	{
 		while (str[i] == c)

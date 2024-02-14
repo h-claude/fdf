@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 17:27:30 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/13 15:28:33 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/14 16:07:32 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ int	main(int argc, char **argv)
 	t_fdf	*map_data;
 
 	if (argc != 2)
-		return(perror("PAS BON"), 0);
+		return(perror("Mauvais nombre d'arguments"), 0);
 	map_data = malloc(sizeof(t_fdf));
 	if (!map_data)
-		return (perror("CACA PAS BIEN"), 0);
+		return (perror("Allocation de map_data echouee"), 0);
 	map_data->xmax = 0;
 	map_data->ymax = 0;
 	if (ft_init(map_data, argv[1]))
 		printf("good !\n");
 	else
-		return (perror("C'est la merde !!!!"), free(map_data), 0);
+		return (perror("Parsing fail"), free(map_data), 0);
 	// int y = 0;
 	// int x = 0;
 	// while(y < map_data->ymax)

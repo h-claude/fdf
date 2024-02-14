@@ -6,7 +6,7 @@
 #    By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/30 14:18:46 by hclaude           #+#    #+#              #
-#    Updated: 2024/02/07 15:37:20 by hclaude          ###   ########.fr        #
+#    Updated: 2024/02/13 15:58:56 by hclaude          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ RM = rm -rf
 CC := cc
 AR := ar
 ARFLAGS := rcs
-CFLAGS := -Wall -Werror -Wextra
+CFLAGS := -Wall -Werror -Wextra -g3
 
 LIBFT = lib/turbo_libft/libft.a
 
