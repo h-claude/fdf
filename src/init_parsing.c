@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/13 15:58:05 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/14 13:57:32 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,8 @@ static int	ft_getmap(int fd, t_fdf *map_data)
 		return (free(map_content), 0);
 	y_pos = 0;
 	while (y_pos <= map_data->ymax)
-			map_content[y_pos++] = get_next_line(fd);
-			if (!ft_checkmap(map_data->xmax, map_data->ymax, map_content))
+		map_content[y_pos++] = get_next_line(fd);
+	if (!ft_checkmap(map_data->xmax, map_data->ymax, map_content))
 		return (perror("Map invalid"), ft_freetab(map_content), 0);
 	return (ft_split_map_content(map_content, map_data));
 }
