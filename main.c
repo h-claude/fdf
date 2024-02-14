@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 17:27:30 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/14 16:07:32 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/14 17:56:10 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	main(int argc, char **argv)
 	// 	printf("\n");
 	// 	y++;
 	// }
+	// printf("xmax = %d", map_data->xmax);
 	ft_free_finals_maps(map_data);
 	free(map_data);
 }
