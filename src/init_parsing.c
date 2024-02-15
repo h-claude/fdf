@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/15 02:36:56 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/15 06:55:30 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,19 @@ static int	ft_split_map_content(char **map_content, t_fdf **map_data, int xmax,
 {
 	char	***split_map_content;
 	int		y_pos;
-	int		err;
 
 	y_pos = 0;
 	split_map_content = ft_calloc(sizeof(char **), ymax + 1);
 	if (!split_map_content)
-		return (perror("Fail alloc split_map_content"), 0);
+		return (perror("Fail alloc split_map_content"), ft_freetab(map_content), 0);
 	while (map_content[y_pos])
 	{
 		split_map_content[y_pos] = ft_split(map_content[y_pos], ' ');
 		if (!split_map_content[y_pos])
-		{
-			err = 0;
-			while (err < y_pos)
-				free(split_map_content[err++]);
-			return (perror("Split Crash"), free(split_map_content), 0);
-		}
+			return (perror("Split Crash"), ft_free_mega_split(split_map_content), ft_freetab(map_content), 0);
 		y_pos++;
 	}
-	ft_freetab(map_content);
-	return (ft_get_finals_maps(split_map_content, map_data, xmax, ymax));
+	return (ft_freetab(map_content), ft_get_finals_maps(split_map_content, map_data, xmax, ymax));
 }
 
 static int	ft_getmap(int fd, t_fdf **map_data, int xmax, int ymax)
@@ -70,10 +63,15 @@ static int	ft_getmap(int fd, t_fdf **map_data, int xmax, int ymax)
 
 	map_content = ft_calloc(sizeof(char *), ymax + 1);
 	if (!map_content)
-		return (free(map_content), 0);
+		return (0);
 	y_pos = 0;
-	while (y_pos <= ymax)
-		map_content[y_pos++] = get_next_line(fd);
+	map_content[0] = get_next_line(fd);
+	while (y_pos < ymax && map_content[y_pos])
+	{
+		map_content[++y_pos] = get_next_line(fd);
+		if (!map_content[y_pos])
+			break;
+	}
 	if (!ft_checkmap(xmax, ymax, map_content))
 		return (perror("Map invalid"), ft_freetab(map_content), 0);
 	return (ft_split_map_content(map_content, map_data, xmax, ymax));
@@ -82,10 +80,14 @@ static int	ft_getmap(int fd, t_fdf **map_data, int xmax, int ymax)
 t_fdf	**alloc(int xmax, int ymax)
 {
 	t_fdf	**allocd;
+	int		y_pos;
 
-	allocd = (t_fdf **)malloc(sizeof(t_fdf *) * (++ymax + 1));
-	while (ymax > 0)
-		allocd[--ymax] = (t_fdf *)malloc(sizeof(t_fdf) * (xmax + 1));
+	y_pos = 0;
+	allocd = (t_fdf **)malloc(sizeof(t_fdf *) * ymax);
+	if (!allocd)
+		return (perror("Allocation fail in alloc"), NULL);
+	while (y_pos < ymax)
+		allocd[y_pos++] = (t_fdf *)ft_calloc(sizeof(t_fdf), xmax);
 	return (allocd);
 }
 
@@ -107,8 +109,24 @@ t_fdf	**ft_init(char *filepath, int *y)
 	*y = ymax;
 	close(fd_temp);
 	map = alloc(xmax, ymax);
+	printf("TEST\n");
 	if (!ft_getmap(fd, map, xmax, ymax))
-		return (0);
+		return (free_alloc(map, ymax), NULL);
+	printf("TEST 1\n");
+	int y_pos = 0;
+	int x_pos = 0;
+	while(y_pos < ymax)
+	{
+		x_pos = 0;
+		while(x_pos < xmax)
+		{
+			// printf("x = %d et y = %d\n", x_pos, y_pos);
+			printf("%3d", map[y_pos][x_pos].y);
+			x_pos++;
+		}
+		printf("\n");
+		y_pos++;
+	}
 	close(fd);
 	return (map);
 }
