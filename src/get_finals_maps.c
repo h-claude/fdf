@@ -31,8 +31,8 @@
  *         using perror and frees any allocated memory.
  */
 
-
-int	ft_get_finals_maps(char ***split_map_content, t_fdf **map_data, int xmax, int ymax)
+int	ft_get_finals_maps(char ***split_map_content, t_fdf **map_data, int xmax,
+		int ymax)
 {
 	int		x_pos;
 	int		y_pos;
@@ -47,7 +47,7 @@ int	ft_get_finals_maps(char ***split_map_content, t_fdf **map_data, int xmax, in
 			tmp = ft_split(split_map_content[y_pos][x_pos], ',');
 			map_data[y_pos][x_pos].z = ft_atoi(tmp[0]);
 			map_data[y_pos][x_pos].x = x_pos;
-			map_data[y_pos][x_pos].y = y_pos;			
+			map_data[y_pos][x_pos].y = y_pos;
 			if (strchr(split_map_content[y_pos][x_pos], ','))
 				map_data[y_pos][x_pos].color = get_the_color(tmp[1]);
 			else
@@ -57,7 +57,5 @@ int	ft_get_finals_maps(char ***split_map_content, t_fdf **map_data, int xmax, in
 		}
 		y_pos++;
 	}
-	return (ft_free_mega_split(split_map_content, xmax,ymax), 1);
+	return (ft_free_mega_split(split_map_content, xmax, ymax), 1);
 }
-
-
