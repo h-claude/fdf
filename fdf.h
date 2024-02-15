@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/15 01:33:16 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/15 03:25:12 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ int			ft_count_point(char *str, char c);
 int			ft_get_finals_maps(char ***split_map_content, t_fdf **map_data,
 				int xmax, int ymax);
 void		ft_count_line_and_point(int fd, int *xmax, int *ymax);
-void		ft_free_mega_split(char ***split_map_content, int xmax, int ymax);
+void		ft_free_mega_split(char ***split_map_content);
 void		ft_freetab(char **str);
-void		ft_free_finals_maps(t_fdf **map_data, int ymax);
+void		free_alloc(t_fdf **allocd, int ymax);
 int32_t		get_the_color(char *hexa_color);
 
 #endif
