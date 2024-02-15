@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 17:27:30 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/15 03:07:51 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/14 17:56:10 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,19 @@ int	main(int argc, char **argv)
 		printf("good !\n");
 	else
 		return (perror("Parsing fail"), free(map_data), 0);
+	// int y = 0;
+	// int x = 0;
+	// while(y < map_data->ymax)
+	// {
+	// 	x = 0;
+	// 	while(x < map_data->xmax)
+	// 	{
+	// 		printf("(y = %d, x = %d) = %d\n", y, x, map_data->pos[y][x]);
+	// 		x++;
+	// 	}
+	// 	printf("\n");
+	// 	y++;
+	// }
 	// printf("xmax = %d", map_data->xmax);
 	ft_free_finals_maps(map_data);
 	free(map_data);

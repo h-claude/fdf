@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_finals_maps.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:56:37 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/15 06:25:43 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/15 06:21:06 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_get_finals_maps(char ***split_map_content, t_fdf **map_data, int xmax,
 		{
 			tmp = ft_split(split_map_content[y][x], ',');
 			if (!tmp)
-				return (perror("Split Failed"),ft_free_mega_split(split_map_content),
+				return (perror("Split Failed"),ft_free_mega_split(split_map_content, xmax, ymax),
 					free_alloc(map_data, ymax), 0);
 			map_data[y][x] = (t_fdf){.z = ft_atoi(tmp[0]), .x = x, .y = y};
 			if (strchr(split_map_content[y][x], ','))
@@ -39,5 +39,5 @@ int	ft_get_finals_maps(char ***split_map_content, t_fdf **map_data, int xmax,
 		}
 		y++;
 	}
-	return (ft_free_mega_split(split_map_content), 1);
+	return (ft_free_mega_split(split_map_content, xmax, ymax), 1);
 }
