@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/14 17:58:11 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/15 01:25:49 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,26 @@
 // typedef struct s_point t_point;
 
 
-typedef struct s_fdf
+typedef struct 
 {
+    int            x;
+    int            y;
+    int            z;
     int            ymax;
     int            xmax;
-    int            **pos;
-    int32_t        **color;
+    int32_t        color;
     //--------//
     float **coord_x;
     float **coord_y;
 }					t_fdf;
 
-int	ft_init(t_fdf *map_data, char *filepath);
+t_fdf	**ft_init(char *filepath, int *y);
 int	ft_count_point(char *str, char c);
-int	ft_get_finals_maps(char ***split_map_content, t_fdf *map_data);
-void	ft_count_line_and_point(int fd, t_fdf *map_data);
-void	ft_free_mega_split(char ***split_map_content, t_fdf *map_data);
+int	ft_get_finals_maps(char ***split_map_content, t_fdf **map_data, int xmax, int ymax);
+void	ft_count_line_and_point(int fd, int *xmax, int *ymax);
+void	ft_free_mega_split(char ***split_map_content, int xmax, int ymax);
 void	ft_freetab(char **str);
-void	ft_free_finals_maps(t_fdf *map_data);
+void    ft_free_finals_maps(t_fdf **map_data, int ymax);
 int32_t get_the_color(char *hexa_color);
 
 #endif

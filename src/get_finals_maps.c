@@ -3,74 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_finals_maps.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:56:37 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/14 17:55:29 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/15 00:52:47 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
-
-/**
- * @brief Frees memory allocated for the final
- * maps in the map data structure.
- *
- * This function frees the memory allocated
- * for the position and color maps within
- * the map data structure.
- * It iterates through the arrays and frees each allocated
- * block of memory to prevent memory leaks.
- *
- * @param map_data A pointer to the structure containing map data.
- */
-void	ft_free_finals_maps(t_fdf *map_data)
-{
-	int	y_pos;
-
-	y_pos = 0;
-	while (y_pos < map_data->ymax)
-		free(map_data->pos[y_pos++]);
-	free(map_data->pos);
-	y_pos = 0;
-	while (y_pos < map_data->ymax)
-		free(map_data->color[y_pos++]);
-	free(map_data->color);
-}
-
-/**
- * @brief Allocates memory for the final maps in
- * the map data structure.
- *
- * This function allocates memory for the position
- * and color maps within the map data structure.
- * It uses the dimensions specified in `map_data` to create arrays
- * for positions and a 2D array for colors.
- *
- * @param map_data A pointer to the structure containing map data.
- *
- * @return 1 on success, 0 on failure. In case of failure, it frees any allocated
- *         memory and returns 0.
- */
-static int	ft_alloc_finals_maps(t_fdf *map_data)
-{
-	int	y_pos;
-
-	y_pos = 0;
-	map_data->pos = malloc(sizeof(int *) * map_data->ymax);
-	map_data->color = malloc(sizeof(int *) * map_data->ymax);
-	if (!map_data->pos || !map_data->color)
-		return (free(map_data->color), free(map_data->pos), 0);
-	while (y_pos < map_data->ymax)
-	{
-		map_data->pos[y_pos] = ft_calloc(sizeof(int), map_data->xmax);
-		map_data->color[y_pos] = ft_calloc(sizeof(int32_t), map_data->xmax);
-		if (!map_data->pos[y_pos] || !map_data->color[y_pos])
-			return (ft_free_finals_maps(map_data), 0);
-		y_pos++;
-	}
-	return (1);
-}
 
 /**
  * @brief Processes split map content and populates
@@ -90,30 +30,34 @@ static int	ft_alloc_finals_maps(t_fdf *map_data)
  * failure, it prints an error message
  *         using perror and frees any allocated memory.
  */
-int	ft_get_finals_maps(char ***split_map_content, t_fdf *map_data)
+
+
+int	ft_get_finals_maps(char ***split_map_content, t_fdf **map_data, int xmax, int ymax)
 {
 	int		x_pos;
 	int		y_pos;
 	char	**tmp;
 
-	if (!ft_alloc_finals_maps(map_data))
-		return (perror("Fail alloc finals maps"), 0);
 	y_pos = 0;
-	while (y_pos < map_data->ymax)
+	while (y_pos < ymax)
 	{
 		x_pos = 0;
-		while (x_pos < map_data->xmax && split_map_content[y_pos])
+		while (x_pos < xmax && split_map_content[y_pos])
 		{
 			tmp = ft_split(split_map_content[y_pos][x_pos], ',');
-			map_data->pos[y_pos][x_pos] = ft_atoi(tmp[0]);
+			map_data[y_pos][x_pos].z = ft_atoi(tmp[0]);
+			map_data[y_pos][x_pos].x = x_pos;
+			map_data[y_pos][x_pos].y = y_pos;			
 			if (strchr(split_map_content[y_pos][x_pos], ','))
-				map_data->color[y_pos][x_pos] = get_the_color(tmp[1]);
+				map_data[y_pos][x_pos].color = get_the_color(tmp[1]);
 			else
-				map_data->color[y_pos][x_pos] = -1;
+				map_data[y_pos][x_pos].color = -1;
 			ft_freetab(tmp);
 			x_pos++;
 		}
 		y_pos++;
 	}
-	return (ft_free_mega_split(split_map_content, map_data), 1);
+	return (ft_free_mega_split(split_map_content, xmax,ymax), 1);
 }
+
+
