@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/15 06:55:30 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/19 14:29:23 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,20 +113,20 @@ t_fdf	**ft_init(char *filepath, int *y)
 	if (!ft_getmap(fd, map, xmax, ymax))
 		return (free_alloc(map, ymax), NULL);
 	printf("TEST 1\n");
-	int y_pos = 0;
-	int x_pos = 0;
-	while(y_pos < ymax)
-	{
-		x_pos = 0;
-		while(x_pos < xmax)
-		{
-			// printf("x = %d et y = %d\n", x_pos, y_pos);
-			printf("%3d", map[y_pos][x_pos].y);
-			x_pos++;
-		}
-		printf("\n");
-		y_pos++;
-	}
+	// int y_pos = 0;
+	// int x_pos = 0;
+	// while(y_pos < ymax)
+	// {
+	// 	x_pos = 0;
+	// 	while(x_pos < xmax)
+	// 	{
+	// 		printf("x = %d et y = %d\n", x_pos, y_pos);
+	// 		printf("%3d", map[y_pos][x_pos].color);
+	// 		x_pos++;
+	// 	}
+	// 	printf("\n");
+	// 	y_pos++;
+	// }
 	close(fd);
 	return (map);
 }

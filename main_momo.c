@@ -6,9 +6,10 @@
 int	main(int argc, char **argv)
 {
 	t_fdf	**map_data;
-    int y_pos = 0;
+    int     y_pos = 0;
 
-    (void)argc;
+    if (argc != 2)
+        return (perror("Error with arguments"), 0)
     map_data = ft_init(argv[1], &y_pos);
     printf("y_pos = %d\n", y_pos);
 	if (map_data)
