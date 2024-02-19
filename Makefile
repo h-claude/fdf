@@ -6,7 +6,7 @@
 #    By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/30 14:18:46 by hclaude           #+#    #+#              #
-#    Updated: 2024/02/15 06:04:27 by moajili          ###   ########.fr        #
+#    Updated: 2024/02/15 06:52:57 by moajili          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ RM = rm -rf
 
 CC := @gcc
 AR := ar
-CFLAGS := -Wall -Werror -Wextra
+CFLAGS := -Wall -Werror -Wextra -g3
 
 LIBFT = lib/turbo_libft/libft.a
 
@@ -30,7 +30,7 @@ all : $(NAME)
 $(NAME) : $(OBJFILES) mlx
 	@make big -C lib/turbo_libft/
 	@mv $(LIBFT) .
-	$(CC) $(CFLAGS) $(OBJFILES) libft.a libmlx42.a -lglfw -lm -g3 -o $(NAME) 
+	$(CC) $(CFLAGS) $(OBJFILES) libft.a libmlx42.a -lglfw -lm -o $(NAME) 
 
 mlx :
 	@cd lib/MLX42 && cmake -B build

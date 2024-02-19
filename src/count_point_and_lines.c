@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:53:07 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/15 04:58:44 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/19 16:35:32 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,27 @@ int	ft_count_point(char *str, char c)
 	return (nbstr);
 }
 
-	void	ft_count_line_and_point(int fd, int *xmax, int *ymax)
-	{
+int	ft_count_line_and_point(int fd, int *xmax, int *ymax)
+{
 		char	*temp_line;
+		// int i = 5;
 
 		temp_line = get_next_line(fd);
 		if (!temp_line)
-			return (perror("Fichier vide"), (void)close(fd));
+			return (perror("Fichier vide"), (void)close(fd), 0);
 		(*xmax) = ft_count_point(temp_line, ' ');
+		if (!*xmax)
+			return (free(temp_line), 0);
 		while (temp_line)
 		{
 			(*ymax)++;
 			free(temp_line);
 			temp_line = get_next_line(fd);
-			if (!temp_line)
-            	break;
+			// if (!i)
+			// 	return (free(temp_line), (void)close(fd), 1); // Le probleme etait ici
+			// i--;
 		}
-		free(temp_line);
-		close(fd);
-	}
+		if (!*ymax)
+			return (free(temp_line), 0);
+		return (free(temp_line), (void)close(fd), 1);
+}

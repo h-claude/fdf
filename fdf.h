@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/15 03:25:12 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/15 09:48:09 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_fdf		**ft_init(char *filepath, int *y);
 int			ft_count_point(char *str, char c);
 int			ft_get_finals_maps(char ***split_map_content, t_fdf **map_data,
 				int xmax, int ymax);
-void		ft_count_line_and_point(int fd, int *xmax, int *ymax);
+int	ft_count_line_and_point(int fd, int *xmax, int *ymax);
 void		ft_free_mega_split(char ***split_map_content);
 void		ft_freetab(char **str);
 void		free_alloc(t_fdf **allocd, int ymax);
