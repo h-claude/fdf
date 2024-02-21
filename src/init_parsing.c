@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/21 13:20:02 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/21 14:21:29 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	ft_getmap(int fd, t_fdf **map_data, int xmax, int ymax)
 	if (!map_content)
 		return (0);
 	y_pos = 0;
-	while (y_pos <= ymax)
+	while (y_pos < ymax)
 		map_content[y_pos++] = get_next_line(fd);
 	if (!ft_checkmap(xmax, ymax, map_content))
 		return (perror("Map invalid"), ft_freetab(map_content), 0);

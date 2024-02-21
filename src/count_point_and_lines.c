@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:53:07 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/19 16:35:32 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/21 14:24:00 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_count_point(char *str, char c)
 int	ft_count_line_and_point(int fd, int *xmax, int *ymax)
 {
 		char	*temp_line;
-		// int i = 5;
+		// int i = 35;
 
 		temp_line = get_next_line(fd);
 		if (!temp_line)

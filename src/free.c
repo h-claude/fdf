@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:51:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/15 05:31:43 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/21 14:25:08 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_free_mega_split(char ***split_map_content)
 	x_pos = 0;
 	while (split_map_content[y_pos])
 	{
+		printf("y = %d et x = %d\n", y_pos, x_pos);
 		x_pos = 0;
 		while (split_map_content[y_pos][x_pos])
 			free(split_map_content[y_pos][x_pos++]);
@@ -62,7 +63,6 @@ void	ft_freetab(char **str)
 	i = 0;
 	while (str[i])
 		free(str[i++]);
-	free(str[i]);
 	free(str);
 	str = NULL;
 }
