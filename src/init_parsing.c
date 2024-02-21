@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/21 14:21:29 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/21 17:14:59 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	ft_split_map_content(char **map_content, t_fdf **map_data, int xmax,
 		return (perror("Fail alloc split_map_content"), 0);
 	while (map_content[y_pos])
 	{
-		if (y_pos > ymax) // y_pos etait superieur a ymax et ca fait boum
+		if (y_pos > ymax)
 			return (perror("Error with count lines"), 0);
 		split_map_content[y_pos] = ft_split(map_content[y_pos], ' ');
 		if (!split_map_content[y_pos])
@@ -70,7 +70,7 @@ static int	ft_getmap(int fd, t_fdf **map_data, int xmax, int ymax)
 	while (y_pos < ymax)
 		map_content[y_pos++] = get_next_line(fd);
 	if (!ft_checkmap(xmax, ymax, map_content))
-		return (perror("Map invalid"), ft_freetab(map_content), 0);
+		return (perror("Invalid map"), ft_freetab(map_content), 0);
 	return (ft_split_map_content(map_content, map_data, xmax, ymax));
 }
 
