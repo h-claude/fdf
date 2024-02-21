@@ -69,10 +69,10 @@ float ft_planetransformery(int x, int y, int z)
     return (x*sinf(120)+y*sinf(120+2)+z*sinf(120-2));
 }
 
-void ft_hook(void* param)
-{
-	mlx_put_pixel(image, 15, 15, 0xFFFFFFFF);
-}
+// void ft_hook(void* param)
+// {
+// 	mlx_put_pixel(image, 15, 15, 0xFFFFFFFF);
+// }
 
 void drawMap(t_fdf *map_data)
 {
@@ -84,7 +84,7 @@ void drawMap(t_fdf *map_data)
 			// printf("j = %d VS map_data->xmax = %d\n", j, map_data->xmax);
 			printf("map_data->pos[%d][%d] = %d\n", i, j, map_data->pos[i][j]);
             //mlx_put_pixel(image,tdpos->coord_x[i][j], tdpos->coord_y[i][j], 0xFFFFFFFF);
-            mlx_put_pixel(image,i,j, 0xFFFFFFFF);
+            mlx_put_pixel(image,i,j, map_data->color[i][j]);
         }
 		i++;
     }
@@ -113,15 +113,22 @@ void loop_hook_example(void* param)
 
 int	main(int argc, char **argv)
 {
-    mlx_t* mlx;
-	t_fdf	*map_data;
-    int y_pos = 0;
+    mlx_t   *mlx;
+    t_fdf	*map_data;
     // t_3dpos *tdpos;
 
+    if (argc != 2)
+		return (perror("Wrong number of arguments"), 0);
 	map_data = malloc(sizeof(t_fdf));
 	// tdpos = malloc(sizeof(t_3dpos));
 	if (ft_init(map_data, argv[1]))
 		printf("good !\n");
+    else
+		return(perror("Fail!\n"), 0);
+	ft_free_finals_maps(map_data);
+	free(map_data);
+	return (0);
+	// ------ //
     ft_alloccoord(map_data, map_data->ymax, map_data->xmax);
     ft_coordy(map_data);
     ft_coordx(map_data);
@@ -132,16 +139,10 @@ int	main(int argc, char **argv)
 	// 		printf("\n");
     //     }
     // }
-
-/*
-    tdpos->coord_x[0][1]=ft_planetransformerx(0,1,map_data->pos[0][1]);
-    tdpos->coord_y[0][1]=ft_planetransformery(0,1,map_data->pos[0][1]);
-    printf("x = %f, y = %f\n", tdpos->coord_x[0][1], tdpos->coord_y[0][1]);
-
-    tdpos->coord_x[0][2]=ft_planetransformerx(0,2,map_data->pos[0][2]);
-    tdpos->coord_y[0][2]=ft_planetransformery(0,2,map_data->pos[0][2]);
-    printf("x = %f, y = %f\n", tdpos->coord_x[0][2], tdpos->coord_y[0][2]);
-*/
+    // tdpos->coord_x[0][1]=ft_planetransformerx(0,1,map_data->pos[0][1]);
+    // tdpos->coord_y[0][1]=ft_planetransformery(0,1,map_data->pos[0][1]);
+    // tdpos->coord_x[0][2]=ft_planetransformerx(0,2,map_data->pos[0][2]);
+    // tdpos->coord_y[0][2]=ft_planetransformery(0,2,map_data->pos[0][2]);
 	// for (int y = 0; y < map_data->ymax; y++) {
     //     for (int x = 0; x < map_data->xmax; x++) {
     //         printf("map_data->pos[%d][%d] : %d \n", y,x,map_data->pos[y][x]);
