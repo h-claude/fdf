@@ -126,9 +126,6 @@ int	main(int argc, char **argv)
 		printf("good !\n");
     else
 		return(perror("Fail!\n"), 0);
-	ft_free_finals_maps(map_data);
-	free(map_data);
-	return (0);
 	// ------ //
     ft_alloccoord(map_data, map_data->ymax, map_data->xmax);
     ft_coordy(map_data);
@@ -161,5 +158,7 @@ int	main(int argc, char **argv)
 	mlx_loop(mlx);
 	printf("OK 5\n");
 	mlx_terminate(mlx);
+    ft_free_finals_maps(map_data);
+	free(map_data);
 	return (EXIT_SUCCESS);
 }
