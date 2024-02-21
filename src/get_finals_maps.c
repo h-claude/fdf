@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:56:37 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/14 17:55:29 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/21 16:50:25 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_free_finals_maps(t_fdf *map_data)
  * @return 1 on success, 0 on failure. In case of failure, it frees any allocated
  *         memory and returns 0.
  */
-static int	ft_alloc_finals_maps(t_fdf *map_data)
+int	ft_alloc_finals_maps(t_fdf *map_data)
 {
 	int	y_pos;
 
@@ -96,8 +96,6 @@ int	ft_get_finals_maps(char ***split_map_content, t_fdf *map_data)
 	int		y_pos;
 	char	**tmp;
 
-	if (!ft_alloc_finals_maps(map_data))
-		return (perror("Fail alloc finals maps"), 0);
 	y_pos = 0;
 	while (y_pos < map_data->ymax)
 	{
@@ -105,8 +103,10 @@ int	ft_get_finals_maps(char ***split_map_content, t_fdf *map_data)
 		while (x_pos < map_data->xmax && split_map_content[y_pos])
 		{
 			tmp = ft_split(split_map_content[y_pos][x_pos], ',');
+			if (!tmp)
+				return (perror("Split Failed"), ft_free_mega_split(split_map_content, map_data), 0);
 			map_data->pos[y_pos][x_pos] = ft_atoi(tmp[0]);
-			if (strchr(split_map_content[y_pos][x_pos], ','))
+			if (ft_strchr(split_map_content[y_pos][x_pos], ','))
 				map_data->color[y_pos][x_pos] = get_the_color(tmp[1]);
 			else
 				map_data->color[y_pos][x_pos] = -1;

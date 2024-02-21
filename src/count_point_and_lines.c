@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:53:07 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/14 15:47:37 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/21 16:56:03 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,29 @@ int	ft_count_point(char *str, char c)
  * in the `map_data` structure. It uses
  * the `ft_count_point` function to count the
  * number of points in each line.
+ * It returns 0 if the function has a problem and 1 else
  *
  * @param fd The file descriptor of the opened file.
  * @param map_data A pointer to the structure containing map data.
  */
-void	ft_count_line_and_point(int fd, t_fdf *map_data)
+int	ft_count_line_and_point(int fd, t_fdf *map_data)
 {
 	char	*temp_line;
 
 	map_data->ymax = 0;
 	temp_line = get_next_line(fd);
 	if (!temp_line)
-		return (perror("Fichier vide"), free(temp_line), (void)close(fd));
+		return (perror("Empty file"), (void)close(fd), 0);
 	map_data->xmax = ft_count_point(temp_line, ' ');
+	if (!map_data->xmax)
+		return (free(temp_line), 0);
 	while (temp_line)
 	{
 		map_data->ymax++;
 		free(temp_line);
 		temp_line = get_next_line(fd);
 	}
-	close(fd);
-	free(temp_line);
+	if (!map_data->ymax)
+			return (free(temp_line), 0);
+	return ((void)close(fd), free(temp_line), 1);
 }

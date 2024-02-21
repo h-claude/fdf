@@ -120,7 +120,8 @@ int	main(int argc, char **argv)
     if (argc != 2)
 		return (perror("Wrong number of arguments"), 0);
 	map_data = malloc(sizeof(t_fdf));
-	// tdpos = malloc(sizeof(t_3dpos));
+	if (!map_data)
+		return (perror("Fail alloc map_data :/"), 0);
 	if (ft_init(map_data, argv[1]))
 		printf("good !\n");
     else

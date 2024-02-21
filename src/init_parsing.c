@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/14 13:57:32 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/21 16:57:13 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,16 @@ static int	ft_split_map_content(char **map_content, t_fdf *map_data)
 		return (perror("Fail alloc split_map_content"), 0);
 	while (map_content[y_pos])
 	{
+		if (y_pos > map_data->ymax)
+			return (perror("Error with count lines"), 0);
 		split_map_content[y_pos] = ft_split(map_content[y_pos], ' ');
 		if (!split_map_content[y_pos])
 			return (perror("Split Crash"), 0);
 		y_pos++;
 	}
 	ft_freetab(map_content);
+	if (!ft_alloc_finals_maps(map_data))
+		return (perror("Fail alloc finals maps"), 0);
 	return (ft_get_finals_maps(split_map_content, map_data));
 }
 
