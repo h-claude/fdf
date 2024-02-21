@@ -8,16 +8,20 @@
 int	main(int argc, char **argv)
 {
 	t_fdf	**map_data;
-    int     y_pos = 0;
-
+    t_dimension *dim_map;
     if (argc != 2)
         return (perror("Error with arguments"), 0);
-    map_data = ft_init(argv[1], &y_pos);
-    printf("y_pos = %d\n", y_pos);
+    dim_map = malloc(sizeof(t_dimension));
+    if (!dim_map)
+        return (perror("Fail alloc dim_map"), 0);
+    dim_map->xmax = 0;
+    dim_map->ymax = 0;
+    map_data = ft_init(argv[1], dim_map);
 	if (map_data)
 		printf("good !\n");
-
-    if (map_data)
-        free_alloc(map_data, y_pos);
+    else
+        return (perror("Marche pas"), 0);
+    free_alloc(map_data, dim_map->ymax);
+    free(dim_map);
     return (0);
 }

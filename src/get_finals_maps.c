@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_finals_maps.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:56:37 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/15 07:43:01 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/21 13:06:40 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_get_finals_maps(char ***split_map_content, t_fdf **map_data, int xmax,
 				return (perror("Split Failed"),ft_free_mega_split(split_map_content),
 					free_alloc(map_data, ymax), 0);
 			map_data[y][x] = (t_fdf){.z = ft_atoi(tmp[0]), .x = x, .y = y};
-			if (strchr(split_map_content[y][x], ','))
+			if (ft_strchr(split_map_content[y][x], ','))
 				map_data[y][x].color = get_the_color(tmp[1]);
 			else
 				map_data[y][x].color = -1;

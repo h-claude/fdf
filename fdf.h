@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/15 09:48:09 by moajili          ###   ########.fr       */
+/*   Updated: 2024/02/21 13:04:02 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,13 @@ typedef struct s_fdf
 	float	**coord_y;
 }			t_fdf;
 
-t_fdf		**ft_init(char *filepath, int *y);
+typedef struct s_dimension
+{
+	int xmax;
+	int ymax;
+}	t_dimension;
+
+t_fdf		**ft_init(char *filepath, t_dimension *dim_map);
 int			ft_count_point(char *str, char c);
 int			ft_get_finals_maps(char ***split_map_content, t_fdf **map_data,
 				int xmax, int ymax);

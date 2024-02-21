@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/19 16:34:22 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/21 13:20:02 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,29 +77,29 @@ static int	ft_getmap(int fd, t_fdf **map_data, int xmax, int ymax)
 t_fdf	**alloc(int xmax, int ymax)
 {
 	t_fdf	**allocd;
+	int		y_pos;
 
-	allocd = (t_fdf **)malloc(sizeof(t_fdf *) * (ymax + 1));
+	y_pos = 0;
+	allocd = (t_fdf **)malloc(sizeof(t_fdf *) * (ymax));
 	if (!allocd)
 		return (perror("Fail alloc map_data"), NULL);
-	ymax++;
-	while (ymax > 0)
+	while (y_pos < ymax)
 	{
-		allocd[--ymax] = (t_fdf *)malloc(sizeof(t_fdf) * (xmax + 1));
-		if (!allocd[ymax])
-			return(free_alloc(allocd, ymax),NULL);
+		allocd[y_pos] = (t_fdf *)malloc(sizeof(t_fdf) * (xmax));
+		if (!allocd[y_pos])
+			return(free_alloc(allocd, y_pos),NULL);
+		y_pos++;
 	}
 	return (allocd);
 }
 
-t_fdf	**ft_init(char *filepath, int *y)
+t_fdf	**ft_init(char *filepath, t_dimension *dim_map)
 {
 	t_fdf	**map;
 	int		fd;
 	int		fd_temp;
 	int		xmax;
 	int		ymax;
-	int		y_pos;
-	int		x_pos;
 
 	xmax = 0;
 	ymax = 0;
@@ -109,21 +109,20 @@ t_fdf	**ft_init(char *filepath, int *y)
 		return (perror("Fail open fd"), NULL);
 	if (!ft_count_line_and_point(fd_temp, &xmax, &ymax))
 		return (perror("Fichier vide"), close(fd_temp), close(fd), NULL);
-	printf("%d et %d\n", ymax, xmax);
+	dim_map->xmax = xmax;
+	dim_map->ymax = ymax;
 	close(fd_temp);
-	*y = ymax;
-	map = alloc(xmax, ymax);
+	map = alloc(dim_map->xmax, dim_map->ymax);
 	if(!map)
 		return (perror("Fail alloc map_data"), NULL);
-	if (!ft_getmap(fd, map, xmax, ymax))
+	if (!ft_getmap(fd, map, dim_map->xmax, dim_map->ymax))
 		return (0);
-	printf("TEST 1\n");
-	y_pos = 0;
-	x_pos = 0;
-	while (y_pos < ymax)
+	int y_pos = 0;
+	int x_pos = 0;
+	while (y_pos < dim_map->ymax)
 	{
 		x_pos = 0;
-		while (x_pos < xmax)
+		while (x_pos < dim_map->xmax)
 		{
 			printf("%3d", map[y_pos][x_pos].z);
 			x_pos++;
