@@ -61,7 +61,7 @@ void ft_coordx(t_fdf *map_data)
 
 int32_t ft_planetransformerx(int x, int y, int z)
 {
-	int angle = 120;
+	int angle = 0;
 	return (x * cosf(angle) + y * cosf(angle + 2) + z * cosf(angle - 2));
 }
 
@@ -70,7 +70,7 @@ int32_t ft_planetransformerx(int x, int y, int z)
 
 int32_t ft_planetransformery(int x, int y, int z)
 {
-	int angle = 20;
+	int angle = 0;
 	return (x * sinf(angle) + y * sinf(angle + 2) + z * sinf(angle - 2));
 }
 
@@ -89,10 +89,10 @@ void drawMap(t_fdf *map_data)
 		while (x < map_data->xmax) {
 			//printf("map_data->pos[%d][%d] = %d\n", i, j, map_data->pos[i][j]);
 			//mlx_put_pixel(image, x, y, map_data->color[y][x]);
-			if (map_data->coord_x[y][x] > 0 && map_data->coord_y[y][x] > 0)
+			if (map_data->coord_x[y][x] > 0 && map_data->coord_y[y][x] >= 0)
 			{
 				printf("map_data->coord_x[%d][%d] = %d\n", y, x, map_data->coord_x[y][x]);
-				mlx_put_pixel(image, map_data->coord_x[y][x], map_data->coord_y[y][x], map_data->color[y][x]);
+				mlx_put_pixel(image, map_data->coord_x[y][x] * 5, map_data->coord_y[y][x] * 5, map_data->color[y][x]);
 			}
 			x++;
 		}
@@ -164,7 +164,7 @@ int	main(int argc, char **argv)
 	printf("OK 1\n");
 	image = mlx_new_image(mlx, 1920, 1080);
 	printf("OK 2\n");
-	mlx_image_to_window(mlx, image, 500, 500);
+	mlx_image_to_window(mlx, image, 0, 0);
 	printf("OK 3\n");
 	mlx_loop_hook(mlx, loop_hook_example, (map_data));
 	printf("OK 4\n");

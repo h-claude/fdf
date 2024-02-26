@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/26 17:06:00 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/26 17:12:26 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@
 
 // typedef struct s_point t_point;
 
+typedef struct s_angle
+{
+	int	angle_x;
+	int	angle_y;
+	int angle_z;
+	float	zoom;
+}	t_angle;
 
 typedef struct s_fdf
 {
@@ -44,13 +51,6 @@ typedef struct s_fdf
 	t_angle		*angle_data;
 }					t_fdf;
 
-typedef struct s_angle
-{
-	int	angle_x;
-	int	angle_y;
-	int angle_z;
-	float	zoom;
-}	t_angle;
 
 int	ft_init(t_fdf *map_data, char *filepath);
 int	ft_count_point(char *str, char c);
