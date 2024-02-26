@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/26 14:12:29 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/26 17:06:00 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 
 /*struct t_point
 {
-    int x;
-    int y;
-    int z;
-    int color;
-    struct t_point *next_h;
-    struct t_point *next_v;
+	int x;
+	int y;
+	int z;
+	int color;
+	struct t_point *next_h;
+	struct t_point *next_v;
 };
 */
 
@@ -35,14 +35,22 @@
 
 typedef struct s_fdf
 {
-    int            ymax;
-    int            xmax;
-    int            **pos;
-    int32_t        **color;
-    //--------//
-    int32_t **coord_x;
-    int32_t **coord_y;
+	int			ymax;
+	int			xmax;
+	int			**pos;
+	int32_t		**color;
+	int32_t		**coord_x;
+	int32_t		**coord_y;
+	t_angle		*angle_data;
 }					t_fdf;
+
+typedef struct s_angle
+{
+	int	angle_x;
+	int	angle_y;
+	int angle_z;
+	float	zoom;
+}	t_angle;
 
 int	ft_init(t_fdf *map_data, char *filepath);
 int	ft_count_point(char *str, char c);
