@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/21 16:55:22 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/26 14:12:29 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct s_fdf
     int            **pos;
     int32_t        **color;
     //--------//
-    float **coord_x;
-    float **coord_y;
+    int32_t **coord_x;
+    int32_t **coord_y;
 }					t_fdf;
 
 int	ft_init(t_fdf *map_data, char *filepath);

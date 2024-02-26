@@ -8,20 +8,20 @@
 #define HEIGHT 512
 
 static mlx_image_t* image;
-float ft_planetransformery(int x, int y, int z);
-float ft_planetransformerx(int x, int y, int z);
+int32_t ft_planetransformery(int x, int y, int z);
+int32_t ft_planetransformerx(int x, int y, int z);
 
 void ft_alloccoord(t_fdf *tdpos, int ymax, int xmax)
 {
     int y_pos = 0;
 
-    tdpos->coord_x = malloc(sizeof(float *) * ymax);
-    while (y_pos < ymax)
-		tdpos->coord_x[y_pos++] = malloc(sizeof(float) * xmax);
+    tdpos->coord_x = ft_calloc(sizeof(int32_t *), ymax);
+    while (y_pos <= ymax)
+		tdpos->coord_x[y_pos++] = ft_calloc(sizeof(int32_t), xmax);
     y_pos = 0;
-    tdpos->coord_y = malloc(sizeof(float *) * ymax);
-    while (y_pos < ymax)
-		tdpos->coord_y[y_pos++] = malloc(sizeof(float) * xmax);
+    tdpos->coord_y = ft_calloc(sizeof(int32_t *), ymax);
+    while (y_pos <= ymax)
+		tdpos->coord_y[y_pos++] = ft_calloc(sizeof(int32_t), xmax);
 
 }
 
@@ -59,14 +59,19 @@ void ft_coordx(t_fdf *map_data)
     }
 }
 
-float ft_planetransformerx(int x, int y, int z)
+int32_t ft_planetransformerx(int x, int y, int z)
 {
-    return (x*cosf(120)+y*cosf(120+2)+z*cosf(120-2));
+    int angle = 120;
+    return (x * cosf(angle) + y * cosf(angle + 2) + z * cosf(angle - 2));
 }
 
-float ft_planetransformery(int x, int y, int z)
+//destination.x = source.x + cos(angle) * source.z
+//destination.y = source.y + sin(angle) * source.z
+
+int32_t ft_planetransformery(int x, int y, int z)
 {
-    return (x*sinf(120)+y*sinf(120+2)+z*sinf(120-2));
+    int angle = 20;
+    return (x * sinf(angle) + y * sinf(angle + 2) + z * sinf(angle - 2));
 }
 
 // void ft_hook(void* param)
@@ -76,17 +81,22 @@ float ft_planetransformery(int x, int y, int z)
 
 void drawMap(t_fdf *map_data)
 {
-	int i = 0;
+	int y = 0;
+    int x = 0;
 	printf("ON EST DANS DRAWMAP\n");
-    while (i < map_data->ymax) {
-		printf("i = %d VS map_data->ymax = %d\n", i, map_data->ymax);
-		for (int j = 0; j <= map_data->xmax; j++) {
-			// printf("j = %d VS map_data->xmax = %d\n", j, map_data->xmax);
-			printf("map_data->pos[%d][%d] = %d\n", i, j, map_data->pos[i][j]);
-            //mlx_put_pixel(image,tdpos->coord_x[i][j], tdpos->coord_y[i][j], 0xFFFFFFFF);
-            mlx_put_pixel(image,i,j, map_data->color[i][j]);
+    while (y < map_data->ymax) {
+        x = 0;
+		while (x < map_data->xmax) {
+			//printf("map_data->pos[%d][%d] = %d\n", i, j, map_data->pos[i][j]);
+            //mlx_put_pixel(image, x, y, map_data->color[y][x]);
+            if (map_data->coord_x[y][x] > 0 && map_data->coord_y[y][x] > 0)
+            {
+		        printf("map_data->coord_x[%d][%d] = %d\n", y, x, map_data->coord_x[y][x]);
+                mlx_put_pixel(image, map_data->coord_x[y][x], map_data->coord_y[y][x], map_data->color[y][x]);
+            }
+            x++;
         }
-		i++;
+		y++;
     }
 }
 
@@ -95,13 +105,13 @@ void loop_hook_example(void* param)
 	// printf("DANS LOOP HOOK EXAMPLE\n");
     t_fdf *map_data = (t_fdf *)param;
 	printf("map_data->xmax = %d\n", map_data->xmax);
-	// for (int y = 0; y < map_data->ymax; y++) {
-    //     for (int x = 0; x < map_data->xmax; x++) {
-    //         printf("tdpos->coord_x[%d][%d] : %f \n", y,x,map_data->coord_x[y][x]);
-	// 		printf("tdpos->coord_y[%d][%d] : %f \n", y,x,map_data->coord_y[y][x]);
-	// 		printf("\n");
-    //     }
-    // }
+	//for (int y = 0; y < map_data->ymax; y++) {
+    //    for (int x = 0; x < map_data->xmax; x++) {
+    //        printf("tdpos->coord_x[%d][%d] : %d \n", y,x,map_data->coord_x[y][x]);
+	// 	    printf("tdpos->coord_y[%d][%d] : %d \n", y,x,map_data->coord_y[y][x]);
+	// 	    printf("\n");
+    //    }
+    //}
 	// for (int y = 0; y < map_data->ymax; y++) {
     //     for (int x = 0; x < map_data->xmax; x++) {
     //         printf("tdpos->coord_x[%d][%d] : %d \n", y,x,map_data->pos[y][x]);
@@ -143,15 +153,15 @@ int	main(int argc, char **argv)
     // tdpos->coord_y[0][2]=ft_planetransformery(0,2,map_data->pos[0][2]);
 	// for (int y = 0; y < map_data->ymax; y++) {
     //     for (int x = 0; x < map_data->xmax; x++) {
-    //         printf("map_data->pos[%d][%d] : %d \n", y,x,map_data->pos[y][x]);
-	// 		printf("\n");
-    //     }
+    //        printf("map_data->pos[%d][%d] : %d \n", y,x,map_data->pos[y][x]);
+	// 	printf("\n");
+    //    }
     // }
-	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	mlx = mlx_init(1920, 1080, "MLX42", true);
 	printf("OK 1\n");
-	image = mlx_new_image(mlx, 500, 500);
+	image = mlx_new_image(mlx, 1920, 1080);
     printf("OK 2\n");
-	mlx_image_to_window(mlx, image, 0, 0);
+	mlx_image_to_window(mlx, image, 500, 500);
 	printf("OK 3\n");
 	mlx_loop_hook(mlx, loop_hook_example, (map_data));
 	printf("OK 4\n");
