@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/26 17:12:26 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/04 13:51:38 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <stdio.h>
 # include "lib/MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
+
+#define WIDTH 1920
+#define HEIGHT 1080
 
 /*struct t_point
 {
@@ -61,5 +64,6 @@ void	ft_freetab(char **str);
 void	ft_free_finals_maps(t_fdf *map_data);
 int32_t get_the_color(char *hexa_color);
 int	ft_alloc_finals_maps(t_fdf *map_data);
+void	ft_clearimage(mlx_image_t *image);
 
 #endif

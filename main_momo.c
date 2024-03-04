@@ -4,9 +4,6 @@
 #include <stdbool.h>
 #include "lib/MLX42/include/MLX42/MLX42.h"
 
-#define WIDTH 512
-#define HEIGHT 512
-
 static mlx_image_t* image;
 int32_t ft_planetransformery(int x, int y, int z);
 int32_t ft_planetransformerx(int x, int y, int z);
@@ -92,7 +89,7 @@ void drawMap(t_fdf *map_data)
 			if (map_data->coord_x[y][x] > 0 && map_data->coord_y[y][x] >= 0)
 			{
 				printf("map_data->coord_x[%d][%d] = %d\n", y, x, map_data->coord_x[y][x]);
-				mlx_put_pixel(image, map_data->coord_x[y][x] * 5, map_data->coord_y[y][x] * 5, map_data->color[y][x]);
+				mlx_put_pixel(image, map_data->coord_x[y][x] * 1, map_data->coord_y[y][x] * 1, map_data->color[y][x]);
 			}
 			x++;
 		}
@@ -104,20 +101,7 @@ void loop_hook_example(void* param)
 {
 	// printf("DANS LOOP HOOK EXAMPLE\n");
 	t_fdf *map_data = (t_fdf *)param;
-	printf("map_data->xmax = %d\n", map_data->xmax);
-	//for (int y = 0; y < map_data->ymax; y++) {
-	//    for (int x = 0; x < map_data->xmax; x++) {
-	//        printf("tdpos->coord_x[%d][%d] : %d \n", y,x,map_data->coord_x[y][x]);
-	// 	    printf("tdpos->coord_y[%d][%d] : %d \n", y,x,map_data->coord_y[y][x]);
-	// 	    printf("\n");
-	//    }
-	//}
-	// for (int y = 0; y < map_data->ymax; y++) {
-	//     for (int x = 0; x < map_data->xmax; x++) {
-	//         printf("tdpos->coord_x[%d][%d] : %d \n", y,x,map_data->pos[y][x]);
-	// 		printf("\n");
-	//     }
-	// }
+	ft_clearimage(image);
 	drawMap(map_data);
 }
 
@@ -139,6 +123,10 @@ int	main(int argc, char **argv)
 		printf("good !\n");
 	else
 		return(perror("Fail!\n"), 0);
+	//ft_free_finals_maps(map_data);
+	//free(map_data->angle_data);
+	//free(map_data);
+	//return (EXIT_SUCCESS);
 	// ------ //
 	ft_alloccoord(map_data, map_data->ymax, map_data->xmax);
 	ft_coordy(map_data);
@@ -160,9 +148,9 @@ int	main(int argc, char **argv)
 	// 	printf("\n");
 	//    }
 	// }
-	mlx = mlx_init(1920, 1080, "MLX42", true);
+	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	printf("OK 1\n");
-	image = mlx_new_image(mlx, 1920, 1080);
+	image = mlx_new_image(mlx, WIDTH, HEIGHT);
 	printf("OK 2\n");
 	mlx_image_to_window(mlx, image, 0, 0);
 	printf("OK 3\n");
