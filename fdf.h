@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/04 13:51:38 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/04 15:29:36 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,10 @@ void	ft_free_finals_maps(t_fdf *map_data);
 int32_t get_the_color(char *hexa_color);
 int	ft_alloc_finals_maps(t_fdf *map_data);
 void	ft_clearimage(mlx_image_t *image);
+void drawMap(t_fdf *map_data, mlx_image_t *image);
+void ft_alloccoord(t_fdf *tdpos, int ymax, int xmax);
+void ft_coordy(t_fdf *map_data);
+void ft_coordx(t_fdf *map_data);
+void	ft_inputs(t_fdf *map_data, mlx_t *mlx);
 
 #endif
