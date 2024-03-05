@@ -11,7 +11,7 @@ static	mlx_t   *mlx;
 void loop_hook_example(void* param)
 {
 	t_fdf *map_data = (t_fdf *)param;
-	ft_inputs(map_data, mlx);
+	ft_inputs(map_data, mlx, image);
 	drawMap(map_data, image);
 }
 
@@ -32,6 +32,10 @@ int	main(int argc, char **argv)
 		printf("good !\n");
 	else
 		return(perror("Fail!\n"), 0);
+	map_data->angle_data->angle_x = 0;
+	map_data->angle_data->angle_y = 0;
+	map_data->angle_data->angle_z = 0;
+	map_data->angle_data->zoom = 1;
 	//ft_free_finals_maps(map_data);
 	//free(map_data->angle_data);
 	//free(map_data);
@@ -51,17 +55,18 @@ int	main(int argc, char **argv)
 	// tdpos->coord_y[0][1]=ft_planetransformery(0,1,map_data->pos[0][1]);
 	// tdpos->coord_x[0][2]=ft_planetransformerx(0,2,map_data->pos[0][2]);
 	// tdpos->coord_y[0][2]=ft_planetransformery(0,2,map_data->pos[0][2]);
-	// for (int y = 0; y < map_data->ymax; y++) {
-	//     for (int x = 0; x < map_data->xmax; x++) {
-	//        printf("map_data->pos[%d][%d] : %d \n", y,x,map_data->pos[y][x]);
-	// 	printf("\n");
-	//    }
-	// }
+	//for (int y = 0; y < map_data->ymax; y++) {
+	//	for (int x = 0; x < map_data->xmax; x++) {
+	//		printf("map_data->pos[%d][%d] : %d \n", y,x,map_data->color[y][x]);
+	//	printf("\n");
+	//	}
+	//}
+	//return (1);
 	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	printf("OK 1\n");
 	image = mlx_new_image(mlx, WIDTH, HEIGHT);
 	printf("OK 2\n");
-	mlx_image_to_window(mlx, image, 100, 100);
+	mlx_image_to_window(mlx, image, 0, 0);
 	printf("OK 3\n");
 	mlx_loop_hook(mlx, loop_hook_example, (map_data));
 	printf("OK 4\n");

@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/04 15:29:36 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/05 16:45:53 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ void drawMap(t_fdf *map_data, mlx_image_t *image);
 void ft_alloccoord(t_fdf *tdpos, int ymax, int xmax);
 void ft_coordy(t_fdf *map_data);
 void ft_coordx(t_fdf *map_data);
-void	ft_inputs(t_fdf *map_data, mlx_t *mlx);
+void	ft_inputs(t_fdf *map_data, mlx_t *mlx, mlx_image_t *image);
 
 #endif

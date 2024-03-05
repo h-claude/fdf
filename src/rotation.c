@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/04 15:57:26 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/05 17:09:02 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_clearimage(mlx_image_t *image)
 		x_pos = 0;
 		while (x_pos <= WIDTH)
 		{
-			mlx_put_pixel(image, x_pos, y_pos, 0xff00FFFF);
+			mlx_put_pixel(image, x_pos, y_pos, 0xff00FF00);
 			x_pos++;
 		}
 		y_pos++;
@@ -32,7 +32,7 @@ void	ft_clearimage(mlx_image_t *image)
 }
 // faire une fonction qui modifie les valeurs apres inputs
 
-void	ft_modcoord(t_fdf *map_data, int flag)
+void	ft_modcoord(t_fdf *map_data, int flag, mlx_image_t *image)
 {
 	if (flag == 0)
 		map_data->angle_data->angle_y += 6;
@@ -46,31 +46,57 @@ void	ft_modcoord(t_fdf *map_data, int flag)
 		map_data->angle_data->zoom += 0.5;
 	if (flag == 5 && map_data->angle_data->zoom >= 0.10)
 		map_data->angle_data->zoom -= 0.5;
+	ft_clearimage(image);
+}
+
+void	ft_stop_process(mlx_t *mlx, t_fdf *map)
+{
+	mlx_terminate(mlx);
+	ft_free_finals_maps(map);
+	free(map);
+	exit(1);
 }
 
 // faire une fonction qui prend les inputs du clavier
 
-void	ft_inputs(t_fdf *map_data, mlx_t *mlx)
+void	ft_inputs(t_fdf *map_data, mlx_t *mlx, mlx_image_t *image)
 {
 	printf("Dans ft_inputs\n");
-	map_data->angle_data->angle_x = 0;
-	map_data->angle_data->angle_y = 0;
-	map_data->angle_data->angle_z = 0;
-	map_data->angle_data->zoom = 1;
-
 	if (mlx_is_key_down(mlx, MLX_KEY_W))
-		ft_modcoord(map_data, 0); // rotation vers l'avant
+	{
+		printf("Z angley = %d\n", map_data->angle_data->angle_y);
+		ft_modcoord(map_data, 0, image); // rotation vers l'avant
+	}
 	if (mlx_is_key_down(mlx, MLX_KEY_S))
-		ft_modcoord(map_data, 1); // rotation vers l'arriere
+	{
+		printf("S angley = %d\n", map_data->angle_data->angle_y);
+		ft_modcoord(map_data, 1, image); // rotation vers l'arriere
+	}
 	if (mlx_is_key_down(mlx, MLX_KEY_D))
-		ft_modcoord(map_data, 2); // rotation vers la droite
+	{
+		printf("D anglex = %d\n", map_data->angle_data->angle_x);
+		ft_modcoord(map_data, 2, image); // rotation vers la droite
+	}
 	if (mlx_is_key_down(mlx, MLX_KEY_A))
-		ft_modcoord(map_data, 3); // rotation vers la gauche
+	{
+		printf("A anglex = %d\n", map_data->angle_data->angle_x);
+		ft_modcoord(map_data, 3, image); // rotation vers la gauche
+	}
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT_SHIFT))
-		ft_modcoord(map_data, 4); // zoom avant
+	{
+		printf("Left shift zoom = %f\n", map_data->angle_data->zoom);
+		ft_modcoord(map_data, 4, image); // zoom avant
+	}
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT_CONTROL))
-		ft_modcoord(map_data, 5); // zoom arriere
+	{
+		printf("Left control zoom = %f\n", map_data->angle_data->zoom);
+		ft_modcoord(map_data, 5, image); // zoom arriere
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+		ft_stop_process(mlx, map_data);
+
 }
+
 void ft_alloccoord(t_fdf *tdpos, int ymax, int xmax)
 {
 	int y_pos = 0;
@@ -89,7 +115,7 @@ void ft_alloccoord(t_fdf *tdpos, int ymax, int xmax)
 //Conversion coordonee y vers isometrique
 int32_t ft_planetransformery(int x, int y, t_fdf *data)
 {
-	return (x * sinf(data->angle_data->angle_y) + y * sinf(data->angle_data->angle_y + 2) + data->pos[y][x] * sinf(data->angle_data->angle_y - 2) * data->angle_data->zoom);
+	return ((x * sinf(data->angle_data->angle_y) + y * sinf(data->angle_data->angle_y + 2) + data->pos[y][x] * sinf(data->angle_data->angle_y - 2)) * data->angle_data->zoom);
 }
 
 void ft_coordy(t_fdf *map_data)
@@ -112,7 +138,7 @@ void ft_coordy(t_fdf *map_data)
 //Conversion coordonee x vers isometrique
 int32_t ft_planetransformerx(int x, int y, t_fdf *data)
 {
-	return (x * cosf(data->angle_data->angle_x) + y * cosf(data->angle_data->angle_x + 2) + data->pos[y][x] * cosf(data->angle_data->angle_x - 2) * data->angle_data->zoom);
+	return ((x * cosf(data->angle_data->angle_x) + y * cosf(data->angle_data->angle_x + 2) + data->pos[y][x] * cosf(data->angle_data->angle_x - 2)) * data->angle_data->zoom);
 }
 
 void ft_coordx(t_fdf *map_data)
@@ -140,17 +166,17 @@ void drawMap(t_fdf *map_data, mlx_image_t *image)
 {
 	int y = 0;
 	int x = 0;
-	printf("ON EST DANS DRAWMAP\n");
 	while (y < map_data->ymax) {
 		x = 0;
 		while (x < map_data->xmax) {
 			//printf("map_data->pos[%d][%d] = %d\n", i, j, map_data->pos[i][j]);
 			//mlx_put_pixel(image, x, y, map_data->color[y][x]);
-			if (ft_planetransformerx(x, y, map_data) > 0 && ft_planetransformery(x,y, map_data) >= 0)
+			if ((ft_planetransformerx(x, y, map_data) >= 0 && ft_planetransformerx(x, y ,map_data) < WIDTH) && (ft_planetransformery(x,y, map_data) >= 0 && ft_planetransformery(x, y, map_data) < HEIGHT))
 			{
-				//printf("map_data->coord_x[%d][%d]\n", ft_planetransformery(x,y, map_data), ft_planetransformerx(x, y, map_data));
+				//printf("map_data->coord_x[%d][%d]\n", y, x);
 				mlx_put_pixel(image, ft_planetransformerx(x, y, map_data), ft_planetransformery(x,y, map_data), map_data->color[y][x]);
 			}
+			//mlx_put_pixel(image, x/*ft_planetransformerx(x, y, map_data)*/, y/*ft_planetransformery(x,y, map_data)*/, map_data->color[y][x]);
 			x++;
 		}
 		y++;
