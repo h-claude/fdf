@@ -4,15 +4,11 @@
 #include <stdbool.h>
 #include "lib/MLX42/include/MLX42/MLX42.h"
 
-static	mlx_image_t* image;
-static	mlx_t   *mlx;
-
-
 void loop_hook_example(void* param)
 {
 	t_fdf *map_data = (t_fdf *)param;
-	ft_inputs(map_data, mlx, image);
-	drawMap(map_data, image);
+	ft_inputs(map_data);
+	drawMap(map_data);
 }
 
 int	main(int argc, char **argv)
@@ -41,9 +37,6 @@ int	main(int argc, char **argv)
 	//free(map_data);
 	//return (EXIT_SUCCESS);
 	// ------ //
-	ft_alloccoord(map_data, map_data->ymax, map_data->xmax);
-	ft_coordy(map_data);
-	ft_coordx(map_data);
 	// for (int y = 0; y < map_data->ymax; y++) {
 	//     for (int x = 0; x < map_data->xmax; x++) {
 	//         printf("tdpos->coord_x[%d][%d] : %f \n", y,x,map_data->coord_x[y][x]);
@@ -62,17 +55,17 @@ int	main(int argc, char **argv)
 	//	}
 	//}
 	//return (1);
-	mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	map_data->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	printf("OK 1\n");
-	image = mlx_new_image(mlx, WIDTH, HEIGHT);
+	map_data->image = mlx_new_image(map_data->mlx, WIDTH, HEIGHT);
 	printf("OK 2\n");
-	mlx_image_to_window(mlx, image, 0, 0);
+	mlx_image_to_window(map_data->mlx, map_data->image, 0, 0);
 	printf("OK 3\n");
-	mlx_loop_hook(mlx, loop_hook_example, (map_data));
+	mlx_loop_hook(map_data->mlx, loop_hook_example, (map_data));
 	printf("OK 4\n");
-	mlx_loop(mlx);
+	mlx_loop(map_data->mlx);
 	printf("OK 5\n");
-	mlx_terminate(mlx);
+	mlx_terminate(map_data->mlx);
 	ft_free_finals_maps(map_data);
 	free(map_data);
 	return (EXIT_SUCCESS);
