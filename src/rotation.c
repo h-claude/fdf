@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/05 17:09:02 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/05 17:18:16 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ void	ft_clearimage(mlx_image_t *image)
 void	ft_modcoord(t_fdf *map_data, int flag, mlx_image_t *image)
 {
 	if (flag == 0)
-		map_data->angle_data->angle_y += 6;
+		map_data->angle_data->angle_y += 5;
 	if (flag == 1)
-		map_data->angle_data->angle_y -= 6;
+		map_data->angle_data->angle_y -= 5;
 	if (flag == 2)
-		map_data->angle_data->angle_x += 6;
+		map_data->angle_data->angle_x += 5;
 	if (flag == 3)
-		map_data->angle_data->angle_x -= 6;
+		map_data->angle_data->angle_x -= 5;
 	if (flag == 4)
 		map_data->angle_data->zoom += 0.5;
-	if (flag == 5 && map_data->angle_data->zoom >= 0.10)
+	if (flag == 5 && map_data->angle_data->zoom > 0.10)
 		map_data->angle_data->zoom -= 0.5;
 	ft_clearimage(image);
 }
@@ -61,7 +61,7 @@ void	ft_stop_process(mlx_t *mlx, t_fdf *map)
 
 void	ft_inputs(t_fdf *map_data, mlx_t *mlx, mlx_image_t *image)
 {
-	printf("Dans ft_inputs\n");
+	//printf("Dans ft_inputs\n");
 	if (mlx_is_key_down(mlx, MLX_KEY_W))
 	{
 		printf("Z angley = %d\n", map_data->angle_data->angle_y);
@@ -176,7 +176,6 @@ void drawMap(t_fdf *map_data, mlx_image_t *image)
 				//printf("map_data->coord_x[%d][%d]\n", y, x);
 				mlx_put_pixel(image, ft_planetransformerx(x, y, map_data), ft_planetransformery(x,y, map_data), map_data->color[y][x]);
 			}
-			//mlx_put_pixel(image, x/*ft_planetransformerx(x, y, map_data)*/, y/*ft_planetransformery(x,y, map_data)*/, map_data->color[y][x]);
 			x++;
 		}
 		y++;
