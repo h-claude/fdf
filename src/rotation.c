@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/05 17:47:31 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/07 15:12:53 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	ft_clearimage(mlx_image_t *image)
 	int x_pos;
 
 	y_pos = 0;
-	while (y_pos <= HEIGHT)
+	while (y_pos < HEIGHT)
 	{
 		x_pos = 0;
-		while (x_pos <= WIDTH)
+		while (x_pos < WIDTH)
 		{
 			mlx_put_pixel(image, x_pos, y_pos, 0xff00FF00);
 			x_pos++;

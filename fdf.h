@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/05 17:39:19 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/07 15:38:02 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include "lib/MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
 
-#define WIDTH 1920
-#define HEIGHT 1080
+#define WIDTH 2560
+#define HEIGHT 1440
 
 /*struct t_point
 {
