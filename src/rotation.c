@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/07 18:46:34 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/07 18:50:34 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ int32_t ft_planetransformerx(int x, int y, t_fdf *data)
 // faire une fonction pour afficher les pixels
 void drawMap(t_fdf *map_data)
 {
-	int centre = ;
+	int centre_x = (WIDTH - map_data->xmax) / 2;
+	int centre_y = (HEIGHT  - map_data->ymax) / 2;
 	int y = 0;
 	int x = 0;
 	while (y < map_data->ymax) {
@@ -125,10 +126,10 @@ void drawMap(t_fdf *map_data)
 		while (x < map_data->xmax) {
 			//printf("map_data->pos[%d][%d] = %d\n", i, j, map_data->pos[i][j]);
 			//mlx_put_pixel(image, x, y, map_data->color[y][x]);
-			if ((ft_planetransformerx(x, y, map_data) + 100 >= 0 && ft_planetransformerx(x, y ,map_data) + 100 < WIDTH) && (ft_planetransformery(x, y, map_data) + 100 >= 0 && ft_planetransformery(x, y, map_data) + 100 < HEIGHT))
+			if ((ft_planetransformerx(x, y, map_data) + centre_x >= 0 && ft_planetransformerx(x, y ,map_data) + centre_x < WIDTH) && (ft_planetransformery(x, y, map_data) + centre_y >= 0 && ft_planetransformery(x, y, map_data) + centre_y < HEIGHT))
 			{
 				//printf("map_data->coord_x[%d][%d]\n", y, x);
-				mlx_put_pixel(map_data->image, ft_planetransformerx(x, y, map_data) + 100, ft_planetransformery(x,y, map_data) + 100, map_data->color[y][x]);
+				mlx_put_pixel(map_data->image, ft_planetransformerx(x, y, map_data) + centre_x, ft_planetransformery(x,y, map_data) + centre_y, map_data->color[y][x]);
 			}
 			x++;
 		}
