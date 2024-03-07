@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/07 18:50:34 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/07 19:03:53 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,13 @@ void	ft_inputs(t_fdf *data)
 //Conversion coordonee y vers isometrique
 int32_t ft_planetransformery(int x, int y, t_fdf *data)
 {
-	return ((x * sin(data->angle_data->angle_y) + y * sin(data->angle_data->angle_y + 2) + data->pos[y][x] * sin(data->angle_data->angle_y - 2)) * data->angle_data->zoom);
+	return ((x * sinf(data->angle_data->angle_y) + y * sinf(data->angle_data->angle_y + 2) + data->pos[y][x] * sinf(data->angle_data->angle_y - 2)) * data->angle_data->zoom);
 }
 
 //Conversion coordonee x vers isometrique
 int32_t ft_planetransformerx(int x, int y, t_fdf *data)
 {
-	return ((x * cos(data->angle_data->angle_x) + y * cos(data->angle_data->angle_x + 2) + data->pos[y][x] * cos(data->angle_data->angle_x - 2)) * data->angle_data->zoom);
+	return ((x * cosf(data->angle_data->angle_x) + y * cosf(data->angle_data->angle_x + 2) + data->pos[y][x] * cosf(data->angle_data->angle_x - 2)) * data->angle_data->zoom);
 }
 
 //destination.x = source.x + cos(angle) * source.z
@@ -117,8 +117,8 @@ int32_t ft_planetransformerx(int x, int y, t_fdf *data)
 // faire une fonction pour afficher les pixels
 void drawMap(t_fdf *map_data)
 {
-	int centre_x = (WIDTH - map_data->xmax) / 2;
-	int centre_y = (HEIGHT  - map_data->ymax) / 2;
+	int centre_x = (WIDTH - map_data->xmax * map_data->angle_data->zoom) / 2;
+	int centre_y = (HEIGHT  - map_data->ymax * map_data->angle_data->zoom) / 2;
 	int y = 0;
 	int x = 0;
 	while (y < map_data->ymax) {
@@ -135,4 +135,18 @@ void drawMap(t_fdf *map_data)
 		}
 		y++;
 	}
+}
+
+//Conversion coordonee y vers isometrique
+int32_t ft_planetransformery(int x, int y, t_fdf *data)
+{
+    int z = data->pos[y][x];
+    return ((-x * sinf(data->angle_data->angle_y) + z * cosf(data->angle_data->angle_y)) * data->angle_data->zoom);
+}
+
+//Conversion coordonee x vers isometrique
+int32_t ft_planetransformerx(int x, int y, t_fdf *data)
+{
+    int z = data->pos[y][x];
+    return ((x * cosf(data->angle_data->angle_x) - z * sinf(data->angle_data->angle_x)) * data->angle_data->zoom);
 }
