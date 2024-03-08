@@ -6,7 +6,7 @@
 /*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/08 17:41:28 by moajili          ###   ########.fr       */
+/*   Updated: 2024/03/08 17:45:38 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	ft_stop_process(t_fdf *map)
 
 void	ft_inputs(t_fdf *data)
 {
-	//printf("Dans ft_inputs\n");
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
 		ft_modcoord(data, 0); // rotation vers l'avant
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
