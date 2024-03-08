@@ -39,3 +39,17 @@ int	main(int argc, char **argv)
 	free(map_data);
 	return (EXIT_SUCCESS);
 }
+
+
+/*void	isometric_transform(t_rot *rot, float *x_iso, float *y_iso,
+		t_info *info)
+{
+	float	radx;
+	float	rady;
+
+	radx = info->deg_x * M_PI / 180;
+	rady = info->deg_y * M_PI / 180;
+	*x_iso = ((rot->x0_rot - rot->z0_rot) * cosf(radx)) * info->scale;
+	*y_iso = (rot->y0_rot + (rot->x0_rot + rot->z0_rot) * sinf(rady))
+		* info->scale;
+}*/

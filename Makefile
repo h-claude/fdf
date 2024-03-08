@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+         #
+#    By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/30 14:18:46 by hclaude           #+#    #+#              #
-#    Updated: 2024/03/08 17:48:20 by moajili          ###   ########.fr        #
+#    Updated: 2024/03/08 18:44:23 by hclaude          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,9 @@ mlx :
 	@mv lib/MLX42/build/libmlx42.a .
 
 clean :
+	@make clean -C lib/MLX42/build/
+	@make clean -C lib/turbo_libft/
+	@$(RM) $(OBJFILES)
 	@make clean -C lib/MLX42/build/
 	@make clean -C lib/turbo_libft/
 	@$(RM) $(OBJFILES)

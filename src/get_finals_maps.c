@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:56:37 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/07 16:27:46 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/08 18:45:11 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,15 @@ int	ft_alloc_finals_maps(t_fdf *map_data)
  */
 int	ft_get_finals_maps(char ***split_map_content, t_fdf *map_data)
 {
-	int		x_pos;
-	int		y_pos;
+	int		x;
+	int		y;
 	char	**tmp;
 
 	y_pos = 0;
 	while (y_pos < map_data->ymax)
 	{
-		x_pos = 0;
-		while (x_pos < map_data->xmax && split_map_content[y_pos])
+		x = 0;
+		while (x < xmax && split_map_content[y])
 		{
 			tmp = ft_split(split_map_content[y_pos][x_pos], ',');
 			if (!tmp)
@@ -109,11 +109,11 @@ int	ft_get_finals_maps(char ***split_map_content, t_fdf *map_data)
 			if (ft_strchr(split_map_content[y_pos][x_pos], ','))
 				map_data->color[y_pos][x_pos] = get_the_color(tmp[1]);
 			else
-				map_data->color[y_pos][x_pos] = -1;
+				map_data[y][x].color = -1;
 			ft_freetab(tmp);
-			x_pos++;
+			x++;
 		}
-		y_pos++;
+		y++;
 	}
-	return (ft_free_mega_split(split_map_content, map_data), 1);
+	return (ft_free_mega_split(split_map_content), 1);
 }

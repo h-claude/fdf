@@ -61,14 +61,13 @@ void	ft_stop_process(t_fdf *map)
 
 void	ft_inputs(t_fdf *data)
 {
-	//printf("Dans ft_inputs\n");
-	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-		ft_modcoord(data, 0); // rotation vers l'avant
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+		ft_modcoord(data, 0); // rotation vers l'avant
+	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
 		ft_modcoord(data, 1); // rotation vers l'arriere
-	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-		ft_modcoord(data, 2); // rotation vers la droite
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+		ft_modcoord(data, 2); // rotation vers la droite
+	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
 		ft_modcoord(data, 3); // rotation vers la gauche
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_SHIFT))
 		ft_modcoord(data, 4); // zoom avant
@@ -126,19 +125,13 @@ void drawMap(t_fdf *map_data)
 	int centre_y = (HEIGHT / 2) - (map_data->ymax * map_data->angle_data->zoom / 2);
 	int y = 0;
 	int x = 0;
-	while (y < map_data->ymax)
+	while (y+1 < map_data->ymax)
 	{
 		x = 0;
-		while (x < map_data->xmax)
+		while (x+1 < map_data->xmax)
 		{
-			if (x == map_data->xmax - 1 && map_data->ymax > y + 1)
-				draw_line(ft_planetransformerx(x,y,map_data) + centre_x, ft_planetransformery(x,y,map_data) + centre_y, ft_planetransformerx(x,y+1,map_data) + centre_x, ft_planetransformery(x,y+1,map_data) + centre_y, map_data, map_data->color[y][x]);
-			else if (map_data->xmax > x + 1)
-				draw_line(ft_planetransformerx(x,y,map_data) + centre_x, ft_planetransformery(x,y,map_data) + centre_y, ft_planetransformerx(x+1,y,map_data) + centre_x, ft_planetransformery(x+1,y,map_data) + centre_y, map_data, map_data->color[y][x]); // Draw horizontal line
-			if (y == map_data->ymax - 1 && map_data->xmax > x + 1)
-				draw_line(ft_planetransformerx(x,y,map_data) + centre_x, ft_planetransformery(x,y,map_data) + centre_y, ft_planetransformerx(x+1,y,map_data) + centre_x, ft_planetransformery(x+1,y,map_data) + centre_y, map_data, map_data->color[y][x]);
-			else if (map_data->ymax > y + 1)
-				draw_line(ft_planetransformerx(x,y,map_data) + centre_x, ft_planetransformery(x,y,map_data) + centre_y, ft_planetransformerx(x,y+1,map_data) + centre_x, ft_planetransformery(x,y+1,map_data) + centre_y, map_data, map_data->color[y][x]); // Draw vertical line
+			draw_line(ft_planetransformerx(x,y,map_data) + centre_x, ft_planetransformery(x,y,map_data) + centre_y, ft_planetransformerx(x+1,y,map_data) + centre_x, ft_planetransformery(x+1,y,map_data) + centre_y, map_data, map_data->color[y][x]); // Draw horizontal line
+			draw_line(ft_planetransformerx(x,y,map_data) + centre_x, ft_planetransformery(x,y,map_data) + centre_y, ft_planetransformerx(x,y+1,map_data) + centre_x, ft_planetransformery(x,y+1,map_data) + centre_y, map_data, map_data->color[y][x]); // Draw vertical line
 			x++;
 		}
 		y++;
