@@ -4,7 +4,6 @@
 #include <stdbool.h>
 #include "lib/MLX42/include/MLX42/MLX42.h"
 
-
 void loop_hook(void* param)
 {
 	t_fdf *map_data = (t_fdf *)param;
