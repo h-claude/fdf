@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/07 19:03:53 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/08 14:21:24 by deadchicken      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	ft_clearimage(mlx_image_t *image)
 void	ft_modcoord(t_fdf *map_data, int flag)
 {
 	if (flag == 0)
-		map_data->angle_data->angle_y += 0.01;
+		map_data->angle_data->angle_y += 0.05;
 	if (flag == 1)
-		map_data->angle_data->angle_y -= 0.01;
+		map_data->angle_data->angle_y -= 0.05;
 	if (flag == 2)
-		map_data->angle_data->angle_x += 0.01;
+		map_data->angle_data->angle_x += 0.05;
 	if (flag == 3)
-		map_data->angle_data->angle_x -= 0.01;
+		map_data->angle_data->angle_x -= 0.05;
 	if (flag == 4)
 		map_data->angle_data->zoom += 0.5;
 	if (flag == 5 && map_data->angle_data->zoom > 0.10)
@@ -102,14 +102,34 @@ void	ft_inputs(t_fdf *data)
 //Conversion coordonee y vers isometrique
 int32_t ft_planetransformery(int x, int y, t_fdf *data)
 {
-	return ((x * sinf(data->angle_data->angle_y) + y * sinf(data->angle_data->angle_y + 2) + data->pos[y][x] * sinf(data->angle_data->angle_y - 2)) * data->angle_data->zoom);
+	return ((x * sin(data->angle_data->angle_y) + y * cos(data->angle_data->angle_y + 2) + data->pos[y][x] * cos(data->angle_data->angle_y))* data->angle_data->zoom);
 }
 
 //Conversion coordonee x vers isometrique
 int32_t ft_planetransformerx(int x, int y, t_fdf *data)
 {
-	return ((x * cosf(data->angle_data->angle_x) + y * cosf(data->angle_data->angle_x + 2) + data->pos[y][x] * cosf(data->angle_data->angle_x - 2)) * data->angle_data->zoom);
+	return ((x * sin(data->angle_data->angle_x) + y * sin(data->angle_data->angle_x + 2) + data->pos[y][x] * sin(data->angle_data->angle_x))* data->angle_data->zoom);
 }
+
+//int32_t ft_planetransformery(int x, int y, t_fdf *data)
+//{
+//    float angle = data->angle_data->angle_y;
+//    float z = data->pos[y][x];
+//    float y_rotated = y * cosf(angle) - z * sinf(angle);
+//    float z_rotated = y * sinf(angle) + z * cosf(angle);
+//    return ((x + y_rotated) / 2 - z_rotated) * data->angle_data->zoom;
+//}
+
+////Conversion coordonee x vers isometrique
+//int32_t ft_planetransformerx(int x, int y, t_fdf *data)
+//{
+//    float angle = data->angle_data->angle_x;
+//    float z = data->pos[y][x];
+//    float x_rotated = x * cosf(angle) + z * sinf(angle);
+//    //float z_rotated = -x * sinf(angle) + z * cosf(angle);
+//    return ((x_rotated - y)) * data->angle_data->zoom;
+//}
+
 
 //destination.x = source.x + cos(angle) * source.z
 //destination.y = source.y + sin(angle) * source.z
@@ -118,7 +138,7 @@ int32_t ft_planetransformerx(int x, int y, t_fdf *data)
 void drawMap(t_fdf *map_data)
 {
 	int centre_x = (WIDTH - map_data->xmax * map_data->angle_data->zoom) / 2;
-	int centre_y = (HEIGHT  - map_data->ymax * map_data->angle_data->zoom) / 2;
+	int centre_y = (HEIGHT - map_data->ymax * map_data->angle_data->zoom) / 2;
 	int y = 0;
 	int x = 0;
 	while (y < map_data->ymax) {
@@ -138,15 +158,15 @@ void drawMap(t_fdf *map_data)
 }
 
 //Conversion coordonee y vers isometrique
-int32_t ft_planetransformery(int x, int y, t_fdf *data)
-{
-    int z = data->pos[y][x];
-    return ((-x * sinf(data->angle_data->angle_y) + z * cosf(data->angle_data->angle_y)) * data->angle_data->zoom);
-}
+// int32_t ft_planetransformery(int x, int y, t_fdf *data)
+// {
+//     int z = data->pos[y][x];
+//     return ((-x * sinf(data->angle_data->angle_y) + z * cosf(data->angle_data->angle_y)) * data->angle_data->zoom);
+// }
 
-//Conversion coordonee x vers isometrique
-int32_t ft_planetransformerx(int x, int y, t_fdf *data)
-{
-    int z = data->pos[y][x];
-    return ((x * cosf(data->angle_data->angle_x) - z * sinf(data->angle_data->angle_x)) * data->angle_data->zoom);
-}
+// //Conversion coordonee x vers isometrique
+// int32_t ft_planetransformerx(int x, int y, t_fdf *data)
+// {
+//     int z = data->pos[y][x];
+//     return ((x * cosf(data->angle_data->angle_x) - z * sinf(data->angle_data->angle_x)) * data->angle_data->zoom);
+// }
