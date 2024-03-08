@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/21 13:04:02 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/08 18:43:24 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,47 +18,45 @@
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
+# include "lib/MLX42/include/MLX42/MLX42.h"
+# include <fcntl.h>
 
-/*struct t_point
+#define WIDTH 2560
+#define HEIGHT 1440
+
+typedef struct s_angle
 {
-	int x;
-	int y;
-	int z;
-	int color;
-	struct t_point *next_h;
-	struct t_point *next_v;
-};
-*/
-
-// typedef struct s_point t_point;
+	float	angle_x;
+	float	angle_y;
+	int angle_z;
+	float	zoom;
+}	t_angle;
 
 typedef struct s_fdf
 {
-	int		x;
-	int		y;
-	int		z;
-	int		ymax;
-	int		xmax;
-	int32_t	color;
-	//--------//
-	float	**coord_x;
-	float	**coord_y;
-}			t_fdf;
+	int			ymax;
+	int			xmax;
+	int			**pos;
+	int32_t		**color;
+	int32_t		**coord_x;
+	int32_t		**coord_y;
+	t_angle		*angle_data;
+	mlx_image_t *image;
+	mlx_t		*mlx;
+}	t_fdf;
 
-typedef struct s_dimension
-{
-	int xmax;
-	int ymax;
-}	t_dimension;
 
-t_fdf		**ft_init(char *filepath, t_dimension *dim_map);
-int			ft_count_point(char *str, char c);
-int			ft_get_finals_maps(char ***split_map_content, t_fdf **map_data,
-				int xmax, int ymax);
-int	ft_count_line_and_point(int fd, int *xmax, int *ymax);
-void		ft_free_mega_split(char ***split_map_content);
-void		ft_freetab(char **str);
-void		free_alloc(t_fdf **allocd, int ymax);
-int32_t		get_the_color(char *hexa_color);
+int	ft_init(t_fdf *map_data, char *filepath);
+int	ft_count_point(char *str, char c);
+int	ft_get_finals_maps(char ***split_map_content, t_fdf *map_data);
+int	ft_count_line_and_point(int fd, t_fdf *map_data);
+int	ft_alloc_finals_maps(t_fdf *map_data);
+void	ft_free_mega_split(char ***split_map_content, t_fdf *map_data);
+void	ft_freetab(char **str);
+void	ft_free_finals_maps(t_fdf *map_data);
+void	ft_clearimage(mlx_image_t *image);
+void	drawMap(t_fdf *map_data);
+void	ft_inputs(t_fdf *map_data);
+int32_t get_the_color(char *hexa_color);
 
 #endif

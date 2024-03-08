@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/21 17:14:59 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/08 18:45:28 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,34 @@ static int	ft_split_map_content(char **map_content, t_fdf **map_data, int xmax,
 		return (perror("Fail alloc split_map_content"), 0);
 	while (map_content[y_pos])
 	{
-		if (y_pos > ymax)
+		if (y_pos > map_data->ymax)
 			return (perror("Error with count lines"), 0);
 		split_map_content[y_pos] = ft_split(map_content[y_pos], ' ');
 		if (!split_map_content[y_pos])
 			return (perror("Split Crash"), ft_free_mega_split(split_map_content), ft_freetab(map_content), 0);
 		y_pos++;
 	}
-	return (ft_freetab(map_content), ft_get_finals_maps(split_map_content, map_data, xmax, ymax));
+	ft_freetab(map_content);
+	if (!ft_alloc_finals_maps(map_data))
+		return (perror("Fail alloc finals maps"), 0);
+	return (ft_get_finals_maps(split_map_content, map_data));
 }
 
-static int	ft_getmap(int fd, t_fdf **map_data, int xmax, int ymax)
+/**
+ * @brief Reads the map content from the file descriptor and processes it.
+ *
+ * This function reads the map content from the specified
+ * file descriptor `fd` and processes it.
+ * It ensures the validity of the map using `ft_checkmap` and further
+ * splits the map content using `ft_split_map_content`.
+ *
+ * @param fd The file descriptor of the opened file.
+ * @param map_data A pointer to the structure containing map data.
+ *
+ * @return 1 on success, 0 on failure. In case of failure,
+ * it prints an error message using perror.
+ */
+static int	ft_getmap(int fd, t_fdf *map_data)
 {
 	char	**map_content;
 	int		y_pos;

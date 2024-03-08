@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 14:10:34 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/07 17:26:27 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/08 14:38:46 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,14 @@ int32_t	get_the_color(char *hexStr)
 	put_lowercase(hexStr + 2);
 	result = 0;
 	hexStr += 2;
-	while (*hexStr)
+	while (*hexStr && *hexStr != '\n')
 	{
 		val = hexa_to_int(*hexStr++);
 		if (val == -1)
 			return (-1);
 		result = (result << 4) | val;
 	}
+	if (ft_strlen(hexStr) < 8)
+		result = (result << 8) | 0xFF;
 	return (result);
 }
