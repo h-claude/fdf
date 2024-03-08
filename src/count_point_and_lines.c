@@ -6,28 +6,12 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:53:07 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/21 16:56:03 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/08 18:44:42 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-/**
- * @brief Simulates a split and stops when
- * encountering '\n' or reaches the end of the string.
- *
- * This function simulates a split operation by
- * counting the number of substrings in the given
- * string `str` using the specified delimiter `c`.
- * It stops when encountering '\n' or reaching
- * the end of the string. The count of substrings (points)
- * in a line is returned.
- *
- * @param str The input string to be analyzed.
- * @param c The delimiter character for counting substrings.
- *
- * @return The number of substrings (points) in a line.
- */
 int	ft_count_point(char *str, char c)
 {
 	int	i;
@@ -68,7 +52,8 @@ int	ft_count_point(char *str, char c)
  */
 int	ft_count_line_and_point(int fd, t_fdf *map_data)
 {
-	char	*temp_line;
+		char	*temp_line;
+		// int i = 35;
 
 	map_data->ymax = 0;
 	temp_line = get_next_line(fd);

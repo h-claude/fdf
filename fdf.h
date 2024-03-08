@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/08 17:39:55 by moajili          ###   ########.fr       */
+/*   Updated: 2024/03/08 18:43:24 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
+# include "lib/MLX42/include/MLX42/MLX42.h"
 # include "lib/turbo_libft/turbo.h"
+# include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
 # include "lib/MLX42/include/MLX42/MLX42.h"

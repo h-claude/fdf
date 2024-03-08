@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:51:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/07 17:02:48 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/02/21 14:25:08 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,18 @@
  * @param split_map_content The 3D array of strings to be freed.
  * @param map_data A pointer to the structure containing map data.
  */
-void	ft_free_mega_split(char ***split_map_content, t_fdf *map_data)
+void	ft_free_mega_split(char ***split_map_content)
 {
 	int	y_pos;
 	int	x_pos;
 
 	y_pos = 0;
 	x_pos = 0;
-	while (y_pos < map_data->ymax)
+	while (split_map_content[y_pos])
 	{
+		printf("y = %d et x = %d\n", y_pos, x_pos);
 		x_pos = 0;
-		while (x_pos < map_data->xmax && split_map_content[y_pos][x_pos])
+		while (split_map_content[y_pos][x_pos])
 			free(split_map_content[y_pos][x_pos++]);
 		free(split_map_content[y_pos++]);
 	}
@@ -62,7 +63,16 @@ void	ft_freetab(char **str)
 	i = 0;
 	while (str[i])
 		free(str[i++]);
-	free(str[i]);
 	free(str);
 	str = NULL;
+}
+
+void free_alloc(t_fdf **allocd, int ymax)
+{
+	int y_pos;
+
+	y_pos = 0;
+	while (y_pos < ymax)
+		free(allocd[y_pos++]);
+	free(allocd);
 }
