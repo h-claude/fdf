@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/07 17:42:33 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/08 17:39:55 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,6 @@
 
 #define WIDTH 2560
 #define HEIGHT 1440
-
-/*struct t_point
-{
-	int x;
-	int y;
-	int z;
-	int color;
-	struct t_point *next_h;
-	struct t_point *next_v;
-};
-*/
-
-// typedef struct s_point t_point;
 
 typedef struct s_angle
 {
