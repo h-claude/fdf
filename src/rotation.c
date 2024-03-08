@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/08 17:45:38 by moajili          ###   ########.fr       */
+/*   Updated: 2024/03/08 20:03:15 by deadchicken      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,3 +138,15 @@ void drawMap(t_fdf *map_data)
 	}
 }
 
+/*void	isometric_transform(t_rot *rot, float *x_iso, float *y_iso,
+		t_info *info)
+{
+	float	radx;
+	float	rady;
+
+	radx = info->deg_x * M_PI / 180;
+	rady = info->deg_y * M_PI / 180;
+	*x_iso = ((rot->x0_rot - rot->z0_rot) * cosf(radx)) * info->scale;
+	*y_iso = (rot->y0_rot + (rot->x0_rot + rot->z0_rot) * sinf(rady))
+		* info->scale;
+}*/
