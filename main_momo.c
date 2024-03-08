@@ -28,8 +28,8 @@ int	main(int argc, char **argv)
 		printf("good !\n");
 	else
 		return(perror("Fail!\n"), 0);
-	map_data->angle_data->angle_x = 0;
-	map_data->angle_data->angle_y = 0;
+	map_data->angle_data->angle_x = 90;
+	map_data->angle_data->angle_y = 90;
 	map_data->angle_data->angle_z = 0;
 	map_data->angle_data->zoom = 1;
 	//ft_free_finals_maps(map_data);

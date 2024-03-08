@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/08 14:21:24 by deadchicken      ###   ########.fr       */
+/*   Updated: 2024/03/08 17:31:43 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	ft_modcoord(t_fdf *map_data, int flag)
 	if (flag == 3)
 		map_data->angle_data->angle_x -= 0.05;
 	if (flag == 4)
-		map_data->angle_data->zoom += 0.5;
+		map_data->angle_data->zoom += 0.05;
 	if (flag == 5 && map_data->angle_data->zoom > 0.10)
-		map_data->angle_data->zoom -= 0.5;
+		map_data->angle_data->zoom -= 0.05;
 	ft_clearimage(map_data->image);
 }
 
@@ -102,32 +102,29 @@ void	ft_inputs(t_fdf *data)
 //Conversion coordonee y vers isometrique
 int32_t ft_planetransformery(int x, int y, t_fdf *data)
 {
-	return ((x * sin(data->angle_data->angle_y) + y * cos(data->angle_data->angle_y + 2) + data->pos[y][x] * cos(data->angle_data->angle_y))* data->angle_data->zoom);
+	return ((x * sin(data->angle_data->angle_y) + y * cos(data->angle_data->angle_y + 2) + data->pos[y][x] * cos(data->angle_data->angle_y - 2))* data->angle_data->zoom);
 }
 
 //Conversion coordonee x vers isometrique
 int32_t ft_planetransformerx(int x, int y, t_fdf *data)
 {
-	return ((x * sin(data->angle_data->angle_x) + y * sin(data->angle_data->angle_x + 2) + data->pos[y][x] * sin(data->angle_data->angle_x))* data->angle_data->zoom);
+	return ((x * sin(data->angle_data->angle_x) + y * sin(data->angle_data->angle_x + 2) + data->pos[y][x] * sin(data->angle_data->angle_x - 2))* data->angle_data->zoom);
 }
 
+////Conversion coordonee y vers isometrique
 //int32_t ft_planetransformery(int x, int y, t_fdf *data)
 //{
-//    float angle = data->angle_data->angle_y;
-//    float z = data->pos[y][x];
-//    float y_rotated = y * cosf(angle) - z * sinf(angle);
-//    float z_rotated = y * sinf(angle) + z * cosf(angle);
-//    return ((x + y_rotated) / 2 - z_rotated) * data->angle_data->zoom;
+//    float angle = data->angle_data->angle_y * (M_PI / 180); // 90 degrees
+//    int z = data->pos[y][x];
+//    return ((x * sin(angle) + y * cos(angle + 2) + z * cos(angle - 2))* data->angle_data->zoom);
 //}
 
 ////Conversion coordonee x vers isometrique
 //int32_t ft_planetransformerx(int x, int y, t_fdf *data)
 //{
-//    float angle = data->angle_data->angle_x;
-//    float z = data->pos[y][x];
-//    float x_rotated = x * cosf(angle) + z * sinf(angle);
-//    //float z_rotated = -x * sinf(angle) + z * cosf(angle);
-//    return ((x_rotated - y)) * data->angle_data->zoom;
+//    float angle = data->angle_data->angle_x * (M_PI / 180); // 90 degrees
+//    int z = data->pos[y][x];
+//    return ((x * sin(angle) + y * sin(angle + 2) + z * sin(angle - 2))* data->angle_data->zoom);
 //}
 
 
@@ -135,27 +132,28 @@ int32_t ft_planetransformerx(int x, int y, t_fdf *data)
 //destination.y = source.y + sin(angle) * source.z
 
 // faire une fonction pour afficher les pixels
-void drawMap(t_fdf *map_data)
-{
-	int centre_x = (WIDTH - map_data->xmax * map_data->angle_data->zoom) / 2;
-	int centre_y = (HEIGHT - map_data->ymax * map_data->angle_data->zoom) / 2;
-	int y = 0;
-	int x = 0;
-	while (y < map_data->ymax) {
-		x = 0;
-		while (x < map_data->xmax) {
-			//printf("map_data->pos[%d][%d] = %d\n", i, j, map_data->pos[i][j]);
-			//mlx_put_pixel(image, x, y, map_data->color[y][x]);
-			if ((ft_planetransformerx(x, y, map_data) + centre_x >= 0 && ft_planetransformerx(x, y ,map_data) + centre_x < WIDTH) && (ft_planetransformery(x, y, map_data) + centre_y >= 0 && ft_planetransformery(x, y, map_data) + centre_y < HEIGHT))
-			{
-				//printf("map_data->coord_x[%d][%d]\n", y, x);
-				mlx_put_pixel(map_data->image, ft_planetransformerx(x, y, map_data) + centre_x, ft_planetransformery(x,y, map_data) + centre_y, map_data->color[y][x]);
-			}
-			x++;
-		}
-		y++;
-	}
-}
+//void	drawMap(t_fdf *map_data)
+//{
+//	int centre_x = (WIDTH / 2) - (map_data->xmax * map_data->angle_data->zoom / 2);
+//	int centre_y = (HEIGHT / 2) - (map_data->ymax * map_data->angle_data->zoom / 2);
+//	printf("centre_x = %d\ncentre_y = %d\n", centre_x, centre_y);
+//	int y = 0;
+//	int x = 0;
+//	while (y < map_data->ymax) {
+//		x = 0;
+//		while (x < map_data->xmax) {
+//			//printf("map_data->pos[%d][%d] = %d\n", i, j, map_data->pos[i][j]);
+//			//mlx_put_pixel(image, x, y, map_data->color[y][x]);
+//			if ((ft_planetransformerx(x, y, map_data) + centre_x >= 0 && ft_planetransformerx(x, y ,map_data) + centre_x < WIDTH) && (ft_planetransformery(x, y, map_data) + centre_y >= 0 && ft_planetransformery(x, y, map_data) + centre_y < HEIGHT))
+//			{
+//				//printf("map_data->coord_x[%d][%d]\n", y, x);
+//				mlx_put_pixel(map_data->image, ft_planetransformerx(x, y, map_data) + centre_x, ft_planetransformery(x,y, map_data) + centre_y, map_data->color[y][x]);
+//			}
+//			x++;
+//		}
+//		y++;
+//	}
+//}
 
 //Conversion coordonee y vers isometrique
 // int32_t ft_planetransformery(int x, int y, t_fdf *data)
@@ -170,3 +168,52 @@ void drawMap(t_fdf *map_data)
 //     int z = data->pos[y][x];
 //     return ((x * cosf(data->angle_data->angle_x) - z * sinf(data->angle_data->angle_x)) * data->angle_data->zoom);
 // }
+
+void draw_line(int x0, int y0, int x1, int y1, t_fdf *data, int32_t color)
+{
+    int dx = abs(x1 - x0);
+    int dy = abs(y1 - y0);
+    int sx = (x0 < x1) ? 1 : -1;
+    int sy = (y0 < y1) ? 1 : -1;
+    int err = dx - dy;
+
+    while(1)
+    {
+		if (x0 >= 0 && x0 < WIDTH && y0 >= 0 && y0 < HEIGHT)
+        	mlx_put_pixel(data->image, x0, y0, color);
+        if (x0 == x1 && y0 == y1)
+            break;
+        int e2 = 2 * err;
+        if (e2 > -dy)
+        {
+            err -= dy;
+            x0 += sx;
+        }
+        if (e2 < dx)
+        {
+            err += dx;
+            y0 += sy;
+        }
+    }
+}
+
+void drawMap(t_fdf *map_data)
+{
+	int centre_x = (WIDTH / 2) - (map_data->xmax * map_data->angle_data->zoom / 2);
+	int centre_y = (HEIGHT / 2) - (map_data->ymax * map_data->angle_data->zoom / 2);
+	int y = 0;
+	int x = 0;
+	printf("ON EST DANS DRAWMAP\n");
+	while (y+1 < map_data->ymax)
+	{
+		x = 0;
+		while (x+1 < map_data->xmax)
+		{
+			draw_line(ft_planetransformerx(x,y,map_data) + centre_x, ft_planetransformery(x,y,map_data) + centre_y, ft_planetransformerx(x+1,y,map_data) + centre_x, ft_planetransformery(x+1,y,map_data) + centre_y, map_data, map_data->color[y][x]); // Draw horizontal line
+			draw_line(ft_planetransformerx(x,y,map_data) + centre_x, ft_planetransformery(x,y,map_data) + centre_y, ft_planetransformerx(x,y+1,map_data) + centre_x, ft_planetransformery(x,y+1,map_data) + centre_y, map_data, map_data->color[y][x]); // Draw vertical line
+			x++;
+		}
+		y++;
+	}
+}
+
