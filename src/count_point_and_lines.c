@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_point_and_lines.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:53:07 by hclaude           #+#    #+#             */
-/*   Updated: 2024/02/21 16:56:03 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/08 20:59:56 by deadchicken      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

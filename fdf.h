@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/08 17:39:55 by moajili          ###   ########.fr       */
+/*   Updated: 2024/03/08 21:00:54 by deadchicken      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ typedef struct s_fdf
 	mlx_image_t *image;
 	mlx_t		*mlx;
 }	t_fdf;
-
 
 int	ft_init(t_fdf *map_data, char *filepath);
 int	ft_count_point(char *str, char c);
