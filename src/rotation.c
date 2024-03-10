@@ -6,7 +6,7 @@
 /*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/08 21:00:16 by deadchicken      ###   ########.fr       */
+/*   Updated: 2024/03/10 15:33:05 by deadchicken      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	ft_clearimage(mlx_image_t *image)
 void	ft_modcoord(t_fdf *map_data, int flag)
 {
 	if (flag == 0)
-		map_data->angle_data->angle_y += 0.05;
+		map_data->angle_data->angle_y += 3;
 	if (flag == 1)
-		map_data->angle_data->angle_y -= 0.05;
+		map_data->angle_data->angle_y -= 3;
 	if (flag == 2)
-		map_data->angle_data->angle_x += 0.05;
+		map_data->angle_data->angle_x += 3;
 	if (flag == 3)
-		map_data->angle_data->angle_x -= 0.05;
+		map_data->angle_data->angle_x -= 3;
 	if (flag == 4)
 		map_data->angle_data->zoom += 0.05;
 	if (flag == 5 && map_data->angle_data->zoom > 0.10)
@@ -81,16 +81,42 @@ void	ft_inputs(t_fdf *data)
 // faire une fonction bresenham
 
 //Conversion coordonee y vers isometrique
+//int32_t ft_planetransformery(int x, int y, t_fdf *data)
+//{
+//	float angle;
+
+//	angle = data->angle_data->angle_y * (M_PI / 180);
+//	return ((y + (x + data->pos[y][x]) * sinf(angle)) * data->angle_data->zoom);
+//}
+
+////Conversion coordonee x vers isometrique
+//int32_t ft_planetransformerx(int x, int y, t_fdf *data)
+//{
+//	float angle;
+
+//	angle = data->angle_data->angle_x * (M_PI / 180);
+//	return (((x - data->pos[y][x]) * cosf(angle)) * data->angle_data->zoom);
+//}
+
 int32_t ft_planetransformery(int x, int y, t_fdf *data)
 {
-	return ((x * sin(data->angle_data->angle_y) + y * cos(data->angle_data->angle_y + 2) + data->pos[y][x] * cos(data->angle_data->angle_y - 2))* data->angle_data->zoom);
+	float angle;
+
+	angle = data->angle_data->angle_y * (M_PI / 180);
+	return ((-y * sin(angle) - data->pos[y][x] * sin(angle)) * data->angle_data->zoom);
 }
 
 //Conversion coordonee x vers isometrique
 int32_t ft_planetransformerx(int x, int y, t_fdf *data)
 {
-	return ((x * sin(data->angle_data->angle_x) + y * sin(data->angle_data->angle_x + 2) + data->pos[y][x] * sin(data->angle_data->angle_x - 2))* data->angle_data->zoom);
+	float angle;
+
+	angle = data->angle_data->angle_x * (M_PI / 180);
+	return ((x + cos(angle) * data->pos[y][x] - cos(angle) * y) * data->angle_data->zoom);
 }
+
+//destination.x = source.x + cos(angle) * source.z - cos(angle) * source.y
+//destination.y = -source.y * sin(angle) - source.z * sin(angle)
 
 void draw_line(int x0, int y0, int x1, int y1, t_fdf *data, int32_t color)
 {
@@ -144,16 +170,3 @@ void drawMap(t_fdf *map_data)
 		y++;
 	}
 }
-
-/*void	isometric_transform(t_rot *rot, float *x_iso, float *y_iso,
-		t_info *info)
-{
-	float	radx;
-	float	rady;
-
-	radx = info->deg_x * M_PI / 180;
-	rady = info->deg_y * M_PI / 180;
-	*x_iso = ((rot->x0_rot - rot->z0_rot) * cosf(radx)) * info->scale;
-	*y_iso = (rot->y0_rot + (rot->x0_rot + rot->z0_rot) * sinf(rady))
-		* info->scale;
-}*/

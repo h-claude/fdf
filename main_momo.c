@@ -25,8 +25,8 @@ int	main(int argc, char **argv)
 		return (perror("fail alloc angle_data"), 0);
 	if (!ft_init(map_data, argv[1]))
 		return(perror("Fail!\n"), 0);
-	map_data->angle_data->angle_x = 90;
-	map_data->angle_data->angle_y = 90;
+	map_data->angle_data->angle_x = -360;
+	map_data->angle_data->angle_y = 0;
 	map_data->angle_data->angle_z = 0;
 	map_data->angle_data->zoom = 1;
 	map_data->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
