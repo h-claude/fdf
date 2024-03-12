@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/12 15:51:05 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/12 17:59:26 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@
 
 #define WIDTH 2560
 #define HEIGHT 1440
+
+typedef struct s_coor
+{
+	int x;
+	int y;
+	int z;
+}	t_coor;
 
 typedef struct s_angle
 {
@@ -61,5 +68,6 @@ void	ft_inputs(t_fdf *data);
 int32_t get_the_color(char *hexa_color);
 int32_t planex(int x, int y, t_fdf *data);
 int32_t planey(int x, int y, t_fdf *data);
+t_coor	*rotation(t_fdf *data, int x, int y);
 
 #endif
