@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:53:07 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/12 15:06:29 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/12 16:02:31 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	ft_count_line_and_point(int fd, t_fdf *map_data)
 		return (perror("Empty file"), (void)close(fd), 0);
 	map_data->xmax = ft_count_point(temp_line, ' ');
 	if (!map_data->xmax)
-		return (free(temp_line), 0);
+		return (free(temp_line), (void)close(fd), 0);
 	while (temp_line)
 	{
 		map_data->ymax++;

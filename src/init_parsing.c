@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/12 15:01:47 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/12 16:27:40 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static int	ft_get_fd(char *filepath, t_fdf *map_data)
 	fd_temp = open(filepath, O_RDONLY);
 	if (fd == -1 || fd_temp == -1)
 		return (perror("Fail open fd"), -1);
-	ft_count_line_and_point(fd_temp, map_data);
+	if (!ft_count_line_and_point(fd_temp, map_data))
+		return((void)close(fd), -1);
 	close(fd_temp);
 	return (fd);
 }
@@ -129,7 +130,12 @@ static int	ft_getmap(int fd, t_fdf *map_data)
 		return (free(map_content), 0);
 	y_pos = 0;
 	while (y_pos <= map_data->ymax)
-		map_content[y_pos++] = get_next_line(fd);
+	{
+		map_content[y_pos] = get_next_line(fd);
+		if (!map_content[y_pos] && y_pos < map_data->ymax)
+			return (perror("Map invalid"), ft_freetab(map_content), 0);
+		y_pos++;
+	}
 	if (!ft_checkmap(map_data->xmax, map_data->ymax, map_content))
 		return (perror("Map invalid"), ft_freetab(map_content), 0);
 	return (ft_split_map_content(map_content, map_data));

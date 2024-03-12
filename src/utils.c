@@ -6,18 +6,23 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:50:39 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/12 15:10:46 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/12 15:50:01 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-void	ft_stop_process(t_fdf *map)
+void	ft_stop_process(t_fdf *map, int flag)
 {
-	mlx_terminate(map->mlx);
+	if (flag > 0)
+		mlx_terminate(map->mlx);
+	printf("ok\n");
 	ft_free_finals_maps(map);
+	printf("ok 1\n");
 	free(map->angle_data);
+	printf("ok 2\n");
 	free(map);
+	printf("ok 3\n");
 	exit(1);
 }
 

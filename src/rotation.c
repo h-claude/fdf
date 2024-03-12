@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/12 15:25:39 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/12 15:53:19 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,37 @@ static void	ft_modcoord(t_fdf *map_data, int flag)
 void	ft_inputs(t_fdf *data)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+	{
 		ft_modcoord(data, 0);
+		printf("angley = %f\n", data->angle_data->angle_y);
+	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+	{
 		ft_modcoord(data, 1);
+		printf("angley = %f\n", data->angle_data->angle_y);
+	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+	{
 		ft_modcoord(data, 2);
+		printf("anglex = %f\n", data->angle_data->angle_x);
+	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+	{
 		ft_modcoord(data, 3);
+		printf("anglex = %f\n", data->angle_data->angle_x);
+	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_SHIFT))
+	{
 		ft_modcoord(data, 4);
+		printf("zoom = %f\n", data->angle_data->zoom);
+	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_CONTROL))
+	{
 		ft_modcoord(data, 5);
+		printf("zoom = %f\n", data->angle_data->zoom);
+	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
-		ft_stop_process(data);
+		ft_stop_process(data, 1);
 }
 
 //Conversion coordonee y vers isometrique
