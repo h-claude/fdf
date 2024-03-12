@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/10 14:10:25 by deadchicken      ###   ########.fr       */
+/*   Updated: 2024/03/12 15:19:44 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct s_fdf
 {
 	int			ymax;
 	int			xmax;
+	int			centre_y;
+	int			centre_x;
 	int			**pos;
 	int32_t		**color;
 	int32_t		**coord_x;
@@ -48,12 +50,16 @@ int	ft_count_point(char *str, char c);
 int	ft_get_finals_maps(char ***split_map_content, t_fdf *map_data);
 int	ft_count_line_and_point(int fd, t_fdf *map_data);
 int	ft_alloc_finals_maps(t_fdf *map_data);
-void	ft_free_mega_split(char ***split_map_content, t_fdf *map_data);
+void	free_split(char ***split_map_content, t_fdf *map_data);
 void	ft_freetab(char **str);
 void	ft_free_finals_maps(t_fdf *map_data);
 void	ft_clearimage(mlx_image_t *image);
-void	drawMap(t_fdf *map_data);
+void	draw_map(t_fdf *map_data);
 void	ft_inputs(t_fdf *map_data);
+void	ft_stop_process(t_fdf *map);
+void	ft_inputs(t_fdf *data);
 int32_t get_the_color(char *hexa_color);
+int32_t planex(int x, int y, t_fdf *data);
+int32_t planey(int x, int y, t_fdf *data);
 
 #endif

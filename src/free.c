@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:51:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/08 20:59:49 by deadchicken      ###   ########.fr       */
+/*   Updated: 2024/03/12 15:16:58 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
  * @param split_map_content The 3D array of strings to be freed.
  * @param map_data A pointer to the structure containing map data.
  */
-void	ft_free_mega_split(char ***split_map_content, t_fdf *map_data)
+void	free_split(char ***split_map_content, t_fdf *map_data)
 {
 	int	y_pos;
 	int	x_pos;

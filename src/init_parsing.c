@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/08 21:00:11 by deadchicken      ###   ########.fr       */
+/*   Updated: 2024/03/12 15:01:47 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,15 +150,22 @@ static int	ft_getmap(int fd, t_fdf *map_data)
  *
  * @return 1 on success, 0 on failure.
  */
-int	ft_init(t_fdf *map_data, char *filepath)
+int	ft_init(t_fdf *data, char *filepath)
 {
 	int	fd;
 
-	fd = ft_get_fd(filepath, map_data);
+	fd = ft_get_fd(filepath, data);
 	if (fd == -1)
 		return (0);
-	if (!ft_getmap(fd, map_data))
+	if (!ft_getmap(fd, data))
 		return (0);
 	close(fd);
+	data->angle_data = malloc(sizeof(t_angle));
+	if (!data->angle_data)
+		return (perror("fail alloc angle_data :/"), 0);
+	data->angle_data->angle_x = 360;
+	data->angle_data->angle_y = 0;
+	data->angle_data->angle_z = 0;
+	data->angle_data->zoom = 1;
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_point_and_lines.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:53:07 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/08 20:59:56 by deadchicken      ###   ########.fr       */
+/*   Updated: 2024/03/12 15:06:29 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,6 @@ int	ft_count_line_and_point(int fd, t_fdf *map_data)
 		temp_line = get_next_line(fd);
 	}
 	if (!map_data->ymax)
-			return (free(temp_line), 0);
+		return (free(temp_line), 0);
 	return ((void)close(fd), free(temp_line), 1);
 }
