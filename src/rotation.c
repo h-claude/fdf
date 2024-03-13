@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/13 14:37:15 by deadchicken      ###   ########.fr       */
+/*   Updated: 2024/03/13 15:15:21 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,48 +66,87 @@ void	ft_inputs(t_fdf *data)
 }
 
 
-void rotation_x(int y, int z, t_fdf *data, t_coor *coord)
-{
-	int y_n = coord->y;
-	int z_n = coord->z;
+// void rotation_x(int y, int z, t_fdf *data, t_coor *coord)
+// {
+// 	int y_n = coord->y;
+// 	int z_n = coord->z;
 
-	int rad = data->angle_data->angle_x;
-	y_n = (y * cos(rad)) - (z * sin(rad));
-	z_n = (y * sin(rad)) + (z * cos(rad));
+// 	int rad = data->angle_data->angle_x;
+// 	y_n = (y * cos(rad)) - (z * sin(rad));
+// 	z_n = (y * sin(rad)) + (z * cos(rad));
+// }
+
+// void rotation_y(int x, int z, t_fdf *data, t_coor *coord)
+// {
+// 	int x_n = coord->x;
+// 	int z_n = coord->z;
+
+// 	int rad = data->angle_data->angle_y;
+// 	x_n = (x * cos(rad)) + (z * sin(rad));
+// 	z_n = (-x * sin(rad)) + (z * cos(rad));
+// }
+
+// void rotation_z(int x, int y, t_fdf *data, t_coor *coord)
+// {
+// 	int x_n = coord->x;
+// 	int y_n = coord->y;
+
+// 	int rad = data->angle_data->angle_z;
+// 	x_n = (x * cos(rad)) - (y * sin(rad));
+// 	y_n = (x * sin(rad)) + (y * cos(rad));
+// }
+
+// t_coor	*rotation(t_fdf *data, int x, int y, int flag)
+// {
+// 	t_coor	*coord;
+
+// 	coord = malloc(sizeof(t_coor));
+// 	if (flag == 1)
+// 		flag = x + 1;
+// 	else
+// 		flag = y + 1;
+// 	rotation_x(y, data->pos[y][x], data, coord);
+// 	rotation_y(x, coord->z, data, coord);
+// 	rotation_z(coord->x, coord->y, data, coord);
+// }
+
+int32_t	planey(int x, int y, t_fdf *data)
+{
+	float	angle;
+	float	zoom;
+	int		z;
+	int		z_n;
+	int		x_n;
+	int		y_n;
+
+	z = data->pos[y][x];
+	zoom = data->angle_data->zoom;
+	angle = data->angle_data->angle_y * (M_PI / 180);
+	y_n = (y * cos(angle)) - (z * sin(angle));
+	z_n = (y_n * sin(angle)) + (z * cos(angle));
+	x_n = (x * cos(angle)) + (z_n * sin(angle));
+	z_n = (-x_n * sin(angle)) + (z * cos(angle));
+	return ((x_n * cos(angle)) - (y_n * sin(angle) * zoom) + data->centre_y);
 }
 
-void rotation_y(int x, int z, t_fdf *data, t_coor *coord)
+//Conversion coordonee x vers isometrique
+int32_t	planex(int x, int y, t_fdf *data)
 {
-	int x_n = coord->x;
-	int z_n = coord->z;
+	float	angle;
+	float	zoom;
+	int		z;
+	int		z_n;
+	int		x_n;
+	int		y_n;
 
-	int rad = data->angle_data->angle_y;
-	x_n = (x * cos(rad)) + (z * sin(rad));
-	z_n = (-x * sin(rad)) + (z * cos(rad));
-}
-
-void rotation_z(int x, int y, t_fdf *data, t_coor *coord)
-{
-	int x_n = coord->x;
-	int y_n = coord->y;
-
-	int rad = data->angle_data->angle_z;
-	x_n = (x * cos(rad)) - (y * sin(rad));
-	y_n = (x * sin(rad)) + (y * cos(rad));
-}
-
-t_coor	*rotation(t_fdf *data, int x, int y, int flag)
-{
-	t_coor	*coord;
-
-	coord = malloc(sizeof(t_coor));
-	if (flag == 1)
-		flag = x + 1;
-	else
-		flag = y + 1;
-	rotation_x(y, data->pos[y][x], data, coord);
-	rotation_y(x, coord->z, data, coord);
-	rotation_z(coord->x, coord->y, data, coord);
+	z = data->pos[y][x];
+	zoom = data->angle_data->zoom;
+	angle = data->angle_data->angle_x * (M_PI / 180);
+	y_n = (y * cos(angle)) - (z * sin(angle));
+	z_n = (y_n * sin(angle)) + (z * cos(angle));
+	x_n = (x * cos(angle)) + (z_n * sin(angle));
+	z_n = (-x_n * sin(angle)) + (z * cos(angle));
+	return ((x_n * sin(angle)) + (y_n * cos(angle) * zoom) + data->centre_x);
 }
 
 //Conversion coordonee y vers isometrique
