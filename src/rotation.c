@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/13 15:15:21 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/13 18:10:01 by deadchicken      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,32 +34,42 @@ void	ft_inputs(t_fdf *data)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
 	{
 		ft_modcoord(data, 0);
-		printf("angley = %f\n", data->angle_data->angle_y);
+		//printf("angley = %f\n", data->angle_data->angle_y);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
 	{
 		ft_modcoord(data, 1);
-		printf("angley = %f\n", data->angle_data->angle_y);
+		//printf("angley = %f\n", data->angle_data->angle_y);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
 	{
 		ft_modcoord(data, 2);
-		printf("anglex = %f\n", data->angle_data->angle_x);
+		//printf("anglex = %f\n", data->angle_data->angle_x);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 	{
 		ft_modcoord(data, 3);
-		printf("anglex = %f\n", data->angle_data->angle_x);
+		//printf("anglex = %f\n", data->angle_data->angle_x);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_SHIFT))
 	{
 		ft_modcoord(data, 4);
-		printf("zoom = %f\n", data->angle_data->zoom);
+		//printf("zoom = %f\n", data->angle_data->zoom);
+	}
+	if (mlx_is_key_down(data->mlx, MLX_KEY_1))
+	{
+		data->angle_data->angle_z += 3;
+		ft_clearimage(data->image);
+	}
+	if (mlx_is_key_down(data->mlx, MLX_KEY_2))
+	{
+		data->angle_data->angle_z -= 3;
+		ft_clearimage(data->image);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT_CONTROL))
 	{
 		ft_modcoord(data, 5);
-		printf("zoom = %f\n", data->angle_data->zoom);
+		//printf("zoom = %f\n", data->angle_data->zoom);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		ft_stop_process(data, 1);
@@ -110,44 +120,52 @@ void	ft_inputs(t_fdf *data)
 // 	rotation_z(coord->x, coord->y, data, coord);
 // }
 
-int32_t	planey(int x, int y, t_fdf *data)
-{
-	float	angle;
-	float	zoom;
-	int		z;
-	int		z_n;
-	int		x_n;
-	int		y_n;
+//int32_t	planey(int x, int y, t_fdf *data)
+//{
+//	float	angle_z;
+//	float	angle_y;
+//	float	angle_x;
+//	float	zoom;
+//	int		z;
+//	//int		z_n;
+//	int		x_n;
+//	int		y_n;
 
-	z = data->pos[y][x];
-	zoom = data->angle_data->zoom;
-	angle = data->angle_data->angle_y * (M_PI / 180);
-	y_n = (y * cos(angle)) - (z * sin(angle));
-	z_n = (y_n * sin(angle)) + (z * cos(angle));
-	x_n = (x * cos(angle)) + (z_n * sin(angle));
-	z_n = (-x_n * sin(angle)) + (z * cos(angle));
-	return ((x_n * cos(angle)) - (y_n * sin(angle) * zoom) + data->centre_y);
-}
+//	z = data->pos[y][x];
+//	zoom = data->angle_data->zoom;
+//	angle_y = data->angle_data->angle_y * (M_PI / 180);
+//	angle_x = data->angle_data->angle_x * (M_PI / 180);
+//	angle_z = data->angle_data->angle_z * (M_PI / 180);
+//	y_n = y * cos(angle_x) + z * sin(angle_x);
+//	//z_n = y * -sin(angle_x) + z * cos(angle_x);
+//	x_n = x * cos(angle_y) + z * sin(angle_y);
+//	//z_n = x * -sin(angle_y) + z * cos(angle_y);
+//	return (((x_n * sin(angle_z) + y_n * cos(angle_z))* zoom) + data->centre_y);
+//}
 
-//Conversion coordonee x vers isometrique
-int32_t	planex(int x, int y, t_fdf *data)
-{
-	float	angle;
-	float	zoom;
-	int		z;
-	int		z_n;
-	int		x_n;
-	int		y_n;
+////Conversion coordonee x vers isometrique
+//int32_t	planex(int x, int y, t_fdf *data)
+//{
+//	float	angle_z;
+//	float	angle_y;
+//	float	angle_x;
+//	float	zoom;
+//	int		z;
+//	//int		z_n;
+//	int		x_n;
+//	int		y_n;
 
-	z = data->pos[y][x];
-	zoom = data->angle_data->zoom;
-	angle = data->angle_data->angle_x * (M_PI / 180);
-	y_n = (y * cos(angle)) - (z * sin(angle));
-	z_n = (y_n * sin(angle)) + (z * cos(angle));
-	x_n = (x * cos(angle)) + (z_n * sin(angle));
-	z_n = (-x_n * sin(angle)) + (z * cos(angle));
-	return ((x_n * sin(angle)) + (y_n * cos(angle) * zoom) + data->centre_x);
-}
+//	z = data->pos[y][x];
+//	zoom = data->angle_data->zoom;
+//	angle_y = data->angle_data->angle_y * (M_PI / 180);
+//	angle_x = data->angle_data->angle_x * (M_PI / 180);
+//	angle_z = data->angle_data->angle_z * (M_PI / 180);
+//	y_n = y * cos(angle_x) + z * sin(angle_x);
+//	//z_n = y * -sin(angle_x) + z * cos(angle_x);
+//	x_n = x * cos(angle_y) + z * sin(angle_y);
+//	//z_n = x * -sin(angle_y) + z * cos(angle_y);
+//	return (((x_n * cos(angle_z) - y_n * sin(angle_z))* zoom) + data->centre_y);
+//}
 
 //Conversion coordonee y vers isometrique
 //int32_t	planey(int x, int y, t_fdf *data)
@@ -175,22 +193,26 @@ int32_t	planex(int x, int y, t_fdf *data)
 //	return ((((x - z) * cos(angle)) * zoom) + data->centre_x);
 //}
 
-//int32_t planey(int x, int y, t_fdf *data)
-//{
-//	float angle;
+int32_t planey(int x, int y, t_fdf *data)
+{
+	float	angle;
+	float	zoom;
 
-//	angle = data->angle_data->angle_y * (M_PI / 180);
-//	return ((-y * sin(angle) - data->pos[y][x] * sin(angle)) * data->angle_data->zoom);
-//}
+	angle = data->angle_data->angle_y * (M_PI / 180);
+	zoom = data->angle_data->zoom;
+	return (((-y * sin(angle) - data->pos[y][x] * sin(angle)) * zoom) + data->centre_y);
+}
 
-////Conversion coordonee x vers isometrique
-//int32_t planex(int x, int y, t_fdf *data)
-//{
-//	float angle;
+//Conversion coordonee x vers isometrique
+int32_t planex(int x, int y, t_fdf *data)
+{
+	float angle;
+	float	zoom;
 
-//	angle = data->angle_data->angle_x * (M_PI / 180);
-//	return ((x + cos(angle) * data->pos[y][x] - cos(angle) * y) * data->angle_data->zoom);
-//}
+	angle = data->angle_data->angle_x * (M_PI / 180);
+	zoom = data->angle_data->zoom;
+	return (((x + cos(angle) * data->pos[y][x] - cos(angle) * y) * zoom) + data->centre_x);
+}
 
 //destination.x = source.x + cos(angle) * source.z - cos(angle) * source.y
 //destination.y = -source.y * sin(angle) - source.z * sin(angle)

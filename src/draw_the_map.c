@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_the_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:53:37 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/13 15:16:27 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/13 16:01:31 by deadchicken      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
