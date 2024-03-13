@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/12 17:56:41 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/13 14:37:15 by deadchicken      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,15 @@ void rotation_z(int x, int y, t_fdf *data, t_coor *coord)
 	y_n = (x * sin(rad)) + (y * cos(rad));
 }
 
-t_coor	*rotation(t_fdf *data, int x, int y)
+t_coor	*rotation(t_fdf *data, int x, int y, int flag)
 {
 	t_coor	*coord;
-	coord = malloc(sizeof(t_coor));
 
+	coord = malloc(sizeof(t_coor));
+	if (flag == 1)
+		flag = x + 1;
+	else
+		flag = y + 1;
 	rotation_x(y, data->pos[y][x], data, coord);
 	rotation_y(x, coord->z, data, coord);
 	rotation_z(coord->x, coord->y, data, coord);
@@ -130,7 +134,7 @@ t_coor	*rotation(t_fdf *data, int x, int y)
 //	zoom = data->angle_data->zoom;
 //	angle = data->angle_data->angle_x * (M_PI / 180);
 //	return ((((x - z) * cos(angle)) * zoom) + data->centre_x);
-}
+//}
 
 //int32_t planey(int x, int y, t_fdf *data)
 //{
