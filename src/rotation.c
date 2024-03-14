@@ -6,7 +6,7 @@
 /*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/13 18:10:01 by deadchicken      ###   ########.fr       */
+/*   Updated: 2024/03/14 15:35:23 by deadchicken      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,7 @@ int32_t planey(int x, int y, t_fdf *data)
 	float	angle;
 	float	zoom;
 
+	data->angle_data->angle_y = normalizeAngle(data->angle_data->angle_y);
 	angle = data->angle_data->angle_y * (M_PI / 180);
 	zoom = data->angle_data->zoom;
 	return (((-y * sin(angle) - data->pos[y][x] * sin(angle)) * zoom) + data->centre_y);
@@ -220,6 +221,7 @@ int32_t planex(int x, int y, t_fdf *data)
 	float angle;
 	float	zoom;
 
+	data->angle_data->angle_x = normalizeAngle(data->angle_data->angle_x);
 	angle = data->angle_data->angle_x * (M_PI / 180);
 	zoom = data->angle_data->zoom;
 	return (((x + cos(angle) * data->pos[y][x] - cos(angle) * y) * zoom) + data->centre_x);
