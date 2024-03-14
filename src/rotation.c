@@ -193,6 +193,17 @@ void	ft_inputs(t_fdf *data)
 //	return ((((x - z) * cos(angle)) * zoom) + data->centre_x);
 //}
 
+float normalizeAngle(float angle) {
+    while (angle >= 360) {
+        angle -= 360;
+    }
+    while (angle < 0) {
+        angle += 360;
+    }
+    return angle;
+}
+
+
 int32_t planey(int x, int y, t_fdf *data)
 {
 	float	angle;
