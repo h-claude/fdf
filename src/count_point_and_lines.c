@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_point_and_lines.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:53:07 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/12 16:02:31 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/14 13:50:28 by deadchicken      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int	ft_count_point(char *str, char c)
 
 	i = 0;
 	nbstr = 0;
-	if (!str)
-		return (0);
 	while (str[i])
 	{
 		while (str[i] == c)
@@ -68,22 +66,24 @@ int	ft_count_point(char *str, char c)
  */
 int	ft_count_line_and_point(int fd, t_fdf *map_data)
 {
-	char	*temp_line;
+	char	*line;
 
 	map_data->ymax = 0;
-	temp_line = get_next_line(fd);
-	if (!temp_line)
-		return (perror("Empty file"), (void)close(fd), 0);
-	map_data->xmax = ft_count_point(temp_line, ' ');
+	line = get_next_line(fd);
+	if (!line)
+		return (perror("Empty file"), free(line), (void)close(fd), 0);
+	map_data->xmax = ft_count_point(line, ' ');
 	if (!map_data->xmax)
-		return (free(temp_line), (void)close(fd), 0);
-	while (temp_line)
+		return (perror("Empty file"), free(line), (void)close(fd), 0);
+	while (line)
 	{
 		map_data->ymax++;
-		free(temp_line);
-		temp_line = get_next_line(fd);
+		free(line);
+		line = NULL;
+		line = get_next_line(fd);
 	}
+	free(line);
 	if (!map_data->ymax)
-		return (free(temp_line), 0);
-	return ((void)close(fd), free(temp_line), 1);
+		return ((void)close(fd), 0);
+	return ((void)close(fd), 1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/12 16:27:40 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/14 13:19:53 by deadchicken      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,21 @@ static int	ft_getmap(int fd, t_fdf *map_data)
 	return (ft_split_map_content(map_content, map_data));
 }
 
+int	ft_check_file_name(char *str)
+{
+	int	len;
+
+	len = ft_strlen(str);
+	if (len <= 4)
+		return (0);
+	if (str[len - 4] == '.')
+		if (str[len - 3] == 'f')
+			if (str[len - 2] == 'd')
+				if (str[len - 1] == 'f')
+					return (1);
+	return (0);
+}
+
 /**
  * @brief Initializes the map data by opening the
  * file and processing its content.
@@ -160,6 +175,8 @@ int	ft_init(t_fdf *data, char *filepath)
 {
 	int	fd;
 
+	if (!ft_check_file_name(filepath))
+		return (perror("Wrong name file"), 0);
 	fd = ft_get_fd(filepath, data);
 	if (fd == -1)
 		return (0);

@@ -18,22 +18,22 @@ int	main(int argc, char **argv)
 	t_fdf	*data;
 
 	if (argc != 2)
-		return (perror("Wrong number of arguments"), 0);
+		return (perror("Wrong number of arguments"), EXIT_FAILURE);
 	data = malloc(sizeof(t_fdf));
 	if (!data)
-		return (perror("Fail alloc map_data :/"), 0);
+		return (perror("Fail alloc map_data :/"), EXIT_FAILURE);
 	if (!ft_init(data, argv[1]))
-		return(perror("Fail!"), free(data), 0);
+		return(perror("Fail!"), free(data), EXIT_FAILURE);
 	data->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
 	if (!data->mlx)
-		return(perror("Error with mlx!"), ft_stop_process(data, 0), 0);
+		return(perror("Error with mlx!"), ft_stop_process(data, 0), EXIT_FAILURE);
 	data->image = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	if (!data->image)
-		return(perror("Error with mlx image!"), ft_stop_process(data, 0), 0);
+		return(perror("Error with mlx image!"), ft_stop_process(data, 0), EXIT_FAILURE);
 	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
-		return(perror("Error with mlx!"), ft_stop_process(data, 0), 0);
+		return(perror("Error with mlx!"), ft_stop_process(data, 0), EXIT_FAILURE);
 	mlx_loop_hook(data->mlx, loop_hook, (data));
 	mlx_loop(data->mlx);
-	ft_stop_process(data, 0);
+	ft_stop_process(data, 1);
 	return (EXIT_SUCCESS);
 }
