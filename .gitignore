@@ -3,3 +3,4 @@
 .DS_Store
 *.o
 fdf
+lib/turbo_libft/libft.a
