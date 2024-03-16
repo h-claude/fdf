@@ -6,7 +6,7 @@
 #    By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/30 14:18:46 by hclaude           #+#    #+#              #
-#    Updated: 2024/03/15 16:51:40 by hclaude          ###   ########.fr        #
+#    Updated: 2024/03/16 14:07:51 by hclaude          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ RM = @rm -rf
 
 CC := @cc
 AR := @ar
-CFLAGS := -Wall -Werror -Wextra
+CFLAGS := -Wall -Werror -Wextra -g3
 
 LIBFT = lib/turbo_libft/libft.a
 
@@ -32,7 +32,8 @@ $(NAME) : $(OBJFILES) | mlx libft
 	@$(CC) $(CFLAGS) $(OBJFILES) -lft -lglfw -Llib/MLX42/build/ -Llib/turbo_libft/ -lmlx42 -o $@ -lm
 
 mlx :
-	@cmake lib/MLX42 -B lib/MLX42/build && cmake --quiet --build lib/MLX42/build -j4
+	@cmake lib/MLX42 -B lib/MLX42/build
+	@make -s -C lib/MLX42/build -j4
 
 libft :
 	@make -s -C lib/turbo_libft/
