@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/13 12:39:21 by deadchicken      ###   ########.fr       */
+/*   Updated: 2024/03/16 17:20:45 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 
 #define WIDTH 2560
 #define HEIGHT 1440
+
+
+void *super_malloc(size_t len);
+
+# define malloc(x) super_malloc(x)
+
 
 typedef struct s_coor
 {
@@ -48,8 +54,6 @@ typedef struct s_fdf
 	int			centre_x;
 	int			**pos;
 	int32_t		**color;
-	int32_t		**coord_x;
-	int32_t		**coord_y;
 	t_angle		*angle_data;
 	mlx_image_t *image;
 	mlx_t		*mlx;

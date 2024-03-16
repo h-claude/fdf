@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/14 13:19:53 by deadchicken      ###   ########.fr       */
+/*   Updated: 2024/03/16 17:55:20 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	ft_checkmap(int nbr_point, int nbr_line, char **map_content)
 	while (y_pos < nbr_line)
 	{
 		if (nbr_point != ft_count_point(map_content[y_pos], ' '))
-			return (0);
+			return (ft_freetab(map_content), 0);
 		y_pos++;
 	}
 	return (1);
@@ -82,28 +82,28 @@ static int	ft_checkmap(int nbr_point, int nbr_line, char **map_content)
  * @return 1 on success, 0 on failure. In case of failure,
  *         it prints an error message using perror.
  */
-static int	ft_split_map_content(char **map_content, t_fdf *map_data)
+static int	ft_splitmap(char **map_content, t_fdf *map_data)
 {
-	char	***split_map_content;
+	char	***splitmap;
 	int		y_pos;
 
 	y_pos = 0;
-	split_map_content = ft_calloc(sizeof(char **), map_data->ymax + 1);
-	if (!split_map_content)
-		return (perror("Fail alloc split_map_content"), 0);
+	splitmap = ft_calloc(sizeof(char **), map_data->ymax + 1);
+	if (!splitmap)
+		return (perror("Fail alloc splitmap"), ft_freetab(map_content), 0);
 	while (map_content[y_pos])
 	{
 		if (y_pos > map_data->ymax)
-			return (perror("Error with count lines"), 0);
-		split_map_content[y_pos] = ft_split(map_content[y_pos], ' ');
-		if (!split_map_content[y_pos])
+			return (perror("Error with count lines"), free_split(splitmap, map_data), 0);
+		splitmap[y_pos] = ft_split(map_content[y_pos], ' ');
+		if (!splitmap[y_pos])
 			return (perror("Split Crash"), 0);
 		y_pos++;
 	}
 	ft_freetab(map_content);
 	if (!ft_alloc_finals_maps(map_data))
-		return (perror("Fail alloc finals maps"), 0);
-	return (ft_get_finals_maps(split_map_content, map_data));
+		return (perror("Fail alloc finals maps"), free_split(splitmap, map_data), 0);
+	return (ft_get_finals_maps(splitmap, map_data));
 }
 
 /**
@@ -112,7 +112,7 @@ static int	ft_split_map_content(char **map_content, t_fdf *map_data)
  * This function reads the map content from the specified
  * file descriptor `fd` and processes it.
  * It ensures the validity of the map using `ft_checkmap` and further
- * splits the map content using `ft_split_map_content`.
+ * splits the map content using `ft_splitmap`.
  *
  * @param fd The file descriptor of the opened file.
  * @param map_data A pointer to the structure containing map data.
@@ -127,7 +127,7 @@ static int	ft_getmap(int fd, t_fdf *map_data)
 
 	map_content = ft_calloc(sizeof(char *), map_data->ymax + 1);
 	if (!map_content)
-		return (free(map_content), 0);
+		return (0);
 	y_pos = 0;
 	while (y_pos <= map_data->ymax)
 	{
@@ -137,8 +137,8 @@ static int	ft_getmap(int fd, t_fdf *map_data)
 		y_pos++;
 	}
 	if (!ft_checkmap(map_data->xmax, map_data->ymax, map_content))
-		return (perror("Map invalid"), ft_freetab(map_content), 0);
-	return (ft_split_map_content(map_content, map_data));
+		return (perror("Map invalid"), 0);
+	return (ft_splitmap(map_content, map_data));
 }
 
 int	ft_check_file_name(char *str)

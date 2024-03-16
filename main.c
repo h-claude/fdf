@@ -1,8 +1,21 @@
-#include "fdf.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include "lib/MLX42/include/MLX42/MLX42.h"
+
+void *super_malloc(size_t len)
+{
+    static int call = 0;
+
+	printf("super_malloc called %d times, len = %zu\n", call, len);
+    if (call++ < 100000)
+        return (malloc(len));
+    else
+        return (NULL);
+}
+
+#include "fdf.h"
+
 
 void loop_hook(void* param)
 {
