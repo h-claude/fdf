@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:51:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/16 18:01:20 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/18 18:39:04 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,13 @@ void	free_split(char ***split_map, t_fdf *map_data)
  *
  * @param str The 2D array of strings to be freed.
  */
-void	ft_freetab(char **str)
+void	freetab(char **str)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
 		free(str[i++]);
-	free(str[i]);
 	free(str);
 	str = NULL;
 }

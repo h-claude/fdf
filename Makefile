@@ -6,7 +6,7 @@
 #    By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/30 14:18:46 by hclaude           #+#    #+#              #
-#    Updated: 2024/03/16 14:07:51 by hclaude          ###   ########.fr        #
+#    Updated: 2024/03/18 18:58:34 by hclaude          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ LIBFT = lib/turbo_libft/libft.a
 OBJFILES = $(SRCFILES:.c=.o)
 
 SRCFILES = src/count_point_and_lines.c src/free.c src/get_color.c \
-src/get_finals_maps.c src/init_parsing.c src/rotation.c main.c \
-src/draw_the_map.c src/utils.c
+src/get_finals_maps.c src/init_parsing.c src/rotation.c src/fdf.c \
+src/draw_map.c src/utils.c
 
 all : $(NAME)
 

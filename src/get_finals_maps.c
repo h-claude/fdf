@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:56:37 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/12 15:19:09 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/18 18:47:01 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,21 @@ void	ft_free_finals_maps(t_fdf *map_data)
 	int	y_pos;
 
 	y_pos = 0;
-	while (y_pos < map_data->ymax)
-		free(map_data->pos[y_pos++]);
-	free(map_data->pos);
+	if (map_data->pos)
+	{
+		while (y_pos < map_data->ymax)
+			free(map_data->pos[y_pos++]);
+		free(map_data->pos);
+		map_data->pos = NULL;
+	}
 	y_pos = 0;
-	while (y_pos < map_data->ymax)
-		free(map_data->color[y_pos++]);
-	free(map_data->color);
+	if (map_data->color)
+	{
+		while (y_pos < map_data->ymax)
+			free(map_data->color[y_pos++]);
+		free(map_data->color);
+		map_data->color = NULL;
+	}
 }
 
 /**
@@ -57,10 +65,12 @@ int	ft_alloc_finals_maps(t_fdf *map_data)
 	int	y_pos;
 
 	y_pos = 0;
-	map_data->pos = malloc(sizeof(int *) * map_data->ymax);
-	map_data->color = malloc(sizeof(int *) * map_data->ymax);
-	if (!map_data->pos || !map_data->color)
-		return (free(map_data->color), free(map_data->pos), 0);
+	map_data->pos = ft_calloc(sizeof(int *), map_data->ymax);
+	if (!map_data->pos)
+		return (0);
+	map_data->color = ft_calloc(sizeof(int *), map_data->ymax);
+	if (!map_data->color)
+		return (free(map_data->pos), 0);
 	while (y_pos < map_data->ymax)
 	{
 		map_data->pos[y_pos] = ft_calloc(sizeof(int), map_data->xmax);
@@ -104,13 +114,13 @@ int	ft_get_finals_maps(char ***split_map, t_fdf *data)
 		{
 			tmp = ft_split(split_map[y_pos][x_pos], ',');
 			if (!tmp)
-				return (perror("Split Failed"), free_split(split_map, data), 0);
+				return (free_split(split_map, data), 0);
 			data->pos[y_pos][x_pos] = ft_atoi(tmp[0]);
 			if (ft_strchr(split_map[y_pos][x_pos], ','))
 				data->color[y_pos][x_pos] = get_the_color(tmp[1]);
 			else
 				data->color[y_pos][x_pos] = -1;
-			ft_freetab(tmp);
+			freetab(tmp);
 			x_pos++;
 		}
 		y_pos++;

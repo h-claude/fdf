@@ -6,23 +6,35 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:50:39 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/12 15:50:01 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/18 18:41:48 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fdf.h"
 
-void	ft_stop_process(t_fdf *map, int flag)
+int	ft_check_file_name(char *str)
+{
+	int	len;
+
+	len = ft_strlen(str);
+	if (len <= 4)
+		return (0);
+	if (str[len - 4] == '.')
+		if (str[len - 3] == 'f')
+			if (str[len - 2] == 'd')
+				if (str[len - 1] == 'f')
+					return (1);
+	return (0);
+}
+
+void	ft_stop_process(t_fdf *data, int flag)
 {
 	if (flag > 0)
-		mlx_terminate(map->mlx);
-	printf("ok\n");
-	ft_free_finals_maps(map);
-	printf("ok 1\n");
-	free(map->angle_data);
-	printf("ok 2\n");
-	free(map);
-	printf("ok 3\n");
+		mlx_terminate(data->mlx);
+	ft_free_finals_maps(data);
+	free(data->angle);
+	free(data->coor);
+	free(data);
 	exit(1);
 }
 

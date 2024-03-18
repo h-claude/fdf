@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_point_and_lines.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: deadchicken <deadchicken@student.42.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:53:07 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/14 13:50:28 by deadchicken      ###   ########.fr       */
+/*   Updated: 2024/03/18 16:44:33 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_count_line_and_point(int fd, t_fdf *map_data)
 	map_data->ymax = 0;
 	line = get_next_line(fd);
 	if (!line)
-		return (perror("Empty file"), free(line), (void)close(fd), 0);
+		return (perror("Empty file"), (void)close(fd), 0);
 	map_data->xmax = ft_count_point(line, ' ');
 	if (!map_data->xmax)
 		return (perror("Empty file"), free(line), (void)close(fd), 0);
@@ -82,8 +82,7 @@ int	ft_count_line_and_point(int fd, t_fdf *map_data)
 		line = NULL;
 		line = get_next_line(fd);
 	}
-	free(line);
 	if (!map_data->ymax)
-		return ((void)close(fd), 0);
+		return (perror("Empty file"), (void)close(fd), 0);
 	return ((void)close(fd), 1);
 }

@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/15 15:51:34 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/18 17:13:04 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 static void	ft_modcoord(t_fdf *map_data, int flag)
 {
 	if (flag == 0)
-		map_data->angle_data->angle_y += 3;
+		map_data->angle->angle_y += 3;
 	if (flag == 1)
-		map_data->angle_data->angle_y -= 3;
+		map_data->angle->angle_y -= 3;
 	if (flag == 2)
-		map_data->angle_data->angle_x += 3;
+		map_data->angle->angle_x += 3;
 	if (flag == 3)
-		map_data->angle_data->angle_x -= 3;
+		map_data->angle->angle_x -= 3;
 	if (flag == 4)
-		map_data->angle_data->zoom += 0.05;
-	if (flag == 5 && map_data->angle_data->zoom > 0.5)
-		map_data->angle_data->zoom -= 0.05;
+		map_data->angle->zoom += 0.05;
+	if (flag == 5 && map_data->angle->zoom > 0.5)
+		map_data->angle->zoom -= 0.05;
 	ft_clearimage(map_data->image);
 }
 
@@ -47,102 +47,6 @@ void	ft_inputs(t_fdf *data)
 		ft_stop_process(data, 1);
 }
 
-
-// void rotation_x(int y, int z, t_fdf *data, t_coor *coord)
-// {
-// 	int y_n = coord->y;
-// 	int z_n = coord->z;
-
-// 	int rad = data->angle_data->angle_x;
-// 	y_n = (y * cos(rad)) - (z * sin(rad));
-// 	z_n = (y * sin(rad)) + (z * cos(rad));
-// }
-
-// void rotation_y(int x, int z, t_fdf *data, t_coor *coord)
-// {
-// 	int x_n = coord->x;
-// 	int z_n = coord->z;
-
-// 	int rad = data->angle_data->angle_y;
-// 	x_n = (x * cos(rad)) + (z * sin(rad));
-// 	z_n = (-x * sin(rad)) + (z * cos(rad));
-// }
-
-// void rotation_z(int x, int y, t_fdf *data, t_coor *coord)
-// {
-// 	int x_n = coord->x;
-// 	int y_n = coord->y;
-
-// 	int rad = data->angle_data->angle_z;
-// 	x_n = (x * cos(rad)) - (y * sin(rad));
-// 	y_n = (x * sin(rad)) + (y * cos(rad));
-// }
-
-// t_coor	*rotation(t_fdf *data, int x, int y, int flag)
-// {
-// 	t_coor	*coord;
-
-// 	coord = malloc(sizeof(t_coor));
-// 	if (flag == 1)
-// 		flag = x + 1;
-// 	else
-// 		flag = y + 1;
-// 	rotation_x(y, data->pos[y][x], data, coord);
-// 	rotation_y(x, coord->z, data, coord);
-// 	rotation_z(coord->x, coord->y, data, coord);
-// }
-
-//int	planey(int x, int y, t_fdf *data)
-//{
-//	float	angle_z;
-//	float	angle_y;
-//	float	angle_x;
-//	float	zoom;
-//	int		z;
-//	int		z_n;
-//	int		x_n;
-//	int		y_n;
-
-//	z = data->pos[y][x];
-//	zoom = data->angle_data->zoom;
-//	angle_y = data->angle_data->angle_y * (M_PI / 180);
-//	angle_x = data->angle_data->angle_x * (M_PI / 180);
-//	angle_z = data->angle_data->angle_z * (M_PI / 180);
-//	y_n = y * cos(angle_y) - z * sin(angle_y);
-//	z_n = y * sin(angle_y) + z * cos(angle_y);
-//	x_n = x * cos(angle_y) + z_n * sin(angle_y);
-//	z_n = -x * sin(angle_y) + z_n * cos(angle_y);
-//	printf("%f\n", ((x_n * sin(angle_z) + y_n * cos(angle_z))* zoom) + data->centre_y);
-//	return (((x_n * sin(angle_z) + y_n * cos(angle_z))* zoom) + data->centre_y);
-//	//return (((y_n + (x_n + z_n) * sin(angle_z)) * zoom) + data->centre_y);
-//}
-
-//////Conversion coordonee x vers isometrique
-//int	planex(int x, int y, t_fdf *data)
-//{
-//	float	angle_z;
-//	float	angle_y;
-//	float	angle_x;
-//	float	zoom;
-//	int		z;
-//	//int		z_n;
-//	int		x_n;
-//	int		y_n;
-
-//	z = data->pos[y][x];
-//	zoom = data->angle_data->zoom;
-//	angle_y = data->angle_data->angle_y * (M_PI / 180);
-//	angle_x = data->angle_data->angle_x * (M_PI / 180);
-//	angle_z = data->angle_data->angle_z * (M_PI / 180);
-//	y_n = y * cos(angle_x) - z * sin(angle_x);
-//	//z_n = y * sin(angle_x) + z * cos(angle_x);
-//	x_n = x * cos(angle_x) + z * sin(angle_x);
-//	//z_n = -x * sin(angle_x) + z_n * cos(angle_x);
-//	printf("%f\n", ((x_n * cos(angle_z) - y_n * sin(angle_z))* zoom) + data->centre_x);
-//	return (((x_n * cos(angle_z) - y_n * sin(angle_z))* zoom) + data->centre_x);
-//	//return ((((x_n - z_n) * cos(angle_z)) * zoom) + data->centre_x);
-//}
-
 //Conversion coordonee y vers isometrique
 int32_t	planey(int x, int y, t_fdf *data)
 {
@@ -151,8 +55,8 @@ int32_t	planey(int x, int y, t_fdf *data)
 	int		z;
 
 	z = data->pos[y][x];
-	zoom = data->angle_data->zoom;
-	angle = data->angle_data->angle_y * (M_PI / 180);
+	zoom = data->angle->zoom;
+	angle = data->angle->angle_y * (M_PI / 180);
 	return (((y + (x + z) * sin(angle)) * zoom) + data->centre_y);
 }
 
@@ -164,44 +68,7 @@ int32_t	planex(int x, int y, t_fdf *data)
 	int		z;
 
 	z = data->pos[y][x];
-	zoom = data->angle_data->zoom;
-	angle = data->angle_data->angle_x * (M_PI / 180);
+	zoom = data->angle->zoom;
+	angle = data->angle->angle_x * (M_PI / 180);
 	return ((((x - z) * cos(angle)) * zoom) + data->centre_x);
 }
-
-//float normalizeAngle(float angle) {
-//    while (angle >= 360) {
-//        angle -= 360;
-//    }
-//    while (angle < 0) {
-//        angle += 360;
-//    }
-//    return angle;
-//}
-
-
-//int32_t planey(int x, int y, t_fdf *data)
-//{
-//	float	angle;
-//	float	zoom;
-
-//	data->angle_data->angle_y = normalizeAngle(data->angle_data->angle_y);
-//	angle = data->angle_data->angle_y * (M_PI / 180);
-//	zoom = data->angle_data->zoom;
-//	return (((y * sin(angle) - data->pos[y][x] * sin(angle)) * zoom) + data->centre_y);
-//}
-
-////Conversion coordonee x vers isometrique
-//int32_t planex(int x, int y, t_fdf *data)
-//{
-//	float angle;
-//	float	zoom;
-
-//	data->angle_data->angle_x = normalizeAngle(data->angle_data->angle_x);
-//	angle = data->angle_data->angle_x * (M_PI / 180);
-//	zoom = data->angle_data->zoom;
-//	return (((x + cos(angle) * data->pos[y][x] - cos(angle) * y) * zoom) + data->centre_x);
-//}
-
-//destination.x = source.x + cos(angle) * source.z - cos(angle) * source.y
-//destination.y = -source.y * sin(angle) - source.z * sin(angle)
