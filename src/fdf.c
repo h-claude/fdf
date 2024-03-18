@@ -6,13 +6,10 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:48:21 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/18 18:59:08 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/18 19:02:57 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
 #include "../lib/MLX42/include/MLX42/MLX42.h"
 #include "../fdf.h"
 
@@ -72,6 +69,6 @@ int	main(int argc, char **argv)
 		return (perror("Error with mlx!"), ft_stop_process(data, 0), 0);
 	mlx_loop_hook(data->mlx, loop_hook, (data));
 	mlx_loop(data->mlx);
-	ft_stop_process(data, 0);
+	ft_stop_process(data, 1);
 	return (EXIT_SUCCESS);
 }
