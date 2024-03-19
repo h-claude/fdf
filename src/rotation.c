@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/19 11:23:25 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/19 13:26:13 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,24 @@ static void	ft_modcoord(t_fdf *map_data, int flag)
 {
 	if (flag == 0)
 		map_data->angle->angle_y += 3;
-	if (flag == 1)
+	else if (flag == 1)
 		map_data->angle->angle_y -= 3;
-	if (flag == 2)
+	else if (flag == 2)
 		map_data->angle->angle_x += 3;
-	if (flag == 3)
+	else if (flag == 3)
 		map_data->angle->angle_x -= 3;
-	if (flag == 4)
+	else if (flag == 4)
 		map_data->angle->zoom += 0.05;
-	if (flag == 5 && map_data->angle->zoom > 0.5)
+	else if (flag == 5 && map_data->angle->zoom > 0.5)
 		map_data->angle->zoom -= 0.05;
-	if (flag == 6)
-		map_data->angle->trans_x -= 10;
-	if (flag == 7)
+	else if (flag == 6)
 		map_data->angle->trans_x += 10;
-	if (flag == 8)
-		map_data->angle->trans_y -= 10;
-	if (flag == 9)
+	else if (flag == 7)
+		map_data->angle->trans_x -= 10;
+	else if (flag == 8)
 		map_data->angle->trans_y += 10;
+	else if (flag == 9)
+		map_data->angle->trans_y -= 10;
 	ft_clearimage(map_data->image);
 }
 
@@ -59,8 +59,6 @@ void	ft_inputs(t_fdf *data)
 		ft_modcoord(data, 8);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_F))
 		ft_modcoord(data, 9);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_SPACE))
-		ft_modcoord(data, 10);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		ft_stop_process(data, 1);
 }

@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/19 13:10:09 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/19 13:13:51 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ int	ft_init(t_fdf *data, char *filepath)
 		return (perror("Fail open file :/"), 0);
 	fd = ft_get_fd(filepath, data);
 	if (fd == -1)
-		return (0);
+		return (perror("Fail open file :/"), 0);
 	if (!ft_getmap(fd, data))
 		return (perror("Parsing failed :/"), 0);
 	data->angle = malloc(sizeof(t_angle));

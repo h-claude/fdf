@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:48:21 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/19 13:11:31 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/19 13:16:59 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 //        return (NULL);
 //}
 
-void	loop_hook(void *param)
+static void	loop_hook(void *param)
 {
 	t_fdf	*data;
 
