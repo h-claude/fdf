@@ -6,36 +6,11 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:48:21 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/19 15:27:24 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/19 16:17:29 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/MLX42/include/MLX42/MLX42.h"
-/*
-#define CALLS 100000
-#include <stdio.h>
-#include <stdlib.h>
-void *super_malloc(size_t len)
-{
-   static int call = 0;
-
-	printf("super_malloc called %d times, len = %zu\n", call, len);
-   if (call++ < CALLS)
-       return (malloc(len));
-   else
-       return (NULL);
-}
-
-void *super_calloc(size_t len, size_t len1)
-{
-   static int call1 = 0;
-
-	printf("super_calloc called %d times, len = %zu\n", call1, len);
-   if (call1++ < CALLS)
-       return (calloc(len, len1));
-   else
-       return (NULL);
-}*/
 #include "../fdf.h"
 
 static void	loop_hook(void *param)

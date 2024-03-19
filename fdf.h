@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/19 14:40:44 by moajili          ###   ########.fr       */
+/*   Updated: 2024/03/19 16:17:38 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@
 
 # define WIDTH 2560
 # define HEIGHT 1440
-
-// void *super_calloc(size_t len, size_t len1);
-// void *super_malloc(size_t len);
-
-// # define malloc(x) super_malloc(x)
-// # define ft_calloc(x,x1) super_calloc(x,x1)
 
 typedef struct bres
 {
