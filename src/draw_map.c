@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:53:37 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/19 11:48:14 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/19 14:16:24 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,9 @@ static void	draw_line(int x1, int y1, t_fdf *data)
 	t_bres	bres;
 
 	bres = init_bres(x1, y1, data);
-	while (1)
+	while (bres.x0 >= 0 && bres.x0 < WIDTH && bres.y0 >= 0 && bres.y0 < HEIGHT)
 	{
-		if (bres.x0 >= 0 && bres.x0 < WIDTH && bres.y0 >= 0 && bres.y0 < HEIGHT)
-			mlx_put_pixel(data->image, bres.x0, bres.y0, data->coor->color);
+		mlx_put_pixel(data->image, bres.x0, bres.y0, data->coor->color);
 		if (bres.x0 == x1 && bres.y0 == y1)
 			break ;
 		bres.e2 = 2 * bres.err;
