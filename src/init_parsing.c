@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/18 18:46:46 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/19 12:06:02 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ static int	ft_getmap(int fd, t_fdf *data)
 		}
 		y_pos++;
 	}
+	map[y_pos] = NULL;
 	close(fd);
 	if (!ft_checkmap(data->xmax, data->ymax, map))
 		return (perror("Map invalid"), freetab(map), 0);
@@ -189,5 +190,7 @@ int	ft_init(t_fdf *data, char *filepath)
 	data->angle->angle_x = 360;
 	data->angle->angle_y = 0;
 	data->angle->zoom = 1;
+	data->angle->trans_x = 0;
+	data->angle->trans_y = 0;
 	return (1);
 }

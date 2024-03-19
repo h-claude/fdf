@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 15:46:10 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/18 18:56:11 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/19 11:19:47 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct s_angle
 {
 	float	angle_x;
 	float	angle_y;
+	int		trans_x;
+	int		trans_y;
 	float	zoom;
 }	t_angle;
 
