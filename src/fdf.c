@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:48:21 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/19 14:40:36 by moajili          ###   ########.fr       */
+/*   Updated: 2024/03/19 15:27:24 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,16 @@ void *super_calloc(size_t len, size_t len1)
 
 static void	loop_hook(void *param)
 {
+	int		x;
+	int		y;
 	t_fdf	*data;
 
 	data = (t_fdf *)param;
+	x = data->angle->trans_x;
+	y = data->angle->trans_y;
 	ft_inputs(data);
-	data->centre_y = (HEIGHT / 2) - (data->ymax * data->angle->zoom / 2) - data->angle->trans_y;
-	data->centre_x = (WIDTH / 2) - (data->xmax * data->angle->zoom / 2) - data->angle->trans_x;
+	data->centre_y = (HEIGHT / 2) - (data->ymax * data->angle->zoom / 2) - y;
+	data->centre_x = (WIDTH / 2) - (data->xmax * data->angle->zoom / 2) - x;
 	draw_map(data);
 }
 
