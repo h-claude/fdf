@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: moajili <moajili@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/19 13:26:13 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/19 14:49:29 by moajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,5 @@ int32_t	planex(int x, int y, t_fdf *data)
 	z = data->pos[y][x];
 	zoom = data->angle->zoom;
 	angle = data->angle->angle_x * (M_PI / 180);
-	return ((((x - z) * cos(angle)) * zoom) + data->centre_x);
+	return (((x + (x - z) * cos(angle)) * zoom) + data->centre_x);
 }
