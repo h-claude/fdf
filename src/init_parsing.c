@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/19 13:13:51 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/19 16:14:55 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ int	ft_init(t_fdf *data, char *filepath)
 	data->coor = malloc(sizeof(t_coor));
 	if (!data->coor)
 		return (perror("fail alloc coor_data :/"), free(data->angle), 0);
-	data->angle->angle_x = 360;
+	data->angle->angle_x = 270;
 	data->angle->angle_y = 0;
 	data->angle->zoom = 1;
 	data->angle->trans_x = 0;
