@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/19 12:06:02 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/19 13:10:09 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,10 +138,10 @@ static int	ft_getmap(int fd, t_fdf *data)
 	if (!map)
 		return ((void)close(fd), 0);
 	y_pos = 0;
-	while (y_pos <= data->ymax)
+	while (y_pos < data->ymax)
 	{
 		map[y_pos] = get_next_line(fd);
-		if (!map[y_pos] && y_pos < data->ymax)
+		if (!map[y_pos])
 		{
 			close(fd);
 			return (perror("Map invalid"), freetab(map), 0);

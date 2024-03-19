@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:48:21 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/19 11:54:23 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/19 13:11:31 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,16 @@ int	main(int argc, char **argv)
 		return (perror("Fail alloc map_data :/"), 0);
 	if (!ft_init(data, argv[1]))
 		return (free(data), 0);
-	//data->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
-	//if (!data->mlx)
-	//	return (perror("Error with mlx!"), ft_stop_process(data, 0), 0);
-	//data->image = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	//if (!data->image)
-	//	return (perror("Error with mlx image!"), ft_stop_process(data, 0), 0);
-	//if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
-	//	return (perror("Error with mlx!"), ft_stop_process(data, 0), 0);
-	//mlx_loop_hook(data->mlx, loop_hook, (data));
-	//mlx_loop(data->mlx);
-	ft_stop_process(data, 0);
+	data->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
+	if (!data->mlx)
+		return (perror("Error with mlx!"), ft_stop_process(data, 0), 0);
+	data->image = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	if (!data->image)
+		return (perror("Error with mlx image!"), ft_stop_process(data, 0), 0);
+	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
+		return (perror("Error with mlx!"), ft_stop_process(data, 0), 0);
+	mlx_loop_hook(data->mlx, loop_hook, (data));
+	mlx_loop(data->mlx);
+	ft_stop_process(data, 1);
 	return (EXIT_SUCCESS);
 }
