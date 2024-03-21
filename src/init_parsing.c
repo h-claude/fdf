@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 12:29:15 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/19 16:14:55 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/21 16:14:41 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,17 +99,17 @@ static int	ft_splitmap(char **map, t_fdf *data)
 	y_pos = 0;
 	splitmap = ft_calloc(sizeof(char **), data->ymax);
 	if (!splitmap)
-		return (freetab(map), 0);
+		return (freetab(map, data), 0);
 	while (map[y_pos])
 	{
 		if (y_pos > data->ymax)
-			return (freetab(map), free_split(splitmap, data), 0);
+			return (freetab(map, data), free_split(splitmap, data), 0);
 		splitmap[y_pos] = ft_split(map[y_pos], ' ');
 		if (!splitmap[y_pos])
-			return (freetab(map), free_split(splitmap, data), 0);
+			return (freetab(map, data), free_split(splitmap, data), 0);
 		y_pos++;
 	}
-	freetab(map);
+	freetab(map, data);
 	if (!ft_alloc_finals_maps(data))
 		return (free_split(splitmap, data), 0);
 	return (ft_get_finals_maps(splitmap, data));
@@ -138,20 +138,19 @@ static int	ft_getmap(int fd, t_fdf *data)
 	if (!map)
 		return ((void)close(fd), 0);
 	y_pos = 0;
-	while (y_pos < data->ymax)
+	while (y_pos <= data->ymax)
 	{
 		map[y_pos] = get_next_line(fd);
-		if (!map[y_pos])
+		if (!map[y_pos] && y_pos < data->ymax)
 		{
 			close(fd);
-			return (perror("Map invalid"), freetab(map), 0);
+			return (perror("Map invalid"), freetab(map, data), 0);
 		}
 		y_pos++;
 	}
-	map[y_pos] = NULL;
 	close(fd);
 	if (!ft_checkmap(data->xmax, data->ymax, map))
-		return (perror("Map invalid"), freetab(map), 0);
+		return (perror("Map invalid"), freetab(map, data), 0);
 	return (ft_splitmap(map, data));
 }
 

@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:56:37 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/18 18:47:01 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/21 16:18:44 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	ft_get_finals_maps(char ***split_map, t_fdf *data)
 				data->color[y_pos][x_pos] = get_the_color(tmp[1]);
 			else
 				data->color[y_pos][x_pos] = -1;
-			freetab(tmp);
+			freetab(tmp, data);
 			x_pos++;
 		}
 		y_pos++;

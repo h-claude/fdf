@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:48:21 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/19 16:17:29 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/21 16:21:40 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ int	main(int argc, char **argv)
 		return (perror("Error with mlx!"), ft_stop_process(data, 0), 0);
 	mlx_loop_hook(data->mlx, loop_hook, (data));
 	mlx_loop(data->mlx);
-	ft_stop_process(data, 1);
+	ft_stop_process(data, 0);
 	return (EXIT_SUCCESS);
 }
