@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:50:39 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/18 18:41:48 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/23 14:10:56 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ int	ft_check_file_name(char *str)
 
 void	ft_stop_process(t_fdf *data, int flag)
 {
-	if (flag > 0)
+	if (flag == 2)
+		mlx_close_window(data->mlx);
+	if (flag == 1)
 		mlx_terminate(data->mlx);
 	ft_free_finals_maps(data);
 	free(data->angle);

@@ -6,7 +6,7 @@
 /*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:48:21 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/21 16:21:40 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/23 14:11:20 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ int	main(int argc, char **argv)
 		return (perror("Error with mlx!"), ft_stop_process(data, 0), 0);
 	data->image = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	if (!data->image)
-		return (perror("Error with mlx image!"), ft_stop_process(data, 0), 0);
+		return (perror("Error with mlx image!"), ft_stop_process(data, 2), 0);
 	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1)
-		return (perror("Error with mlx!"), ft_stop_process(data, 0), 0);
+		return (perror("Error with mlx!"), ft_stop_process(data, 2), 0);
 	mlx_loop_hook(data->mlx, loop_hook, (data));
 	mlx_loop(data->mlx);
-	ft_stop_process(data, 0);
+	ft_stop_process(data, 1);
 	return (EXIT_SUCCESS);
 }
