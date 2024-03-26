@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hclaude <hclaude@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hclaude <hclaude@student.42mulhouse.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:12:22 by hclaude           #+#    #+#             */
-/*   Updated: 2024/03/19 15:27:56 by hclaude          ###   ########.fr       */
+/*   Updated: 2024/03/26 13:19:48 by hclaude          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int32_t	planey(int x, int y, t_fdf *data)
 	z = data->pos[y][x];
 	zoom = data->angle->zoom;
 	angle = data->angle->angle_y * (M_PI / 180);
-	return (((y + (x + z) * sin(angle)) * zoom) + data->centre_y);
+	return (((y * cos(angle) + (x + z) * sin(angle)) * zoom) + data->centre_y);
 }
 
 //Conversion coordonee x vers isometrique
@@ -86,5 +86,5 @@ int32_t	planex(int x, int y, t_fdf *data)
 	z = data->pos[y][x];
 	zoom = data->angle->zoom;
 	angle = data->angle->angle_x * (M_PI / 180);
-	return (((x + (x - z) * cos(angle)) * zoom) + data->centre_x);
+	return (((x * sin(angle) + (x - z) * cos(angle)) * zoom) + data->centre_x);
 }
