@@ -6,7 +6,7 @@
 #    By: hclaude <hclaude@student.42mulhouse.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/30 14:18:46 by hclaude           #+#    #+#              #
-#    Updated: 2024/03/26 13:15:32 by hclaude          ###   ########.fr        #
+#    Updated: 2026/04/14 17:02:44 by hclaude          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ RM = @rm -rf
 
 CC := @cc
 AR := @ar
-CFLAGS := -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS := -Wall -Werror -Wextra -g3
 
 LIBFT = lib/turbo_libft/libft.a
 
